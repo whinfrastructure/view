@@ -26,7 +26,7 @@ export function AboutSection({ scrollToSection }: AboutSectionProps) {
         >
           <div className="h-[100px] flex items-end justify-center">
             <GooeyText
-              texts={["WELKOM", "HOME", "LUXE", "EXCELLENCE"]}
+              texts={["WELKOM", "HOME"]}
               morphTime={1.5}
               cooldownTime={0.5}
               className="font-bold"
