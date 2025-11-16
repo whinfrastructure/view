@@ -1,15 +1,13 @@
 "use client"
 
-import { useReveal } from "@/hooks/use-reveal"
-import { motion } from "framer-motion"
+import { FeatureShowcase, type TabMedia, type ShowcaseStep } from "@/components/ui/feature-showcase"
 import { useState } from "react"
 
 export function ContactSection() {
-  const { ref, isVisible } = useReveal(0.2)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+    subject: "",
     message: ""
   })
 
@@ -18,102 +16,138 @@ export function ContactSection() {
     console.log("Form submitted:", formData)
   }
 
-  return (
-    <section 
-      ref={ref}
-      className="flex min-h-screen w-screen shrink-0 items-center bg-white px-6 py-20 md:px-12"
-    >
-      <div className="w-full max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="mb-3 font-sans text-3xl font-light text-black md:text-4xl">
-            Contactez-nous
-          </h2>
-          <p className="mb-6 text-base text-black/60">
-            Une question ? Un projet ? N'hésitez pas à nous contacter
-          </p>
+  const tabs: TabMedia[] = [
+    {
+      value: "contact",
+      label: "Contact",
+      src: "/baraque.png",
+      alt: "Contactez-nous",
+    },
+  ]
 
-          <div className="mb-6 rounded-xl bg-gray-50 border border-gray-200 p-5">
-            <p className="text-xl font-medium text-black mb-1">
-              +33 668 192 755
-            </p>
-            <p className="text-sm text-black/50">
-              Disponible 7j/7
-            </p>
+  const steps: ShowcaseStep[] = [
+    {
+      id: "email",
+      title: "📧 Contact par Email",
+      content: (
+        <div className="space-y-3 text-sm text-neutral-700">
+          <div>
+            <p className="font-semibold text-neutral-900 mb-1">Email principal</p>
+            <a 
+              href="mailto:contact@welkomhome.com" 
+              className="text-blue-600 hover:underline"
+            >
+              contact@welkomhome.com
+            </a>
           </div>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+          <div>
+            <p className="font-semibold text-neutral-900 mb-1">Réservations</p>
+            <a 
+              href="mailto:reservations@welkomhome.com" 
+              className="text-blue-600 hover:underline"
             >
-              <input
-                type="text"
-                placeholder="Nom complet"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-black placeholder:text-black/40 focus:border-gray-400 focus:outline-none transition-all"
-              />
-            </motion.div>
+              reservations@welkomhome.com
+            </a>
+          </div>
+          <p className="text-xs text-neutral-500 mt-2">
+            Nous répondons généralement sous 24h
+          </p>
+        </div>
+      ),
+    },
+    {
+      id: "social",
+      title: "🌐 Réseaux Sociaux",
+      content: (
+        <div className="space-y-3">
+          <a
+            href="https://facebook.com/welkomhome"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100 transition-colors"
+          >
+            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white text-xl">
+              f
+            </div>
+            <div>
+              <p className="font-semibold text-neutral-900 text-sm">Facebook</p>
+              <p className="text-xs text-neutral-600">@welkomhome</p>
+            </div>
+          </a>
+          <a
+            href="https://instagram.com/welkomhome"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100 transition-colors"
+          >
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white text-xl">
+              📷
+            </div>
+            <div>
+              <p className="font-semibold text-neutral-900 text-sm">Instagram</p>
+              <p className="text-xs text-neutral-600">@welkomhome</p>
+            </div>
+          </a>
+        </div>
+      ),
+    },
+    {
+      id: "form",
+      title: "✉️ Formulaire de Contact",
+      content: (
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <input
+              type="text"
+              placeholder="Nom complet"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="w-full rounded-lg bg-white border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none transition-all"
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full rounded-lg bg-white border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none transition-all"
+              required
+            />
+          </div>
+          <div>
+            <textarea
+              placeholder="Votre message"
+              rows={3}
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              className="w-full rounded-lg bg-white border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none transition-all resize-none"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-neutral-900 px-4 py-2.5 text-sm text-white font-medium transition-all duration-300 hover:bg-neutral-800"
+          >
+            Envoyer le message
+          </button>
+        </form>
+      ),
+    },
+  ]
 
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <input
-                type="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-black placeholder:text-black/40 focus:border-gray-400 focus:outline-none transition-all"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <input
-                type="tel"
-                placeholder="Téléphone"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-black placeholder:text-black/40 focus:border-gray-400 focus:outline-none transition-all"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              <textarea
-                placeholder="Votre message"
-                rows={4}
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full rounded-lg bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-black placeholder:text-black/40 focus:border-gray-400 focus:outline-none transition-all resize-none"
-              />
-            </motion.div>
-
-            <motion.button
-              type="submit"
-              initial={{ opacity: 0, y: 10 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="w-full rounded-full bg-black px-8 py-3 text-sm text-white font-medium transition-all duration-300 hover:bg-black/80"
-            >
-              Envoyer le message
-            </motion.button>
-          </form>
-        </motion.div>
-      </div>
-    </section>
+  return (
+    <FeatureShowcase
+      eyebrow="CONTACT"
+      title="Parlons de votre prochain séjour"
+      description="Notre équipe est à votre disposition pour répondre à toutes vos questions et vous accompagner dans la réservation de votre villa de rêve sur la Côte d'Azur."
+      stats={["Réponse rapide", "Service personnalisé", "Disponible 7j/7"]}
+      steps={steps}
+      tabs={tabs}
+      defaultTab="contact"
+      panelMinHeight={450}
+      className="min-h-screen w-screen shrink-0 flex items-center"
+    />
   )
 }
