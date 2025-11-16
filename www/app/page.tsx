@@ -18,6 +18,8 @@ export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
   const touchStartY = useRef(0)
   const touchStartX = useRef(0)
+  const touchStartTime = useRef(0)
+  const isSwipingRef = useRef(false)
   const shaderContainerRef = useRef<HTMLDivElement>(null)
   const scrollThrottleRef = useRef<number | undefined>(undefined)
   const snapTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
