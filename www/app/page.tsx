@@ -1,14 +1,12 @@
 "use client"
 
 import { Swirl } from "@paper-design/shaders-react"
-import { CustomCursor } from "@/components/custom-cursor"
 import { GrainOverlay } from "@/components/grain-overlay"
 import { CollectionStrip } from "@/components/landing/collection-strip"
 import { TestimonialsSection } from "@/components/sections/testimonials-section"
 import { AboutSection } from "@/components/sections/about-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { HeroSection } from "@/components/landing/hero-section"
-import { MagneticButton } from "@/components/magnetic-button"
 import { useRef, useEffect, useState } from "react"
 
 export default function Home() {
