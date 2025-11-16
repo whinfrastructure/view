@@ -1,20 +1,9 @@
 "use client"
 
 import React from "react"
-import { CircularGallery, type GalleryItem } from "@/components/ui/circular-gallery"
-import { FadeContent } from "@/components/ui/fade-content"
-import { SectionHeader } from "@/components/landing/section-header"
-
-
-
-"use client"
-
-import React from "react"
 import DragCarousel, { type CarouselItem } from "@/components/ui/drag-carousel"
 import { FadeContent } from "@/components/ui/fade-content"
 import { SectionHeader } from "@/components/landing/section-header"
-
-
 
 export function CollectionStrip() {
   const carouselItems: CarouselItem[] = villaData.map((villa, index) => ({
