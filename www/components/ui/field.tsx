@@ -7,7 +7,7 @@ const FieldGroup = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("space-y-4", className)}
+    className={cn("space-y-3", className)}
     {...props}
   />
 ))
@@ -19,7 +19,7 @@ const Field = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("space-y-2", className)}
+    className={cn("space-y-1.5", className)}
     {...props}
   />
 ))
@@ -58,7 +58,7 @@ const FieldSeparator = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center gap-4 py-2", className)}
+    className={cn("flex items-center gap-3 py-1.5", className)}
     {...props}
   >
     <div className="h-px flex-1 bg-border" />

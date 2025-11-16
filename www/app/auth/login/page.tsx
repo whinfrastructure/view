@@ -6,7 +6,18 @@ export default function LoginPage() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-center gap-2 md:justify-start">
+        <div className="flex justify-between items-center gap-2">
+          <Link href="/" className="flex gap-2 items-center text-sm text-neutral-600 hover:text-black transition-colors group">
+            <svg 
+              className="w-4 h-4 transition-transform group-hover:-translate-x-1" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span>Revenir en arrière</span>
+          </Link>
           <Link href="/" aria-label="home" className="flex gap-2 items-center">
             <svg 
               className="h-10 w-10 text-black"

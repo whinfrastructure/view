@@ -15,11 +15,11 @@ export function RegisterForm({
   ...props
 }: React.ComponentProps<"form">) {
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form className={cn("flex flex-col gap-4", className)} {...props}>
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
-          <h1 className="text-2xl font-bold">Créer un compte</h1>
-          <p className="text-muted-foreground text-sm text-balance">
+          <h1 className="text-xl font-bold">Créer un compte</h1>
+          <p className="text-muted-foreground text-xs text-balance">
             Entrez vos informations pour réserver votre villa
           </p>
         </div>
