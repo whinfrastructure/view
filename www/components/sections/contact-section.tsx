@@ -40,15 +40,6 @@ export function ContactSection() {
               contact@welkomhome.com
             </a>
           </div>
-          <div>
-            <p className="font-semibold text-neutral-900 mb-1">Réservations</p>
-            <a 
-              href="mailto:reservations@welkomhome.com" 
-              className="text-blue-600 hover:underline"
-            >
-              reservations@welkomhome.com
-            </a>
-          </div>
           <p className="text-xs text-neutral-500 mt-2">
             Nous répondons généralement sous 24h
           </p>

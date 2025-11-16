@@ -7,6 +7,7 @@ import { TestimonialsSection } from "@/components/sections/testimonials-section"
 import { AboutSection } from "@/components/sections/about-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { HeroSection } from "@/components/landing/hero-section"
+import { Navbar } from "@/components/navbar"
 import { useRef, useEffect, useState } from "react"
 
 export default function Home() {
@@ -234,65 +235,11 @@ export default function Home() {
         </div>
       </div>
 
-      <nav
-        className={`fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-3 transition-all duration-700 md:px-8 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        } ${currentSection === 0 ? "text-white" : "text-black bg-white/80 backdrop-blur-md shadow-sm"}`}
-      >
-        <button
-          onClick={() => scrollToSection(0)}
-          className="flex items-center gap-2 transition-transform hover:scale-105"
-        >
-          <svg 
-            className={`h-8 w-8 transition-colors ${
-              currentSection === 0 ? "text-white" : "text-black"
-            }`}
-            viewBox="0 0 226.26 214.71"
-          >
-            <polygon fill="currentColor" points="34.37 58.99 52.78 58.99 100.51 165.6 80.96 165.6 34.37 58.99"/>
-            <polygon fill="currentColor" points="83.01 58.99 100.51 58.99 118.24 97.63 108.92 115.36 83.01 58.99"/>
-            <polygon fill="currentColor" points="118.24 137.87 126.88 119.68 148.93 165.6 130.06 165.6 118.24 137.87"/>
-            <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="100.51" y1="155.37" x2="143.25" y2="60.58"/>
-            <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="125.28" y1="100.44" x2="173.48" y2="100.82"/>
-            <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="149.38" y1="154.24" x2="191.89" y2="61.95"/>
-          </svg>
-          <span className={`font-sans text-base font-semibold tracking-tight transition-colors ${
-            currentSection === 0 ? "text-white" : "text-black"
-          }`}>WelkomHome</span>
-        </button>
-
-        <div className="hidden items-center gap-6 md:flex">
-          {["Accueil", "Logements", "Avis", "À Propos", "Contact"].map((item, index) => (
-            <button
-              key={item}
-              onClick={() => scrollToSection(index)}
-              className={`group relative font-sans text-xs font-medium transition-colors ${
-                currentSection === index 
-                  ? (currentSection === 0 ? "text-white" : "text-black")
-                  : (currentSection === 0 ? "text-white/80 hover:text-white" : "text-black/60 hover:text-black")
-              }`}
-            >
-              {item}
-              <span
-                className={`absolute -bottom-1 left-0 h-px transition-all duration-300 ${
-                  currentSection === 0 ? "bg-white" : "bg-black"
-                } ${currentSection === index ? "w-full" : "w-0 group-hover:w-full"}`}
-              />
-            </button>
-          ))}
-        </div>
-
-        <button
-          onClick={() => scrollToSection(4)}
-          className={`rounded-full backdrop-blur-md px-4 py-1.5 text-xs font-medium transition-all duration-300 ${
-            currentSection === 0 
-              ? "bg-white/10 border border-white/20 text-white hover:bg-white/20" 
-              : "bg-black text-white hover:bg-black/80"
-          }`}
-        >
-          Réserver
-        </button>
-      </nav>
+      <Navbar 
+        currentSection={currentSection} 
+        scrollToSection={scrollToSection} 
+        isLoaded={isLoaded} 
+      />
 
       <div
         ref={scrollContainerRef}
