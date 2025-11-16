@@ -24,7 +24,7 @@ export function AboutSection({ scrollToSection }: AboutSectionProps) {
           transition={{ duration: 0.8 }}
           className="mb-12 lg:mb-16"
         >
-          <div className="lg:ml-[calc(50%+3rem)] h-[100px] flex items-end">
+          <div className="h-[100px] flex items-end justify-center">
             <GooeyText
               texts={["WELKOM", "HOME", "LUXE", "EXCELLENCE"]}
               morphTime={1.5}
