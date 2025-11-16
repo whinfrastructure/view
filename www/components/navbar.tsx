@@ -291,5 +291,4 @@ export function Navbar({ currentSection, scrollToSection, isLoaded }: NavbarProp
       </button>
     </nav>
   )
-} )
 }
