@@ -72,7 +72,7 @@ const thirdColumn = testimonials.slice(6, 9)
 
 export function TestimonialsSection({ isMobile = false }: TestimonialsSectionProps) {
   return (
-    <section className={`relative flex min-h-screen shrink-0 items-center justify-center overflow-hidden bg-neutral-50 ${isMobile ? "w-full snap-start" : "w-screen"}`}>
+    <section className={`relative flex min-h-screen shrink-0 items-center justify-center overflow-hidden bg-neutral-50 ${isMobile ? "w-full snap-start py-12" : "w-screen"}`}>
       <DotPattern
         className={cn(
           "opacity-40 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
@@ -84,15 +84,15 @@ export function TestimonialsSection({ isMobile = false }: TestimonialsSectionPro
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="flex flex-col items-center justify-center max-w-[640px] mx-auto mb-12"
+          className="flex flex-col items-center justify-center max-w-[640px] mx-auto mb-8 md:mb-12"
         >
           <div className="flex justify-center">
-            <div className="inline-flex items-center rounded-full bg-neutral-100 px-4 py-1.5 text-sm font-medium text-neutral-700">
+            <div className="inline-flex items-center rounded-full bg-neutral-100 px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm font-medium text-neutral-700">
               TÉMOIGNAGES
             </div>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mt-6 text-center leading-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight mt-4 md:mt-6 text-center leading-tight px-4">
             Ils nous ont fait{" "}
             <span 
               className="inline-block gradient-text whitespace-nowrap"
@@ -110,7 +110,7 @@ export function TestimonialsSection({ isMobile = false }: TestimonialsSectionPro
           
         </motion.div>
 
-        <div className="flex justify-center gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] h-[500px] overflow-hidden">
+        <div className={`flex justify-center gap-3 md:gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] overflow-hidden ${isMobile ? "h-[400px]" : "h-[500px]"}`}>
           <TestimonialsColumn testimonials={firstColumn} duration={15} />
           <TestimonialsColumn 
             testimonials={secondColumn} 

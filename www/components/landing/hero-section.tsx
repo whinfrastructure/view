@@ -26,7 +26,7 @@ export function HeroSection() {
       </svg>
 
       {/* Image fixe - Plus de slider */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 h-full">
         <Image
           src="/image.png"
           alt="Hero background"
@@ -40,8 +40,8 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
       </div>
 
-      {/* Hero Content - Même style que l'original */}
-      <div className="absolute bottom-8 left-8 z-20 max-w-lg md:left-12">
+      {/* Hero Content - Responsive */}
+      <div className="absolute bottom-8 left-4 sm:left-8 md:left-12 z-20 max-w-lg right-4 sm:right-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -54,37 +54,37 @@ export function HeroSection() {
           </GlassButton>
 
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-5xl tracking-tight font-light text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl tracking-tight font-light text-white mb-4">
             <span className="font-medium italic">Venez découvrir</span>
             <br />
-            <span className="font-light tracking-tight text-white">la Côte d'Azur</span>
+            <span className="font-light tracking-tight text-white">la Côte d&apos;Azur</span>
             <br />
             <span className="italic font-light">différemment</span>
           </h1>
 
           {/* Description */}
           <p className="text-xs font-light text-white/70 mb-4 leading-relaxed max-w-md">
-            Nos logements en exclusivité sur la Côte d'Azur. Des villas d'exception que vous ne trouverez nulle part ailleurs.
+            Nos logements en exclusivité sur la Côte d&apos;Azur. Des villas d&apos;exception que vous ne trouverez nulle part ailleurs.
           </p>
 
           {/* Buttons */}
-          <div className="flex items-center gap-4 flex-wrap">
-            <GlassButton size="default">
+          <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+            <GlassButton size="default" className="text-sm">
               Découvrir nos logements
             </GlassButton>
-            <button className="px-6 py-3.5 rounded-full bg-white text-black font-medium text-base transition-all duration-200 hover:bg-white/90 cursor-pointer">
+            <button className="px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white text-black font-medium text-sm sm:text-base transition-all duration-200 hover:bg-white/90 cursor-pointer">
               Contactez-nous
             </button>
           </div>
         </motion.div>
       </div>
 
-      {/* Transition douce vers le blanc - Très fine */}
-      <div className="absolute top-0 right-0 bottom-0 w-12 bg-gradient-to-l from-white/90 via-white/40 to-transparent pointer-events-none z-30" />
+      {/* Transition douce vers le blanc - Visible seulement sur desktop */}
+      <div className="hidden md:block absolute top-0 right-0 bottom-0 w-12 bg-gradient-to-l from-white/90 via-white/40 to-transparent pointer-events-none z-30" />
       
-      {/* Texte animé "Swipe" - Côté droit */}
+      {/* Texte animé "Swipe" - Position responsive */}
       <motion.div
-        className="absolute right-12 top-1/2 -translate-y-1/2 z-30"
+        className="absolute right-4 sm:right-8 md:right-12 top-[40%] sm:top-1/2 -translate-y-1/2 z-30"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ 
@@ -95,12 +95,12 @@ export function HeroSection() {
           repeatDelay: 1
         }}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <div className="text-right">
-            <p className="text-white text-sm font-light mb-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+            <p className="text-white text-xs sm:text-sm font-light mb-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
               Glissez
             </p>
-            <p className="text-white/70 text-xs font-light" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+            <p className="text-white/70 text-[10px] sm:text-xs font-light" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
               Swipe →
             </p>
           </div>
@@ -113,7 +113,7 @@ export function HeroSection() {
             }}
           >
             <svg 
-              className="w-6 h-6 text-white drop-shadow-lg" 
+              className="w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-lg" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"

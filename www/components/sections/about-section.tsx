@@ -15,28 +15,10 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
   return (
     <section 
       ref={ref}
-      className={`flex min-h-screen shrink-0 items-center bg-white px-6 py-20 md:px-12 ${isMobile ? "w-full snap-start" : "w-screen"}`}
+      className={`flex min-h-screen shrink-0 items-center bg-white ${isMobile ? "w-full snap-start overflow-y-auto" : "w-screen px-6 py-20 md:px-12"}`}
     >
-      <div className="w-full max-w-7xl mx-auto">
-        {/* Gooey Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8 }}
-          className="mb-12 lg:mb-16"
-        >
-          <div className="h-[100px] flex items-end justify-center">
-            <GooeyText
-              texts={["WELKOM", "HOME"]}
-              morphTime={1.5}
-              cooldownTime={0.5}
-              className="font-bold"
-              textClassName="text-3xl md:text-4xl lg:text-5xl text-neutral-900"
-            />
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      <div className={`w-full max-w-7xl mx-auto ${isMobile ? "px-4 py-8" : ""}`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-2 items-center ${isMobile ? "gap-8" : "gap-12 lg:gap-16"}`}>
           {/* Image Column */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -44,18 +26,20 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl bg-neutral-100">
+            <div className={`relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl bg-neutral-100 ${isMobile ? "max-h-[300px]" : ""}`}>
               <img
-                src="/daronnedaron.jpg"
+                src="/media/about.jpg"
                 alt="Équipe WelkomHome"
                 className="w-full h-full object-cover"
               />
               
               {/* Badge overlay */}
-              <div className="absolute bottom-6 left-6 bg-white rounded-xl px-4 py-2.5 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <div className="text-xs">
+              <div className={`absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-white rounded-2xl shadow-xl ${isMobile ? "px-4 py-3" : "px-6 py-4"}`}>
+                <div className="flex items-center gap-2 md:gap-3">
+                  <div className={isMobile ? "text-3xl" : "text-4xl"}>🏡</div>
+                  <div className={isMobile ? "text-xs" : "text-sm"}>
                     <p className="font-semibold text-neutral-900">Yohan & Shirley</p>
+                    <p className="text-neutral-600 text-[10px] md:text-xs">Fondateurs</p>
                   </div>
                 </div>
               </div>
@@ -67,34 +51,45 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
             initial={{ opacity: 0, x: 50 }}
             animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6"
+            className={isMobile ? "space-y-4" : "space-y-8"}
           >
-            <div className="space-y-6 text-neutral-700">
-              <p className="text-lg leading-relaxed">
-                WelkomHome vous ouvre les portes des <strong>plus belles propriétés</strong> de la Côte d'Azur. 
-                Grâce à des années d'expérience et une <strong>relation de confiance</strong> avec nos propriétaires, 
-                nous vous proposons des villas d'exception en exclusivité.
+            {/* Gooey Title */}
+            <div className={isMobile ? "h-[80px] flex items-center" : "h-[120px] flex items-center"}>
+              <GooeyText
+                texts={["WELKOM", "HOME", "LUXE", "EXCELLENCE"]}
+                morphTime={1.5}
+                cooldownTime={0.5}
+                className="font-bold"
+                textClassName={isMobile ? "text-3xl md:text-4xl text-neutral-900" : "text-4xl md:text-5xl lg:text-6xl text-neutral-900"}
+              />
+            </div>
+
+            <div className={`text-neutral-700 ${isMobile ? "space-y-4 text-sm" : "space-y-6"}`}>
+              <p className={isMobile ? "text-sm leading-relaxed" : "text-lg leading-relaxed"}>
+                WelkomHome vous ouvre les portes des plus belles propriétés de la Côte d&apos;Azur. 
+                Grâce à des années d&apos;expérience et une relation de confiance avec nos propriétaires, 
+                nous vous proposons des villas d&apos;exception en exclusivité.
               </p>
               
-              <p className="text-base leading-relaxed text-neutral-600">
-                Que vous recherchiez une villa moderne à <em>Saint-Tropez</em>, une demeure élégante à <em>Cannes</em> 
-                ou un refuge prestigieux à <em>Monaco</em>, notre sélection rigoureuse garantit des séjours 
-                inoubliables dans un cadre d'exception.
+              <p className={`leading-relaxed text-neutral-600 ${isMobile ? "text-xs" : "text-base"}`}>
+                Que vous recherchiez une villa moderne à Saint-Tropez, une demeure élégante à Cannes 
+                ou un refuge prestigieux à Monaco, notre sélection rigoureuse garantit des séjours 
+                inoubliables dans un cadre d&apos;exception.
               </p>
 
-              <div className="pt-4">
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <span className="text-neutral-900 mt-1">✓</span>
-                    <span className="text-neutral-700">Sélection exclusive de propriétés d'exception</span>
+              <div className={isMobile ? "pt-2" : "pt-4"}>
+                <ul className={isMobile ? "space-y-2" : "space-y-3"}>
+                  <li className="flex items-start gap-2 md:gap-3">
+                    <span className={`text-blue-600 ${isMobile ? "mt-0.5" : "mt-1"}`}>✓</span>
+                    <span className={`text-neutral-700 ${isMobile ? "text-xs" : ""}`}>Sélection exclusive de propriétés d&apos;exception</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-neutral-900 mt-1">✓</span>
-                    <span className="text-neutral-700">Service personnalisé et accompagnement sur-mesure</span>
+                  <li className="flex items-start gap-2 md:gap-3">
+                    <span className={`text-blue-600 ${isMobile ? "mt-0.5" : "mt-1"}`}>✓</span>
+                    <span className={`text-neutral-700 ${isMobile ? "text-xs" : ""}`}>Service personnalisé et accompagnement sur-mesure</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-neutral-900 mt-1">✓</span>
-                    <span className="text-neutral-700">Expertise locale et connaissance approfondie</span>
+                  <li className="flex items-start gap-2 md:gap-3">
+                    <span className={`text-blue-600 ${isMobile ? "mt-0.5" : "mt-1"}`}>✓</span>
+                    <span className={`text-neutral-700 ${isMobile ? "text-xs" : ""}`}>Expertise locale et connaissance approfondie</span>
                   </li>
                 </ul>
               </div>
@@ -103,15 +98,15 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
                 initial={{ opacity: 0, y: 10 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="pt-6"
+                className={isMobile ? "pt-4" : "pt-6"}
               >
                 <button
                   onClick={() => scrollToSection(4)}
-                  className="group relative inline-flex items-center gap-2 rounded-full bg-neutral-900 px-8 py-4 text-base text-white font-medium transition-all duration-300 hover:bg-neutral-800 hover:scale-105 shadow-lg hover:shadow-xl"
+                  className={`group relative inline-flex items-center gap-2 rounded-full bg-blue-600 text-white font-medium transition-all duration-300 hover:bg-blue-500 hover:scale-105 shadow-lg hover:shadow-xl ${isMobile ? "px-6 py-3 text-sm" : "px-8 py-4 text-base"}`}
                 >
                   <span>Contactez-nous</span>
                   <svg 
-                    className="w-5 h-5 transition-transform group-hover:translate-x-1" 
+                    className={`transition-transform group-hover:translate-x-1 ${isMobile ? "w-4 h-4" : "w-5 h-5"}`}
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
