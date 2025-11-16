@@ -133,18 +133,22 @@ export function ContactSection({ isMobile = false }: ContactSectionProps) {
   ]
 
   return (
-    <FeatureShowcase
-      eyebrow="CONTACT"
-      title="Parlons de votre prochain séjour"
-      description="Notre équipe est à votre disposition pour répondre à toutes vos questions et vous accompagner dans la réservation de votre villa de rêve sur la Côte d'Azur."
-      stats={["Réponse rapide", "Service personnalisé", "Disponible 7j/7"]}
-      steps={steps}
-      tabs={tabs}
-      defaultTab="contact"
-      panelMinHeight={450}
-      isMobile={isMobile}
+    <div 
       className={`shrink-0 flex items-center ${isMobile ? "h-screen w-full" : "w-screen h-screen"}`}
       style={{ scrollSnapAlign: isMobile ? "start" : undefined }}
-    />
+    >
+      <FeatureShowcase
+        eyebrow="CONTACT"
+        title="Parlons de votre prochain séjour"
+        description="Notre équipe est à votre disposition pour répondre à toutes vos questions et vous accompagner dans la réservation de votre villa de rêve sur la Côte d'Azur."
+        stats={["Réponse rapide", "Service personnalisé", "Disponible 7j/7"]}
+        steps={steps}
+        tabs={tabs}
+        defaultTab="contact"
+        panelMinHeight={450}
+        isMobile={isMobile}
+        className="w-full h-full"
+      />
+    </div>
   )
 }
