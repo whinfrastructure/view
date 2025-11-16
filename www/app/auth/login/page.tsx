@@ -5,9 +5,9 @@ import Link from "next/link"
 export default function LoginPage() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
-      <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-between items-center gap-2">
-          <Link href="/" className="flex gap-2 items-center text-sm text-neutral-600 hover:text-black transition-colors group">
+      <div className="flex flex-col gap-4 p-4 sm:p-6 md:p-10">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <Link href="/" className="flex gap-2 items-center text-xs sm:text-sm text-neutral-600 hover:text-black transition-colors group order-2 sm:order-1">
             <svg 
               className="w-4 h-4 transition-transform group-hover:-translate-x-1" 
               fill="none" 
@@ -18,9 +18,9 @@ export default function LoginPage() {
             </svg>
             <span>Revenir en arrière</span>
           </Link>
-          <Link href="/" aria-label="home" className="flex gap-2 items-center">
+          <Link href="/" aria-label="home" className="flex gap-2 items-center order-1 sm:order-2">
             <svg 
-              className="h-10 w-10 text-black"
+              className="h-8 sm:h-10 w-8 sm:w-10 text-black"
               viewBox="0 0 226.26 214.71"
             >
               <polygon fill="currentColor" points="34.37 58.99 52.78 58.99 100.51 165.6 80.96 165.6 34.37 58.99"/>
@@ -30,11 +30,11 @@ export default function LoginPage() {
               <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="125.28" y1="100.44" x2="173.48" y2="100.82"/>
               <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="149.38" y1="154.24" x2="191.89" y2="61.95"/>
             </svg>
-            <span className="font-sans text-lg font-semibold tracking-tight text-black">WelkomHome</span>
+            <span className="font-sans text-base sm:text-lg font-semibold tracking-tight text-black">WelkomHome</span>
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
+          <div className="w-full max-w-[320px] sm:max-w-xs">
             <LoginForm />
           </div>
         </div>
