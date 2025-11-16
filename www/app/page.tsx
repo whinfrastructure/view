@@ -234,7 +234,7 @@ export default function Home() {
           isLoaded ? "opacity-100" : "opacity-0"
         } ${
           isMobile 
-            ? "h-screen overflow-y-scroll snap-y snap-mandatory" 
+            ? "overflow-y-auto overflow-x-hidden" 
             : "flex h-screen overflow-x-auto overflow-y-hidden"
         }`}
         style={{ 
