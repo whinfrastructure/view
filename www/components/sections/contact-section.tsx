@@ -134,8 +134,7 @@ export function ContactSection({ isMobile = false }: ContactSectionProps) {
 
   return (
     <div 
-      className={`shrink-0 flex items-center ${isMobile ? "h-screen w-full" : "w-screen h-screen"}`}
-      style={{ scrollSnapAlign: isMobile ? "start" : undefined }}
+      className={`shrink-0 flex items-center ${isMobile ? "h-screen w-full snap-start" : "w-screen h-screen"}`}
     >
       <FeatureShowcase
         eyebrow="CONTACT"

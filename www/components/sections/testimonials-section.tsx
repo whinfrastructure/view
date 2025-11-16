@@ -73,8 +73,7 @@ const thirdColumn = testimonials.slice(6, 9)
 export function TestimonialsSection({ isMobile = false }: TestimonialsSectionProps) {
   return (
     <section 
-      className={`relative flex shrink-0 items-center justify-center overflow-hidden bg-neutral-50 ${isMobile ? "h-screen w-full py-8" : "w-screen h-screen"}`}
-      style={{ scrollSnapAlign: isMobile ? "start" : undefined }}
+      className={`relative flex shrink-0 items-center justify-center overflow-hidden bg-neutral-50 ${isMobile ? "h-screen w-full snap-start py-8" : "w-screen h-screen"}`}
     >
       <DotPattern
         className={cn(

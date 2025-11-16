@@ -234,27 +234,24 @@ export default function Home() {
           isLoaded ? "opacity-100" : "opacity-0"
         } ${
           isMobile 
-            ? "h-screen overflow-y-auto" 
+            ? "h-screen overflow-y-scroll snap-y snap-mandatory" 
             : "flex h-screen overflow-x-auto overflow-y-hidden"
         }`}
         style={{ 
           scrollbarWidth: "none", 
           msOverflowStyle: "none",
-          scrollSnapType: isMobile ? "y mandatory" : undefined,
-          overscrollBehavior: "none"
+          WebkitOverflowScrolling: "touch"
         }}
       >
         {/* Hero Section with image slider */}
         <section 
-          className={`flex shrink-0 ${isMobile ? "h-screen w-full" : "w-screen h-screen"}`}
-          style={{ scrollSnapAlign: isMobile ? "start" : undefined }}
+          className={`flex shrink-0 ${isMobile ? "h-screen w-full snap-start" : "w-screen h-screen"}`}
         >
           <HeroSection />
         </section>
 
         <section 
-          className={`flex shrink-0 items-center bg-white ${isMobile ? "h-screen w-full" : "w-screen h-screen"}`}
-          style={{ scrollSnapAlign: isMobile ? "start" : undefined }}
+          className={`flex shrink-0 items-center bg-white ${isMobile ? "h-screen w-full snap-start" : "w-screen h-screen"}`}
         >
           <CollectionStrip />
         </section>

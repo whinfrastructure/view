@@ -54,6 +54,14 @@ html, body {
   overflow: hidden;
 }
 
+/* Optimisation du scroll sur mobile */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari */
+  [data-scroll-container] {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 .instrument {
   font-family: 'Instrument Sans', system-ui, sans-serif;
 }
