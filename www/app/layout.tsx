@@ -24,7 +24,7 @@ const meaCulpa = Mea_Culpa({
 });
 
 export const metadata: Metadata = {
-  title: "Beautiful Shader Experiences",
+  title: "wh riviera",
   description: "Create stunning visual experiences with advanced shader technology",
 };
 

@@ -6,15 +6,16 @@ import { GooeyText } from "@/components/ui/gooey-text"
 
 interface AboutSectionProps {
   scrollToSection: (index: number) => void
+  isMobile?: boolean
 }
 
-export function AboutSection({ scrollToSection }: AboutSectionProps) {
+export function AboutSection({ scrollToSection, isMobile = false }: AboutSectionProps) {
   const { ref, isVisible } = useReveal(0.2)
 
   return (
     <section 
       ref={ref}
-      className="flex min-h-screen w-screen shrink-0 items-center bg-white px-6 py-20 md:py-32"
+      className={`flex min-h-screen shrink-0 items-center bg-white px-6 py-20 md:px-12 ${isMobile ? "w-full snap-start" : "w-screen"}`}
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Gooey Title */}

@@ -3,7 +3,11 @@
 import { FeatureShowcase, type TabMedia, type ShowcaseStep } from "@/components/ui/feature-showcase"
 import { useState } from "react"
 
-export function ContactSection() {
+interface ContactSectionProps {
+  isMobile?: boolean
+}
+
+export function ContactSection({ isMobile = false }: ContactSectionProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -138,7 +142,7 @@ export function ContactSection() {
       tabs={tabs}
       defaultTab="contact"
       panelMinHeight={450}
-      className="min-h-screen w-screen shrink-0 flex items-center"
+      className={`min-h-screen shrink-0 flex items-center ${isMobile ? "w-full snap-start" : "w-screen"}`}
     />
   )
 }

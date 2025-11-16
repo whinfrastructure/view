@@ -5,6 +5,10 @@ import { motion } from "framer-motion"
 import { DotPattern } from "@/components/ui/dot-pattern"
 import { cn } from "@/lib/utils"
 
+interface TestimonialsSectionProps {
+  isMobile?: boolean
+}
+
 const testimonials = [
   {
     text: "Une expérience inoubliable dans cette villa d'exception. Le service était impeccable et la vue à couper le souffle. Je recommande vivement !",
@@ -66,9 +70,9 @@ const firstColumn = testimonials.slice(0, 3)
 const secondColumn = testimonials.slice(3, 6)
 const thirdColumn = testimonials.slice(6, 9)
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ isMobile = false }: TestimonialsSectionProps) {
   return (
-    <section className="min-h-screen w-screen shrink-0 flex items-center bg-white py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+    <section className={`relative flex min-h-screen shrink-0 items-center justify-center overflow-hidden bg-neutral-50 ${isMobile ? "w-full snap-start" : "w-screen"}`}>
       <DotPattern
         className={cn(
           "opacity-40 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",

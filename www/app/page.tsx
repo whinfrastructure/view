@@ -9,6 +9,8 @@ import { ContactSection } from "@/components/sections/contact-section"
 import { HeroSection } from "@/components/landing/hero-section"
 import { Navbar } from "@/components/navbar"
 import { useRef, useEffect, useState } from "react"
+import { useIsMobile } from "@/hooks/use-media-query"
+import { useScrollDirection } from "@/hooks/use-scroll-direction"
 
 export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -20,6 +22,9 @@ export default function Home() {
   const scrollThrottleRef = useRef<number | undefined>(undefined)
   const snapTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const isSnapAnimatingRef = useRef(false)
+  
+  const isMobile = useIsMobile()
+  const scrollDirection = useScrollDirection()
 
   useEffect(() => {
     const checkShaderReady = () => {
@@ -54,11 +59,23 @@ export default function Home() {
   const scrollToSection = (index: number) => {
     if (scrollContainerRef.current && !isSnapAnimatingRef.current) {
       isSnapAnimatingRef.current = true
-      const sectionWidth = scrollContainerRef.current.offsetWidth
-      scrollContainerRef.current.scrollTo({
-        left: sectionWidth * index,
-        behavior: "smooth",
-      })
+      
+      if (isMobile) {
+        // Sur mobile, scroll vertical
+        const sectionHeight = scrollContainerRef.current.offsetHeight
+        scrollContainerRef.current.scrollTo({
+          top: sectionHeight * index,
+          behavior: "smooth",
+        })
+      } else {
+        // Sur desktop, scroll horizontal
+        const sectionWidth = scrollContainerRef.current.offsetWidth
+        scrollContainerRef.current.scrollTo({
+          left: sectionWidth * index,
+          behavior: "smooth",
+        })
+      }
+      
       setCurrentSection(index)
       
       // Reset flag after animation
@@ -71,16 +88,30 @@ export default function Home() {
   const snapToNearestSection = () => {
     if (!scrollContainerRef.current || isSnapAnimatingRef.current) return
     
-    const sectionWidth = scrollContainerRef.current.offsetWidth
-    const scrollLeft = scrollContainerRef.current.scrollLeft
-    const nearestSection = Math.round(scrollLeft / sectionWidth)
-    
-    // Only snap if we're not already at the section
-    const currentScrollPosition = scrollLeft / sectionWidth
-    const distanceFromNearest = Math.abs(currentScrollPosition - nearestSection)
-    
-    if (distanceFromNearest > 0.01) {
-      scrollToSection(nearestSection)
+    if (isMobile) {
+      // Snap vertical sur mobile
+      const sectionHeight = scrollContainerRef.current.offsetHeight
+      const scrollTop = scrollContainerRef.current.scrollTop
+      const nearestSection = Math.round(scrollTop / sectionHeight)
+      
+      const currentScrollPosition = scrollTop / sectionHeight
+      const distanceFromNearest = Math.abs(currentScrollPosition - nearestSection)
+      
+      if (distanceFromNearest > 0.01) {
+        scrollToSection(nearestSection)
+      }
+    } else {
+      // Snap horizontal sur desktop
+      const sectionWidth = scrollContainerRef.current.offsetWidth
+      const scrollLeft = scrollContainerRef.current.scrollLeft
+      const nearestSection = Math.round(scrollLeft / sectionWidth)
+      
+      const currentScrollPosition = scrollLeft / sectionWidth
+      const distanceFromNearest = Math.abs(currentScrollPosition - nearestSection)
+      
+      if (distanceFromNearest > 0.01) {
+        scrollToSection(nearestSection)
+      }
     }
   }
 
@@ -91,7 +122,8 @@ export default function Home() {
     }
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (Math.abs(e.touches[0].clientY - touchStartY.current) > 10) {
+      // Sur desktop, empêche le scroll vertical
+      if (!isMobile && Math.abs(e.touches[0].clientY - touchStartY.current) > 10) {
         e.preventDefault()
       }
     }
@@ -102,7 +134,9 @@ export default function Home() {
       const deltaY = touchStartY.current - touchEndY
       const deltaX = touchStartX.current - touchEndX
 
-      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
+      // Sur mobile, le scroll vertical est géré nativement
+      // On active le snap-scroll seulement
+      if (!isMobile && Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
         if (deltaY > 0 && currentSection < 4) {
           scrollToSection(currentSection + 1)
         } else if (deltaY < 0 && currentSection > 0) {
@@ -125,11 +159,12 @@ export default function Home() {
         container.removeEventListener("touchend", handleTouchEnd)
       }
     }
-  }, [currentSection])
+  }, [currentSection, isMobile])
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      // Sur desktop uniquement, convertir le scroll vertical en horizontal
+      if (!isMobile && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault()
 
         if (!scrollContainerRef.current) return
@@ -156,7 +191,7 @@ export default function Home() {
     }
 
     const container = scrollContainerRef.current
-    if (container) {
+    if (container && !isMobile) {
       container.addEventListener("wheel", handleWheel, { passive: false })
     }
 
@@ -168,7 +203,7 @@ export default function Home() {
         clearTimeout(snapTimeoutRef.current)
       }
     }
-  }, [currentSection])
+  }, [currentSection, isMobile])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -180,9 +215,19 @@ export default function Home() {
           return
         }
 
-        const sectionWidth = scrollContainerRef.current.offsetWidth
-        const scrollLeft = scrollContainerRef.current.scrollLeft
-        const newSection = Math.round(scrollLeft / sectionWidth)
+        let newSection: number
+        
+        if (isMobile) {
+          // Sur mobile, détection basée sur le scroll vertical
+          const sectionHeight = scrollContainerRef.current.offsetHeight
+          const scrollTop = scrollContainerRef.current.scrollTop
+          newSection = Math.round(scrollTop / sectionHeight)
+        } else {
+          // Sur desktop, détection basée sur le scroll horizontal
+          const sectionWidth = scrollContainerRef.current.offsetWidth
+          const scrollLeft = scrollContainerRef.current.scrollLeft
+          newSection = Math.round(scrollLeft / sectionWidth)
+        }
 
         if (newSection !== currentSection && newSection >= 0 && newSection <= 4) {
           setCurrentSection(newSection)
@@ -216,7 +261,7 @@ export default function Home() {
         clearTimeout(snapTimeoutRef.current)
       }
     }
-  }, [currentSection])
+  }, [currentSection, isMobile])
 
   return (
     <main className="relative h-screen w-full overflow-hidden bg-white">
@@ -244,22 +289,26 @@ export default function Home() {
       <div
         ref={scrollContainerRef}
         data-scroll-container
-        className={`relative z-10 flex h-screen overflow-x-auto overflow-y-hidden transition-opacity duration-700 ${
+        className={`relative z-10 transition-opacity duration-700 ${
           isLoaded ? "opacity-100" : "opacity-0"
+        } ${
+          isMobile 
+            ? "flex flex-col h-screen overflow-y-auto overflow-x-hidden snap-y snap-mandatory" 
+            : "flex h-screen overflow-x-auto overflow-y-hidden"
         }`}
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {/* Hero Section with image slider */}
-        <section className="flex min-h-screen w-screen shrink-0">
+        <section className={`flex min-h-screen shrink-0 ${isMobile ? "w-full snap-start" : "w-screen"}`}>
           <HeroSection />
         </section>
 
-        <section className="flex min-h-screen w-screen shrink-0 items-center bg-white">
+        <section className={`flex min-h-screen shrink-0 items-center bg-white ${isMobile ? "w-full snap-start" : "w-screen"}`}>
           <CollectionStrip />
         </section>
-        <TestimonialsSection />
-        <AboutSection scrollToSection={scrollToSection} />
-        <ContactSection />
+        <TestimonialsSection isMobile={isMobile} />
+        <AboutSection scrollToSection={scrollToSection} isMobile={isMobile} />
+        <ContactSection isMobile={isMobile} />
       </div>
 
       <style jsx global>{`
