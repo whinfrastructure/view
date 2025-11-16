@@ -15,9 +15,9 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
   return (
     <section 
       ref={ref}
-      className={`flex shrink-0 items-center justify-center bg-white ${isMobile ? "h-screen w-full snap-start" : "w-screen h-screen px-6 py-20 md:px-12"}`}
+      className={`flex shrink-0 items-center justify-center bg-white ${isMobile ? "min-h-screen w-full snap-start py-12" : "w-screen h-screen px-6 py-20 md:px-12"}`}
     >
-      <div className={`w-full max-w-7xl mx-auto ${isMobile ? "px-4 py-4" : ""}`}>
+      <div className={`w-full max-w-7xl mx-auto ${isMobile ? "px-4" : ""}`}>
         <div className={`grid grid-cols-1 lg:grid-cols-2 items-center ${isMobile ? "gap-4" : "gap-12 lg:gap-16"}`}>
           {/* Image Column */}
           <motion.div

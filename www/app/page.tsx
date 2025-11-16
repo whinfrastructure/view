@@ -245,13 +245,13 @@ export default function Home() {
       >
         {/* Hero Section with image slider */}
         <section 
-          className={`flex shrink-0 ${isMobile ? "h-screen w-full snap-start" : "w-screen h-screen"}`}
+          className={`shrink-0 ${isMobile ? "min-h-screen w-full snap-start flex items-center justify-center" : "w-screen h-screen flex"}`}
         >
           <HeroSection />
         </section>
 
         <section 
-          className={`flex shrink-0 items-center bg-white ${isMobile ? "h-screen w-full snap-start" : "w-screen h-screen"}`}
+          className={`shrink-0 bg-white ${isMobile ? "min-h-screen w-full snap-start flex items-center justify-center py-12" : "w-screen h-screen flex items-center"}`}
         >
           <CollectionStrip />
         </section>
