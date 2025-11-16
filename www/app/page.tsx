@@ -61,8 +61,8 @@ export default function Home() {
       isSnapAnimatingRef.current = true
       
       if (isMobile) {
-        // Sur mobile, scroll vertical
-        const sectionHeight = scrollContainerRef.current.offsetHeight
+        // Sur mobile, scroll vertical vers la section
+        const sectionHeight = window.innerHeight
         scrollContainerRef.current.scrollTo({
           top: sectionHeight * index,
           behavior: "smooth",
@@ -102,14 +102,17 @@ export default function Home() {
   }
 
   useEffect(() => {
+    // Desktop uniquement - gestion du touch pour navigation horizontale
+    if (isMobile) return
+
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY.current = e.touches[0].clientY
       touchStartX.current = e.touches[0].clientX
     }
 
     const handleTouchMove = (e: TouchEvent) => {
-      // Sur desktop, empêche le scroll vertical
-      if (!isMobile && Math.abs(e.touches[0].clientY - touchStartY.current) > 10) {
+      // Empêche le scroll vertical sur desktop
+      if (Math.abs(e.touches[0].clientY - touchStartY.current) > 10) {
         e.preventDefault()
       }
     }
@@ -120,9 +123,7 @@ export default function Home() {
       const deltaY = touchStartY.current - touchEndY
       const deltaX = touchStartX.current - touchEndX
 
-      // Sur mobile, le scroll vertical est géré nativement
-      // On active le snap-scroll seulement
-      if (!isMobile && Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
+      if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
         if (deltaY > 0 && currentSection < 4) {
           scrollToSection(currentSection + 1)
         } else if (deltaY < 0 && currentSection > 0) {
@@ -148,9 +149,11 @@ export default function Home() {
   }, [currentSection, isMobile])
 
   useEffect(() => {
+    // Desktop uniquement - convertir scroll vertical en horizontal
+    if (isMobile) return
+
     const handleWheel = (e: WheelEvent) => {
-      // Sur desktop uniquement, convertir le scroll vertical en horizontal
-      if (!isMobile && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         e.preventDefault()
 
         if (!scrollContainerRef.current) return
@@ -177,7 +180,7 @@ export default function Home() {
     }
 
     const container = scrollContainerRef.current
-    if (container && !isMobile) {
+    if (container) {
       container.addEventListener("wheel", handleWheel, { passive: false })
     }
 
@@ -205,7 +208,7 @@ export default function Home() {
         
         if (isMobile) {
           // Sur mobile, détection basée sur le scroll vertical
-          const sectionHeight = scrollContainerRef.current.offsetHeight
+          const sectionHeight = window.innerHeight
           const scrollTop = scrollContainerRef.current.scrollTop
           newSection = Math.round(scrollTop / sectionHeight)
         } else {
@@ -222,7 +225,7 @@ export default function Home() {
         scrollThrottleRef.current = undefined
       })
 
-      // Clear existing timeout and set new one for snap (desktop uniquement)
+      // Snap uniquement sur desktop
       if (!isMobile) {
         if (snapTimeoutRef.current) {
           clearTimeout(snapTimeoutRef.current)
@@ -281,17 +284,17 @@ export default function Home() {
           isLoaded ? "opacity-100" : "opacity-0"
         } ${
           isMobile 
-            ? "flex flex-col overflow-y-auto overflow-x-hidden" 
+            ? "h-screen overflow-y-scroll snap-y snap-mandatory" 
             : "flex h-screen overflow-x-auto overflow-y-hidden"
         }`}
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {/* Hero Section with image slider */}
-        <section className={`flex shrink-0 ${isMobile ? "w-full min-h-screen" : "w-screen h-screen"}`}>
+        <section className={`flex shrink-0 ${isMobile ? "h-screen w-full snap-start snap-always" : "w-screen h-screen"}`}>
           <HeroSection />
         </section>
 
-        <section className={`flex shrink-0 items-center bg-white ${isMobile ? "w-full min-h-screen" : "w-screen h-screen"}`}>
+        <section className={`flex shrink-0 items-center bg-white ${isMobile ? "h-screen w-full snap-start snap-always" : "w-screen h-screen"}`}>
           <CollectionStrip />
         </section>
         <TestimonialsSection isMobile={isMobile} />
