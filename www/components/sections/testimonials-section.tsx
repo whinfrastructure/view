@@ -72,7 +72,10 @@ const thirdColumn = testimonials.slice(6, 9)
 
 export function TestimonialsSection({ isMobile = false }: TestimonialsSectionProps) {
   return (
-    <section className={`relative flex shrink-0 items-center justify-center overflow-hidden bg-neutral-50 ${isMobile ? "h-screen w-full snap-start snap-always py-8" : "w-screen h-screen"}`}>
+    <section 
+      className={`relative flex shrink-0 items-center justify-center overflow-hidden bg-neutral-50 ${isMobile ? "h-screen w-full py-8" : "w-screen h-screen"}`}
+      style={{ scrollSnapAlign: isMobile ? "start" : undefined }}
+    >
       <DotPattern
         className={cn(
           "opacity-40 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
