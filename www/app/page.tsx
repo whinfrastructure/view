@@ -227,38 +227,56 @@ export default function Home() {
         isLoaded={isLoaded} 
       />
 
-      <div
-        ref={scrollContainerRef}
-        data-scroll-container
-        className={`relative z-10 transition-opacity duration-700 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        } ${
-          isMobile 
-            ? "overflow-y-auto overflow-x-hidden" 
-            : "flex h-screen overflow-x-auto overflow-y-hidden"
-        }`}
-        style={{ 
-          scrollbarWidth: "none", 
-          msOverflowStyle: "none",
-          WebkitOverflowScrolling: "touch"
-        }}
-      >
-        {/* Hero Section with image slider */}
-        <section 
-          className={`shrink-0 ${isMobile ? "min-h-screen w-full snap-start flex items-center justify-center" : "w-screen h-screen flex"}`}
+      {isMobile ? (
+        <div
+          ref={scrollContainerRef}
+          data-scroll-container
+          className="relative z-10 transition-opacity duration-700 overflow-y-auto"
+          style={{ 
+            opacity: isLoaded ? 1 : 0,
+            scrollbarWidth: "none", 
+            msOverflowStyle: "none",
+            WebkitOverflowScrolling: "touch"
+          }}
         >
-          <HeroSection />
-        </section>
+          {/* Hero Section with image slider */}
+          <section className="min-h-screen w-full flex items-center justify-center">
+            <HeroSection />
+          </section>
 
-        <section 
-          className={`shrink-0 bg-white ${isMobile ? "min-h-screen w-full snap-start flex items-center justify-center py-12" : "w-screen h-screen flex items-center"}`}
+          <section className="min-h-screen w-full flex items-center justify-center bg-white py-12">
+            <CollectionStrip />
+          </section>
+          
+          <TestimonialsSection isMobile={isMobile} />
+          <AboutSection scrollToSection={scrollToSection} isMobile={isMobile} />
+          <ContactSection isMobile={isMobile} />
+        </div>
+      ) : (
+        <div
+          ref={scrollContainerRef}
+          data-scroll-container
+          className="relative z-10 transition-opacity duration-700 flex h-screen overflow-x-auto overflow-y-hidden"
+          style={{ 
+            opacity: isLoaded ? 1 : 0,
+            scrollbarWidth: "none", 
+            msOverflowStyle: "none"
+          }}
         >
-          <CollectionStrip />
-        </section>
-        <TestimonialsSection isMobile={isMobile} />
-        <AboutSection scrollToSection={scrollToSection} isMobile={isMobile} />
-        <ContactSection isMobile={isMobile} />
-      </div>
+          {/* Hero Section with image slider */}
+          <section className="shrink-0 w-screen h-screen flex">
+            <HeroSection />
+          </section>
+
+          <section className="shrink-0 w-screen h-screen flex items-center bg-white">
+            <CollectionStrip />
+          </section>
+          
+          <TestimonialsSection isMobile={isMobile} />
+          <AboutSection scrollToSection={scrollToSection} isMobile={isMobile} />
+          <ContactSection isMobile={isMobile} />
+        </div>
+      )}
 
       <style jsx global>{`
         div::-webkit-scrollbar {

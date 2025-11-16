@@ -134,7 +134,7 @@ export function ContactSection({ isMobile = false }: ContactSectionProps) {
 
   return (
     <div 
-      className={`shrink-0 flex items-center ${isMobile ? "min-h-screen w-full snap-start py-12" : "w-screen h-screen"}`}
+      className={`shrink-0 flex items-center ${isMobile ? "min-h-screen w-full py-12" : "w-screen h-screen"}`}
     >
       <FeatureShowcase
         eyebrow="CONTACT"
