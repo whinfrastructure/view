@@ -14,22 +14,19 @@ export function CollectionStrip() {
 
   return (
     <section className="min-h-screen w-screen shrink-0 flex items-center bg-white py-12 sm:py-16 lg:py-20">
-      <div className="w-full px-4 sm:px-6 lg:px-8 space-y-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 space-y-8 pt-12 sm:pt-16">
         <FadeContent>
           <SectionHeader
             badge="Sélection d'Exception 💐"
             title="Nos logements en"
             highlight="exclusivité"
-            highlightClassName="font-mea-culpa text-[1.15em] sm:text-[1.25em] md:text-[1.35em] pl-1 pr-2 leading-[1.05] tracking-[0.012em]"
-            titleClassName="text-center text-lg sm:text-xl md:text-2xl"
-            description="Découvrez des villas d'exception sélectionnées avec exigence : vues spectaculaires, prestations haut de gamme et confidentialité totale."
+            highlightClassName="font-mea-culpa text-[1.1em] sm:text-[1.2em] md:text-[1.25em] pl-1 pr-2 leading-[1.05] tracking-[0.012em]"
+            titleClassName="text-center text-base sm:text-lg md:text-xl"
             align="center"
             className="mb-8"
-            descriptionClassName="max-w-4xl mb-0 text-xs sm:text-sm mx-auto"
+            descriptionClassName="max-w-4xl mb-0 text-[11px] sm:text-xs mx-auto"
           />
-        </FadeContent>
-        
-        <FadeContent delay={0.2}>
+        </FadeContent>        <FadeContent delay={0.2}>
           <DragCarousel items={carouselItems} />
         </FadeContent>
       </div>

@@ -19,8 +19,8 @@ interface DragCarouselProps {
   items: CarouselItem[];
 }
 
-const FULL_WIDTH_PX = 120;
-const COLLAPSED_WIDTH_PX = 35;
+const FULL_WIDTH_PX = 100;
+const COLLAPSED_WIDTH_PX = 30;
 const GAP_PX = 2;
 const MARGIN_PX = 2;
 
@@ -58,7 +58,7 @@ function Thumbnails({ items, index, setIndex }: ThumbnailsProps) {
           display: none;
         }
       `}</style>
-      <div className='flex gap-0.5 h-20 pb-2' style={{ width: 'fit-content' }}>
+      <div className='flex gap-0.5 h-16 pb-2' style={{ width: 'fit-content' }}>
         {items.map((item, i) => (
           <motion.button
             key={item.id}
@@ -148,7 +148,7 @@ export default function DragCarousel({ items }: DragCarouselProps) {
             style={{ x }}
           >
             {items.map((item) => (
-              <div key={item.id} className='shrink-0 w-full h-[500px]'>
+              <div key={item.id} className='shrink-0 w-full h-[350px]'>
                 <img
                   src={item.url}
                   alt={item.title}

@@ -2,6 +2,8 @@
 
 import { TestimonialsColumn } from "@/components/ui/testimonials-column"
 import { motion } from "framer-motion"
+import { DotPattern } from "@/components/ui/dot-pattern"
+import { cn } from "@/lib/utils"
 
 const testimonials = [
   {
@@ -66,8 +68,13 @@ const thirdColumn = testimonials.slice(6, 9)
 
 export function TestimonialsSection() {
   return (
-    <section className="min-h-screen w-screen shrink-0 flex items-center bg-white py-12 sm:py-16 lg:py-20 relative">
-      <div className="container z-10 mx-auto px-4 w-full">
+    <section className="min-h-screen w-screen shrink-0 flex items-center bg-white py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+      <DotPattern
+        className={cn(
+          "opacity-40 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
+        )}
+      />
+      <div className="container z-10 mx-auto px-4 w-full relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,10 +88,10 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mt-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mt-6 text-center leading-tight">
             Ils nous ont fait{" "}
             <span 
-              className="inline-block gradient-text"
+              className="inline-block gradient-text whitespace-nowrap"
               style={{
                 fontFamily: "'Dancing Script', cursive",
                 background: "linear-gradient(135deg, #d4c5b0 0%, #e8dcc8 50%, #f5ede0 100%)",
@@ -96,9 +103,7 @@ export function TestimonialsSection() {
               confiance
             </span>
           </h2>
-          <p className="text-center mt-4 text-neutral-600 text-sm sm:text-base">
-            Découvrez les témoignages de nos clients qui ont vécu des expériences exceptionnelles dans nos villas exclusives.
-          </p>
+          
         </motion.div>
 
         <div className="flex justify-center gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] h-[500px] overflow-hidden">
