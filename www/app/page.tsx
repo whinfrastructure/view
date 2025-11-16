@@ -100,116 +100,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (!isMobile) {
-      // Desktop uniquement - gestion du touch pour navigation horizontale
-      const handleTouchStart = (e: TouchEvent) => {
-        touchStartY.current = e.touches[0].clientY
-        touchStartX.current = e.touches[0].clientX
-      }
-
-      const handleTouchMove = (e: TouchEvent) => {
-        // Empêche le scroll vertical sur desktop
-        if (Math.abs(e.touches[0].clientY - touchStartY.current) > 10) {
-          e.preventDefault()
-        }
-      }
-
-      const handleTouchEnd = (e: TouchEvent) => {
-        const touchEndY = e.changedTouches[0].clientY
-        const touchEndX = e.changedTouches[0].clientX
-        const deltaY = touchStartY.current - touchEndY
-        const deltaX = touchStartX.current - touchEndX
-
-        if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
-          if (deltaY > 0 && currentSection < 4) {
-            scrollToSection(currentSection + 1)
-          } else if (deltaY < 0 && currentSection > 0) {
-            scrollToSection(currentSection - 1)
-          }
-        }
-      }
-
-      const container = scrollContainerRef.current
-      if (container) {
-        container.addEventListener("touchstart", handleTouchStart, { passive: true })
-        container.addEventListener("touchmove", handleTouchMove, { passive: false })
-        container.addEventListener("touchend", handleTouchEnd, { passive: true })
-      }
-
-      return () => {
-        if (container) {
-          container.removeEventListener("touchstart", handleTouchStart)
-          container.removeEventListener("touchmove", handleTouchMove)
-          container.removeEventListener("touchend", handleTouchEnd)
-        }
-      }
-    } else {
-      // Mobile - gestion des gestures
-      const handleTouchStart = (e: TouchEvent) => {
-        touchStartY.current = e.touches[0].clientY
-        touchStartX.current = e.touches[0].clientX
-        touchStartTime.current = Date.now()
-        isSwipingRef.current = false
-      }
-
-      const handleTouchMove = (e: TouchEvent) => {
-        if (isSwipingRef.current) return
-
-        const deltaX = Math.abs(e.touches[0].clientX - touchStartX.current)
-        const deltaY = Math.abs(e.touches[0].clientY - touchStartY.current)
-
-        // Si le mouvement est principalement horizontal, on laisse le contenu scroller
-        if (deltaX > deltaY && deltaX > 10) {
-          isSwipingRef.current = true
-          // Le scroll horizontal natif du contenu (carousel, etc.) fonctionne normalement
-        }
-        // Si le mouvement est principalement vertical, c'est géré par le snap-scroll
-      }
-
-      const handleTouchEnd = (e: TouchEvent) => {
-        const touchEndY = e.changedTouches[0].clientY
-        const touchEndX = e.changedTouches[0].clientX
-        const deltaY = touchStartY.current - touchEndY
-        const deltaX = touchStartX.current - touchEndX
-        const touchDuration = Date.now() - touchStartTime.current
-
-        // Swipe rapide et vertical = navigation entre sections
-        if (
-          !isSwipingRef.current &&
-          Math.abs(deltaY) > Math.abs(deltaX) &&
-          Math.abs(deltaY) > 50 &&
-          touchDuration < 300
-        ) {
-          e.preventDefault()
-          if (deltaY > 0 && currentSection < 4) {
-            scrollToSection(currentSection + 1)
-          } else if (deltaY < 0 && currentSection > 0) {
-            scrollToSection(currentSection - 1)
-          }
-        }
-
-        isSwipingRef.current = false
-      }
-
-      const container = scrollContainerRef.current
-      if (container) {
-        container.addEventListener("touchstart", handleTouchStart, { passive: true })
-        container.addEventListener("touchmove", handleTouchMove, { passive: true })
-        container.addEventListener("touchend", handleTouchEnd, { passive: false })
-      }
-
-      return () => {
-        if (container) {
-          container.removeEventListener("touchstart", handleTouchStart)
-          container.removeEventListener("touchmove", handleTouchMove)
-          container.removeEventListener("touchend", handleTouchEnd)
-        }
-      }
-    }
-  }, [currentSection, isMobile])
-
-  useEffect(() => {
-    // Desktop uniquement - convertir scroll vertical en horizontal
+    // Sur desktop uniquement - convertir scroll vertical en horizontal avec snap
     if (isMobile) return
 
     const handleWheel = (e: WheelEvent) => {
@@ -229,7 +120,6 @@ export default function Home() {
           setCurrentSection(newSection)
         }
 
-        // Clear existing timeout and set new one for snap
         if (snapTimeoutRef.current) {
           clearTimeout(snapTimeoutRef.current)
         }
