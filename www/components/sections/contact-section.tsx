@@ -143,7 +143,7 @@ export function ContactSection({ isMobile = false }: ContactSectionProps) {
       defaultTab="contact"
       panelMinHeight={450}
       isMobile={isMobile}
-      className={`min-h-screen shrink-0 flex items-center ${isMobile ? "w-full snap-start" : "w-screen"}`}
+      className={`shrink-0 flex items-center ${isMobile ? "w-full min-h-screen" : "w-screen h-screen"}`}
     />
   )
 }

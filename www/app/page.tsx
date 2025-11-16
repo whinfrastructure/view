@@ -86,32 +86,18 @@ export default function Home() {
   }
 
   const snapToNearestSection = () => {
-    if (!scrollContainerRef.current || isSnapAnimatingRef.current) return
+    if (!scrollContainerRef.current || isSnapAnimatingRef.current || isMobile) return
     
-    if (isMobile) {
-      // Snap vertical sur mobile
-      const sectionHeight = scrollContainerRef.current.offsetHeight
-      const scrollTop = scrollContainerRef.current.scrollTop
-      const nearestSection = Math.round(scrollTop / sectionHeight)
-      
-      const currentScrollPosition = scrollTop / sectionHeight
-      const distanceFromNearest = Math.abs(currentScrollPosition - nearestSection)
-      
-      if (distanceFromNearest > 0.01) {
-        scrollToSection(nearestSection)
-      }
-    } else {
-      // Snap horizontal sur desktop
-      const sectionWidth = scrollContainerRef.current.offsetWidth
-      const scrollLeft = scrollContainerRef.current.scrollLeft
-      const nearestSection = Math.round(scrollLeft / sectionWidth)
-      
-      const currentScrollPosition = scrollLeft / sectionWidth
-      const distanceFromNearest = Math.abs(currentScrollPosition - nearestSection)
-      
-      if (distanceFromNearest > 0.01) {
-        scrollToSection(nearestSection)
-      }
+    // Snap horizontal sur desktop uniquement
+    const sectionWidth = scrollContainerRef.current.offsetWidth
+    const scrollLeft = scrollContainerRef.current.scrollLeft
+    const nearestSection = Math.round(scrollLeft / sectionWidth)
+    
+    const currentScrollPosition = scrollLeft / sectionWidth
+    const distanceFromNearest = Math.abs(currentScrollPosition - nearestSection)
+    
+    if (distanceFromNearest > 0.01) {
+      scrollToSection(nearestSection)
     }
   }
 
@@ -236,13 +222,15 @@ export default function Home() {
         scrollThrottleRef.current = undefined
       })
 
-      // Clear existing timeout and set new one for snap
-      if (snapTimeoutRef.current) {
-        clearTimeout(snapTimeoutRef.current)
+      // Clear existing timeout and set new one for snap (desktop uniquement)
+      if (!isMobile) {
+        if (snapTimeoutRef.current) {
+          clearTimeout(snapTimeoutRef.current)
+        }
+        snapTimeoutRef.current = setTimeout(() => {
+          snapToNearestSection()
+        }, 150)
       }
-      snapTimeoutRef.current = setTimeout(() => {
-        snapToNearestSection()
-      }, 150)
     }
 
     const container = scrollContainerRef.current
@@ -293,17 +281,17 @@ export default function Home() {
           isLoaded ? "opacity-100" : "opacity-0"
         } ${
           isMobile 
-            ? "flex flex-col h-screen overflow-y-auto overflow-x-hidden snap-y snap-mandatory" 
+            ? "flex flex-col overflow-y-auto overflow-x-hidden" 
             : "flex h-screen overflow-x-auto overflow-y-hidden"
         }`}
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {/* Hero Section with image slider */}
-        <section className={`flex min-h-screen shrink-0 ${isMobile ? "w-full snap-start" : "w-screen"}`}>
+        <section className={`flex shrink-0 ${isMobile ? "w-full min-h-screen" : "w-screen h-screen"}`}>
           <HeroSection />
         </section>
 
-        <section className={`flex min-h-screen shrink-0 items-center bg-white ${isMobile ? "w-full snap-start" : "w-screen"}`}>
+        <section className={`flex shrink-0 items-center bg-white ${isMobile ? "w-full min-h-screen" : "w-screen h-screen"}`}>
           <CollectionStrip />
         </section>
         <TestimonialsSection isMobile={isMobile} />
