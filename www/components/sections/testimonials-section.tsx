@@ -86,15 +86,15 @@ export function TestimonialsSection({ isMobile = false }: TestimonialsSectionPro
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="flex flex-col items-center justify-center max-w-[640px] mx-auto mb-8 md:mb-12"
+          className={`flex flex-col items-center justify-center max-w-[640px] mx-auto ${isMobile ? "mb-6" : "mb-8 md:mb-12"}`}
         >
           <div className="flex justify-center">
-            <div className="inline-flex items-center rounded-full bg-neutral-100 px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm font-medium text-neutral-700">
+            <div className={`inline-flex items-center rounded-full bg-neutral-100 font-medium text-neutral-700 ${isMobile ? "px-3 py-1 text-xs" : "px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm"}`}>
               TÉMOIGNAGES
             </div>
           </div>
 
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight mt-4 md:mt-6 text-center leading-tight px-4">
+          <h2 className={`font-bold tracking-tight text-center leading-tight px-4 ${isMobile ? "text-2xl mt-3" : "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mt-4 md:mt-6"}`}>
             Ils nous ont fait{" "}
             <span 
               className="inline-block gradient-text whitespace-nowrap"
@@ -112,17 +112,19 @@ export function TestimonialsSection({ isMobile = false }: TestimonialsSectionPro
           
         </motion.div>
 
-        <div className={`flex justify-center gap-3 md:gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] overflow-hidden ${isMobile ? "h-[400px]" : "h-[500px]"}`}>
-          <TestimonialsColumn testimonials={firstColumn} duration={15} />
+        <div className={`flex justify-center gap-3 md:gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] overflow-hidden ${isMobile ? "h-[300px]" : "h-[500px]"}`}>
+          <TestimonialsColumn testimonials={firstColumn} duration={15} reverse={true} />
           <TestimonialsColumn 
             testimonials={secondColumn} 
             className="hidden md:block" 
             duration={19} 
+            reverse={true}
           />
           <TestimonialsColumn 
             testimonials={thirdColumn} 
             className="hidden lg:block" 
             duration={17} 
+            reverse={true}
           />
         </div>
       </div>
