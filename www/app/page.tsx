@@ -240,11 +240,11 @@ export default function Home() {
           }}
         >
           {/* Hero Section with image slider */}
-          <section className="min-h-screen w-full flex items-center justify-center">
+          <section className="min-h-screen w-full flex items-center justify-center py-20">
             <HeroSection />
           </section>
 
-          <section className="min-h-screen w-full flex items-center justify-center bg-white py-12">
+          <section className="w-full flex items-center justify-center bg-white py-20">
             <CollectionStrip />
           </section>
           

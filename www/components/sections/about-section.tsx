@@ -15,7 +15,7 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
   return (
     <section 
       ref={ref}
-      className={`flex shrink-0 items-center justify-center bg-white ${isMobile ? "min-h-screen w-full py-12" : "w-screen h-screen px-6 py-20 md:px-12"}`}
+      className={`flex shrink-0 items-center justify-center bg-white ${isMobile ? "w-full py-20 px-4" : "w-screen h-screen px-6 py-20 md:px-12"}`}
     >
       <div className={`w-full max-w-7xl mx-auto ${isMobile ? "px-4" : ""}`}>
         <div className={`grid grid-cols-1 lg:grid-cols-2 items-center ${isMobile ? "gap-6" : "gap-12 lg:gap-16"}`}>
