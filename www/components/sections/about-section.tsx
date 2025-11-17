@@ -17,8 +17,8 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
       ref={ref}
       className={`flex shrink-0 items-center justify-center bg-white ${isMobile ? "w-full py-20 px-4" : "w-screen h-screen px-6 py-20 md:px-12"}`}
     >
-      <div className={`w-full max-w-7xl mx-auto ${isMobile ? "px-4" : ""}`}>
-        <div className={`grid grid-cols-1 lg:grid-cols-2 items-center ${isMobile ? "gap-6" : "gap-12 lg:gap-16"}`}>
+      <div className={`w-full max-w-7xl mx-auto ${isMobile ? "" : ""}`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-2 items-center ${isMobile ? "gap-8" : "gap-12 lg:gap-16"}`}>
           {/* Image Column */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -26,7 +26,7 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className={`relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl bg-neutral-100 ${isMobile ? "max-h-[240px]" : ""}`}>
+            <div className={`relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl bg-neutral-100 ${isMobile ? "" : ""}`}>
               <img
                 src="/media/about.jpg"
                 alt="Équipe WelkomHome"
@@ -50,27 +50,27 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
             initial={{ opacity: 0, x: 50 }}
             animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className={isMobile ? "space-y-3" : "space-y-8"}
+            className={isMobile ? "space-y-4" : "space-y-8"}
           >
             {/* Gooey Title */}
-            <div className={isMobile ? "h-[70px] flex items-center" : "h-[120px] flex items-center"}>
+            <div className={isMobile ? "h-[80px] flex items-center" : "h-[120px] flex items-center"}>
               <GooeyText
                 texts={["WELKOM", "HOME", "LUXE", "EXCELLENCE"]}
                 morphTime={1.5}
                 cooldownTime={0.5}
                 className="font-bold"
-                textClassName={isMobile ? "text-3xl md:text-4xl text-neutral-900" : "text-4xl md:text-5xl lg:text-6xl text-neutral-900"}
+                textClassName={isMobile ? "text-4xl text-neutral-900" : "text-4xl md:text-5xl lg:text-6xl text-neutral-900"}
               />
             </div>
 
-            <div className={`text-neutral-700 ${isMobile ? "space-y-3 text-sm" : "space-y-6"}`}>
-              <p className={isMobile ? "text-sm leading-relaxed" : "text-lg leading-relaxed"}>
+            <div className={`text-neutral-700 ${isMobile ? "space-y-4" : "space-y-6"}`}>
+              <p className={isMobile ? "text-base leading-relaxed" : "text-lg leading-relaxed"}>
                 WelkomHome vous ouvre les portes des plus belles propriétés de la Côte d&apos;Azur. 
                 Grâce à des années d&apos;expérience et une relation de confiance avec nos propriétaires, 
                 nous vous proposons des villas d&apos;exception en exclusivité.
               </p>
               
-              <p className={`leading-relaxed text-neutral-600 ${isMobile ? "text-xs" : "text-base"}`}>
+              <p className={`leading-relaxed text-neutral-600 ${isMobile ? "text-sm" : "text-base"}`}>
                 Que vous recherchiez une villa moderne à Saint-Tropez, une demeure élégante à Cannes 
                 ou un refuge prestigieux à Monaco, notre sélection rigoureuse garantit des séjours 
                 inoubliables dans un cadre d&apos;exception.
@@ -101,7 +101,7 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
               >
                 <button
                   onClick={() => scrollToSection(4)}
-                  className={`group relative inline-flex items-center gap-2 rounded-full bg-blue-600 text-white font-medium transition-all duration-300 hover:bg-blue-500 hover:scale-105 shadow-lg hover:shadow-xl ${isMobile ? "px-5 py-2.5 text-xs" : "px-8 py-4 text-base"}`}
+                  className={`group relative inline-flex items-center gap-2 rounded-full bg-blue-600 text-white font-medium transition-all duration-300 hover:bg-blue-500 hover:scale-105 shadow-lg hover:shadow-xl ${isMobile ? "px-6 py-3 text-sm" : "px-8 py-4 text-base"}`}
                 >
                   <span>Contactez-nous</span>
                   <svg 
