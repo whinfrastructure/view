@@ -8,12 +8,12 @@ import { AboutSection } from "@/components/sections/about-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { HeroSection } from "@/components/landing/hero-section"
 import { Navbar } from "@/components/navbar"
-import { useRef, useEffect, useState } from "react"
+import { useRef, useEffect, useState, useCallback, useMemo } from "react"
 import { useIsMobile } from "@/hooks/use-media-query"
-import { useScrollDirection } from "@/hooks/use-scroll-direction"
 
 export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const sectionRefs = useRef<(HTMLElement | null)[]>([])
   const [currentSection, setCurrentSection] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
   const shaderContainerRef = useRef<HTMLDivElement>(null)
@@ -22,7 +22,6 @@ export default function Home() {
   const isSnapAnimatingRef = useRef(false)
   
   const isMobile = useIsMobile()
-  const scrollDirection = useScrollDirection()
 
   useEffect(() => {
     const checkShaderReady = () => {
@@ -54,39 +53,40 @@ export default function Home() {
     }
   }, [])
 
-  const scrollToSection = (index: number) => {
-    if (scrollContainerRef.current && !isSnapAnimatingRef.current) {
-      isSnapAnimatingRef.current = true
-      
-      if (isMobile) {
-        // Sur mobile, scroll vertical vers la section
-        const sectionHeight = window.innerHeight
+  const scrollToSection = useCallback((index: number) => {
+    if (!scrollContainerRef.current || isSnapAnimatingRef.current) return
+    if (sectionRefs.current.length === 0) return
+
+    const maxIndex = sectionRefs.current.length - 1
+    const clampedIndex = Math.max(0, Math.min(index, maxIndex))
+    isSnapAnimatingRef.current = true
+
+    if (isMobile) {
+      const target = sectionRefs.current[clampedIndex]
+      if (target) {
         scrollContainerRef.current.scrollTo({
-          top: sectionHeight * index,
-          behavior: "smooth",
-        })
-      } else {
-        // Sur desktop, scroll horizontal
-        const sectionWidth = scrollContainerRef.current.offsetWidth
-        scrollContainerRef.current.scrollTo({
-          left: sectionWidth * index,
+          top: target.offsetTop,
           behavior: "smooth",
         })
       }
-      
-      setCurrentSection(index)
-      
-      // Reset flag after animation
-      setTimeout(() => {
-        isSnapAnimatingRef.current = false
-      }, 600)
+    } else {
+      const sectionWidth = scrollContainerRef.current.offsetWidth
+      scrollContainerRef.current.scrollTo({
+        left: sectionWidth * clampedIndex,
+        behavior: "smooth",
+      })
     }
-  }
 
-  const snapToNearestSection = () => {
+    setCurrentSection(clampedIndex)
+
+    setTimeout(() => {
+      isSnapAnimatingRef.current = false
+    }, 600)
+  }, [isMobile])
+
+  const snapToNearestSection = useCallback(() => {
     if (!scrollContainerRef.current || isSnapAnimatingRef.current || isMobile) return
     
-    // Snap horizontal sur desktop uniquement
     const sectionWidth = scrollContainerRef.current.offsetWidth
     const scrollLeft = scrollContainerRef.current.scrollLeft
     const nearestSection = Math.round(scrollLeft / sectionWidth)
@@ -97,7 +97,7 @@ export default function Home() {
     if (distanceFromNearest > 0.01) {
       scrollToSection(nearestSection)
     }
-  }
+  }, [isMobile, scrollToSection])
 
   useEffect(() => {
     // Sur desktop uniquement - convertir scroll vertical en horizontal avec snap
@@ -142,7 +142,7 @@ export default function Home() {
         clearTimeout(snapTimeoutRef.current)
       }
     }
-  }, [currentSection, isMobile])
+  }, [currentSection, isMobile, snapToNearestSection])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -154,21 +154,40 @@ export default function Home() {
           return
         }
 
-        let newSection: number
-        
-        if (isMobile) {
-          // Sur mobile, détection basée sur le scroll vertical
-          const sectionHeight = window.innerHeight
-          const scrollTop = scrollContainerRef.current.scrollTop
-          newSection = Math.round(scrollTop / sectionHeight)
-        } else {
-          // Sur desktop, détection basée sur le scroll horizontal
-          const sectionWidth = scrollContainerRef.current.offsetWidth
-          const scrollLeft = scrollContainerRef.current.scrollLeft
-          newSection = Math.round(scrollLeft / sectionWidth)
+        if (sectionRefs.current.length === 0) {
+          scrollThrottleRef.current = undefined
+          return
         }
 
-        if (newSection !== currentSection && newSection >= 0 && newSection <= 4) {
+        if (isMobile) {
+          const container = scrollContainerRef.current
+          const scrollTop = container.scrollTop
+          let closestIndex = currentSection
+          let smallestDistance = Number.POSITIVE_INFINITY
+
+          sectionRefs.current.forEach((section, index) => {
+            if (!section) return
+            const distance = Math.abs(section.offsetTop - scrollTop)
+            if (distance < smallestDistance) {
+              smallestDistance = distance
+              closestIndex = index
+            }
+          })
+
+          if (closestIndex !== currentSection) {
+            setCurrentSection(closestIndex)
+          }
+
+          scrollThrottleRef.current = undefined
+          return
+        }
+
+        // Sur desktop, détection basée sur le scroll horizontal
+        const sectionWidth = scrollContainerRef.current.offsetWidth
+        const scrollLeft = scrollContainerRef.current.scrollLeft
+        const newSection = Math.round(scrollLeft / sectionWidth)
+
+        if (newSection !== currentSection && newSection >= 0 && newSection < sectionRefs.current.length) {
           setCurrentSection(newSection)
         }
 
@@ -202,10 +221,47 @@ export default function Home() {
         clearTimeout(snapTimeoutRef.current)
       }
     }
-  }, [currentSection, isMobile])
+  }, [currentSection, isMobile, snapToNearestSection])
+
+  const sections = useMemo(() => ([
+    {
+      id: "hero",
+      mobileClass: "w-full flex items-center justify-center py-20 min-h-screen",
+      desktopClass: "shrink-0 w-screen h-screen flex",
+      render: () => <HeroSection />,
+    },
+    {
+      id: "collection",
+      mobileClass: "w-full flex items-center justify-center bg-white py-20",
+      desktopClass: "shrink-0 w-screen h-screen flex items-center bg-white",
+      render: () => <CollectionStrip />,
+    },
+    {
+      id: "testimonials",
+      mobileClass: "w-full",
+      desktopClass: "shrink-0 w-screen h-screen flex",
+      render: () => <TestimonialsSection isMobile={isMobile} />,
+    },
+    {
+      id: "about",
+      mobileClass: "w-full",
+      desktopClass: "shrink-0 w-screen h-screen flex",
+      render: () => <AboutSection scrollToSection={scrollToSection} isMobile={isMobile} />,
+    },
+    {
+      id: "contact",
+      mobileClass: "w-full",
+      desktopClass: "shrink-0 w-screen h-screen flex",
+      render: () => <ContactSection isMobile={isMobile} />,
+    },
+  ]), [isMobile, scrollToSection])
+
+  const setSectionRef = (index: number) => (element: HTMLElement | null) => {
+    sectionRefs.current[index] = element
+  }
 
   return (
-    <main className="relative h-screen w-full overflow-hidden bg-white">
+    <main className={`relative w-full bg-white ${isMobile ? "" : "h-screen overflow-hidden"}`}>
       <GrainOverlay />
 
       <div
@@ -239,18 +295,15 @@ export default function Home() {
             WebkitOverflowScrolling: "touch"
           }}
         >
-          {/* Hero Section with image slider */}
-          <section className="min-h-screen w-full flex items-center justify-center py-20">
-            <HeroSection />
-          </section>
-
-          <section className="w-full flex items-center justify-center bg-white py-20">
-            <CollectionStrip />
-          </section>
-          
-          <TestimonialsSection isMobile={isMobile} />
-          <AboutSection scrollToSection={scrollToSection} isMobile={isMobile} />
-          <ContactSection isMobile={isMobile} />
+          {sections.map((section, index) => (
+            <section
+              key={`${section.id}-mobile`}
+              ref={setSectionRef(index)}
+              className={section.mobileClass}
+            >
+              {section.render()}
+            </section>
+          ))}
         </div>
       ) : (
         <div
@@ -263,18 +316,15 @@ export default function Home() {
             msOverflowStyle: "none"
           }}
         >
-          {/* Hero Section with image slider */}
-          <section className="shrink-0 w-screen h-screen flex">
-            <HeroSection />
-          </section>
-
-          <section className="shrink-0 w-screen h-screen flex items-center bg-white">
-            <CollectionStrip />
-          </section>
-          
-          <TestimonialsSection isMobile={isMobile} />
-          <AboutSection scrollToSection={scrollToSection} isMobile={isMobile} />
-          <ContactSection isMobile={isMobile} />
+          {sections.map((section, index) => (
+            <section
+              key={`${section.id}-desktop`}
+              ref={setSectionRef(index)}
+              className={section.desktopClass}
+            >
+              {section.render()}
+            </section>
+          ))}
         </div>
       )}
 
