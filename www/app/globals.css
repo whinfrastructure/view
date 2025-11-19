@@ -52,6 +52,13 @@ html, body {
   width: 100%;
 }
 
+@media (max-width: 767px) {
+  html, body {
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+
 @media (min-width: 768px) {
   html, body {
     height: 100%;

@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation"
 interface NavbarProps {
   currentSection: number
   scrollToSection: (index: number) => void
-  isLoaded: boolean
   isAtTop: boolean
 }
 
@@ -24,7 +23,7 @@ interface NavItem {
   dropdown?: DropdownItem[]
 }
 
-export function Navbar({ currentSection, scrollToSection, isLoaded, isAtTop }: NavbarProps) {
+export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const router = useRouter()
@@ -165,9 +164,12 @@ export function Navbar({ currentSection, scrollToSection, isLoaded, isAtTop }: N
 
   return (
     <nav
-      className={`fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-3 transition-all duration-700 md:px-8 ${
-        isLoaded ? "opacity-100" : "opacity-0"
-      } ${isDarkMode ? "text-white" : "text-black bg-white/80 backdrop-blur-md shadow-sm"}`}
+      className={`fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-3 transition-all duration-700 md:px-8 border-b opacity-100 ${
+        isDarkMode
+          ? "text-white bg-black/60 backdrop-blur-xl border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
+          : "text-black bg-white/95 backdrop-blur-md border-black/10 shadow-sm"
+      }`}
+      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
     >
       {/* Logo */}
       <button

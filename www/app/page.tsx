@@ -292,7 +292,6 @@ export default function Home() {
       <Navbar 
         currentSection={currentSection} 
         scrollToSection={scrollToSection} 
-        isLoaded={isLoaded}
         isAtTop={isAtTop}
       />
 
