@@ -16,6 +16,7 @@ export default function Home() {
   const sectionRefs = useRef<(HTMLElement | null)[]>([])
   const [currentSection, setCurrentSection] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isAtTop, setIsAtTop] = useState(true)
   const shaderContainerRef = useRef<HTMLDivElement>(null)
   const scrollThrottleRef = useRef<number | undefined>(undefined)
   const snapTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
@@ -162,6 +163,7 @@ export default function Home() {
         if (isMobile) {
           const container = scrollContainerRef.current
           const scrollTop = container.scrollTop
+          setIsAtTop(scrollTop <= 5)
           let closestIndex = currentSection
           let smallestDistance = Number.POSITIVE_INFINITY
 
@@ -185,6 +187,7 @@ export default function Home() {
         // Sur desktop, détection basée sur le scroll horizontal
         const sectionWidth = scrollContainerRef.current.offsetWidth
         const scrollLeft = scrollContainerRef.current.scrollLeft
+  setIsAtTop(scrollLeft <= 5)
         const newSection = Math.round(scrollLeft / sectionWidth)
 
         if (newSection !== currentSection && newSection >= 0 && newSection < sectionRefs.current.length) {
@@ -223,12 +226,21 @@ export default function Home() {
     }
   }, [currentSection, isMobile, snapToNearestSection])
 
+  useEffect(() => {
+    if (!scrollContainerRef.current) return
+    if (isMobile) {
+      setIsAtTop(scrollContainerRef.current.scrollTop <= 5)
+    } else {
+      setIsAtTop(scrollContainerRef.current.scrollLeft <= 5)
+    }
+  }, [isMobile])
+
   const sections = useMemo(() => ([
     {
       id: "hero",
-      mobileClass: "w-full flex items-center justify-center py-20 min-h-screen",
+      mobileClass: "w-full min-h-screen",
       desktopClass: "shrink-0 w-screen h-screen flex",
-      render: () => <HeroSection />,
+      render: () => <HeroSection isMobile={isMobile} />,
     },
     {
       id: "collection",
@@ -280,7 +292,8 @@ export default function Home() {
       <Navbar 
         currentSection={currentSection} 
         scrollToSection={scrollToSection} 
-        isLoaded={isLoaded} 
+        isLoaded={isLoaded}
+        isAtTop={isAtTop}
       />
 
       {isMobile ? (

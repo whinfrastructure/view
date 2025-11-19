@@ -4,7 +4,11 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { GlassButton } from "@/components/ui/glass-button"
 
-export function HeroSection() {
+interface HeroSectionProps {
+  isMobile: boolean
+}
+
+export function HeroSection({ isMobile }: HeroSectionProps) {
   return (
     <div className="relative h-screen w-full overflow-hidden">
       {/* SVG Filters */}
@@ -50,7 +54,7 @@ export function HeroSection() {
         >
           {/* Badge */}
           <GlassButton size="sm" className="mb-4">
-            <span className="text-white/90 text-xs font-light">✨ Côte d'Azur Exclusive</span>
+            <span className="text-white/90 text-xs font-light">✨ Côte d&apos;Azur Exclusive</span>
           </GlassButton>
 
           {/* Main Heading */}
@@ -82,52 +86,54 @@ export function HeroSection() {
       {/* Transition douce vers le blanc - Visible seulement sur desktop */}
       <div className="hidden md:block absolute top-0 right-0 bottom-0 w-12 bg-gradient-to-l from-white/90 via-white/40 to-transparent pointer-events-none z-30" />
       
-      {/* Texte animé "Swipe" - Position responsive */}
-      <motion.div
-        className="absolute right-4 sm:right-8 md:right-12 top-[40%] sm:top-1/2 -translate-y-1/2 z-30"
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ 
-          duration: 1,
-          delay: 2,
-          repeat: Infinity,
-          repeatType: "reverse",
-          repeatDelay: 1
-        }}
-      >
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="text-right">
-            <p className="text-white text-xs sm:text-sm font-light mb-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
-              Glissez
-            </p>
-            <p className="text-white/70 text-[10px] sm:text-xs font-light" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
-              Swipe →
-            </p>
-          </div>
-          <motion.div
-            animate={{ x: [0, 10, 0] }}
-            transition={{ 
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            <svg 
-              className="w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-lg" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
+      {/* Texte animé "Swipe" - affiché uniquement sur desktop */}
+      {!isMobile && (
+        <motion.div
+          className="absolute right-4 sm:right-8 md:right-12 top-[40%] sm:top-1/2 -translate-y-1/2 z-30"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ 
+            duration: 1,
+            delay: 2,
+            repeat: Infinity,
+            repeatType: "reverse",
+            repeatDelay: 1
+          }}
+        >
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="text-right">
+              <p className="text-white text-xs sm:text-sm font-light mb-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+                Glissez
+              </p>
+              <p className="text-white/70 text-[10px] sm:text-xs font-light" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+                Swipe →
+              </p>
+            </div>
+            <motion.div
+              animate={{ x: [0, 10, 0] }}
+              transition={{ 
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
             >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M13 7l5 5m0 0l-5 5m5-5H6" 
-              />
-            </svg>
-          </motion.div>
-        </div>
-      </motion.div>
+              <svg 
+                className="w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-lg" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M13 7l5 5m0 0l-5 5m5-5H6" 
+                />
+              </svg>
+            </motion.div>
+          </div>
+        </motion.div>
+      )}
     </div>
   )
 }

@@ -8,6 +8,7 @@ interface NavbarProps {
   currentSection: number
   scrollToSection: (index: number) => void
   isLoaded: boolean
+  isAtTop: boolean
 }
 
 interface DropdownItem {
@@ -23,12 +24,12 @@ interface NavItem {
   dropdown?: DropdownItem[]
 }
 
-export function Navbar({ currentSection, scrollToSection, isLoaded }: NavbarProps) {
+export function Navbar({ currentSection, scrollToSection, isLoaded, isAtTop }: NavbarProps) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const router = useRouter()
 
-  const isDarkMode = currentSection === 0
+  const isDarkMode = isAtTop
 
   const navItems: NavItem[] = [
     {

@@ -10,7 +10,7 @@ export function WorkSection() {
   const properties = [
     {
       title: "Villa Tumulus",
-      location: "Provence-Alpes-Côte d'Azur",
+      location: "Provence-Alpes-Côte d&apos;Azur",
       image: "/hero-background.jpg",
       price: "€450/nuit"
     },
@@ -44,7 +44,7 @@ export function WorkSection() {
             Nos Logements
           </h2>
           <p className="max-w-2xl text-base text-black/60">
-            Découvrez notre sélection exclusive de villas de prestige sur la Côte d'Azur
+            Découvrez notre sélection exclusive de villas de prestige sur la Côte d&apos;Azur
           </p>
         </motion.div>
 
