@@ -44,8 +44,8 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
       </div>
 
-      {/* Hero Content - Responsive */}
-      <div className="absolute bottom-8 left-4 sm:left-8 md:left-12 z-20 max-w-lg right-4 sm:right-auto">
+      {/* Hero Content - Responsive avec padding pour navbar */}
+      <div className={`absolute left-4 sm:left-8 md:left-12 z-20 max-w-lg right-4 sm:right-auto ${isMobile ? "bottom-24 sm:bottom-28" : "bottom-8"}`}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

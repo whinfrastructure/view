@@ -25,10 +25,13 @@ interface NavItem {
 
 export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const router = useRouter()
 
-  const isDarkMode = isAtTop
+  // When at top of hero (section 0), use transparent/dark styling
+  // When scrolled or on other sections, use solid white background
+  const shouldBeTransparent = isAtTop && currentSection === 0
 
   const navItems: NavItem[] = [
     {
@@ -165,8 +168,8 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
   return (
     <nav
       className={`fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-3 transition-all duration-700 md:px-8 border-b opacity-100 ${
-        isDarkMode
-          ? "text-white bg-black/60 backdrop-blur-xl border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
+        shouldBeTransparent
+          ? "text-white bg-transparent border-transparent"
           : "text-black bg-white/95 backdrop-blur-md border-black/10 shadow-sm"
       }`}
       style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
@@ -177,7 +180,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
         className="flex items-center gap-2 transition-transform hover:scale-105"
       >
         <svg 
-          className={`h-8 w-8 transition-colors ${isDarkMode ? "text-white" : "text-black"}`}
+          className={`h-8 w-8 transition-colors ${shouldBeTransparent ? "text-white" : "text-black"}`}
           viewBox="0 0 226.26 214.71"
         >
           <polygon fill="currentColor" points="34.37 58.99 52.78 58.99 100.51 165.6 80.96 165.6 34.37 58.99"/>
@@ -188,7 +191,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
           <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="149.38" y1="154.24" x2="191.89" y2="61.95"/>
         </svg>
         <span className={`font-sans text-base font-semibold tracking-tight transition-colors ${
-          isDarkMode ? "text-white" : "text-black"
+          shouldBeTransparent ? "text-white" : "text-black"
         }`}>WelkomHome</span>
       </button>
 
@@ -205,8 +208,8 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
               onClick={() => item.index >= 0 && scrollToSection(item.index)}
               className={`group relative flex items-center gap-1 font-sans text-xs font-medium transition-colors ${
                 currentSection === item.index 
-                  ? (isDarkMode ? "text-white" : "text-black")
-                  : (isDarkMode ? "text-white/80 hover:text-white" : "text-black/60 hover:text-black")
+                  ? (shouldBeTransparent ? "text-white" : "text-black")
+                  : (shouldBeTransparent ? "text-white/80 hover:text-white" : "text-black/60 hover:text-black")
               }`}
             >
               {item.label}
@@ -222,7 +225,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
               )}
               <span
                 className={`absolute -bottom-1 left-0 h-px transition-all duration-300 ${
-                  isDarkMode ? "bg-white" : "bg-black"
+                  shouldBeTransparent ? "bg-white" : "bg-black"
                 } ${currentSection === item.index ? "w-full" : "w-0 group-hover:w-full"}`}
               />
             </button>
@@ -281,17 +284,125 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
           </div>
         ))}
       </div>
-      {/* CTA Button */}
+      
+      {/* Mobile Hamburger Button */}
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="flex md:hidden items-center justify-center w-10 h-10 rounded-lg transition-colors"
+        aria-label="Toggle menu"
+      >
+        <div className="flex flex-col gap-1.5 w-6">
+          <span className={`h-0.5 w-full transition-all duration-300 ${shouldBeTransparent ? "bg-white" : "bg-black"} ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
+          <span className={`h-0.5 w-full transition-all duration-300 ${shouldBeTransparent ? "bg-white" : "bg-black"} ${mobileMenuOpen ? "opacity-0" : ""}`}></span>
+          <span className={`h-0.5 w-full transition-all duration-300 ${shouldBeTransparent ? "bg-white" : "bg-black"} ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
+        </div>
+      </button>
+
+      {/* CTA Button - Desktop only */}
       <button
         onClick={() => router.push('/auth/register')}
-        className={`rounded-full backdrop-blur-md px-4 py-1.5 text-xs font-medium transition-all duration-300 ${
-          isDarkMode 
+        className={`hidden md:block rounded-full backdrop-blur-md px-4 py-1.5 text-xs font-medium transition-all duration-300 ${
+          shouldBeTransparent 
             ? "bg-white/10 border border-white/20 text-white hover:bg-white/20" 
             : "bg-black text-white hover:bg-black/80"
         }`}
       >
         Réserver
       </button>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl z-50 md:hidden overflow-y-auto"
+            >
+              <div className="flex flex-col h-full">
+                {/* Mobile Menu Header */}
+                <div className="flex items-center justify-between p-6 border-b border-black/10">
+                  <span className="font-sans text-lg font-semibold text-black">Menu</span>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-black/5 transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Mobile Menu Items */}
+                <div className="flex-1 p-6">
+                  <div className="space-y-1">
+                    {navItems.map((item) => (
+                      <div key={item.label}>
+                        <button
+                          onClick={() => {
+                            if (item.index >= 0) {
+                              scrollToSection(item.index)
+                              setMobileMenuOpen(false)
+                            }
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-lg font-medium transition-colors ${
+                            currentSection === item.index
+                              ? "bg-black text-white"
+                              : "text-black hover:bg-black/5"
+                          }`}
+                        >
+                          {item.label}
+                        </button>
+                        {item.dropdown && (
+                          <div className="ml-4 mt-1 space-y-1">
+                            {item.dropdown.map((dropdownItem, idx) => (
+                              <button
+                                key={idx}
+                                onClick={() => {
+                                  dropdownItem.onClick()
+                                  setMobileMenuOpen(false)
+                                }}
+                                className="w-full text-left px-4 py-2 rounded-lg text-sm text-black/70 hover:bg-black/5 hover:text-black transition-colors flex items-center gap-2"
+                              >
+                                <span>{dropdownItem.icon}</span>
+                                <span>{dropdownItem.label}</span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Mobile Menu Footer */}
+                <div className="p-6 border-t border-black/10">
+                  <button
+                    onClick={() => {
+                      router.push('/auth/register')
+                      setMobileMenuOpen(false)
+                    }}
+                    className="w-full rounded-full bg-black text-white px-6 py-3 font-medium transition-all hover:bg-black/80"
+                  >
+                    Réserver
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }

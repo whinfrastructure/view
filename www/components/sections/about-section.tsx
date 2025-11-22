@@ -28,7 +28,7 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
           >
             <div className={`relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl bg-neutral-100 ${isMobile ? "" : ""}`}>
               <img
-                src="/media/about.jpg"
+                src="/daronnedaron.jpg"
                 alt="Équipe WelkomHome"
                 className="w-full h-full object-cover"
               />
