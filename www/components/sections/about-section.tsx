@@ -53,12 +53,12 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
             className={isMobile ? "space-y-4" : "space-y-8"}
           >
             {/* Gooey Title */}
-            <div className={isMobile ? "h-[60px] flex items-start justify-center mb-2" : "h-[80px] flex items-start mb-3"}>
+            <div className={isMobile ? "h-[60px] flex items-start justify-start mb-2 w-full" : "h-[80px] flex items-start mb-3"}>
               <GooeyText
                 texts={["WELKOM", "HOME", "LUXE", "EXCELLENCE"]}
                 morphTime={2}
                 cooldownTime={1.5}
-                className="font-bold"
+                className="font-bold w-full"
                 textClassName={isMobile ? "text-3xl text-neutral-900" : "text-3xl md:text-4xl lg:text-5xl text-neutral-900"}
               />
             </div>
