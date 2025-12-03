@@ -85,56 +85,12 @@ export function ContactSection({ isMobile = false }: ContactSectionProps) {
           </a>
         </div>
       ),
-    },
-    {
-      id: "form",
-      title: "✉️ Formulaire de Contact",
-      content: (
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <div>
-            <input
-              type="text"
-              placeholder="Nom complet"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full rounded-lg bg-white border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none transition-all"
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full rounded-lg bg-white border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none transition-all"
-              required
-            />
-          </div>
-          <div>
-            <textarea
-              placeholder="Votre message"
-              rows={3}
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full rounded-lg bg-white border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none transition-all resize-none"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full rounded-lg bg-neutral-900 px-4 py-2.5 text-sm text-white font-medium transition-all duration-300 hover:bg-neutral-800"
-          >
-            Envoyer le message
-          </button>
-        </form>
-      ),
-    },
+    }
   ]
 
   return (
     <div 
-      className={`shrink-0 flex items-center justify-center ${isMobile ? "w-full py-20" : "w-screen h-screen"}`}
+      className={`shrink-0 flex items-center justify-center ${isMobile ? "w-full pt-10 pb-8" : "w-screen h-screen pt-28 pb-20"}`}
     >
       <FeatureShowcase
         eyebrow="CONTACT"

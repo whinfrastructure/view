@@ -172,7 +172,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
           ? "text-white bg-transparent border-transparent"
           : "text-black bg-white/95 backdrop-blur-md border-black/10 shadow-sm"
       }`}
-      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+      style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 12px)" }}
     >
       {/* Logo */}
       <button
@@ -180,7 +180,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
         className="flex items-center gap-2 transition-transform hover:scale-105"
       >
         <svg 
-          className={`h-8 w-8 transition-colors ${shouldBeTransparent ? "text-white" : "text-black"}`}
+          className={`h-9 w-9 transition-colors ${shouldBeTransparent ? "text-white" : "text-black"}`}
           viewBox="0 0 226.26 214.71"
         >
           <polygon fill="currentColor" points="34.37 58.99 52.78 58.99 100.51 165.6 80.96 165.6 34.37 58.99"/>

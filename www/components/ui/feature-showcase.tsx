@@ -56,21 +56,21 @@ export function FeatureShowcase({
             {eyebrow}
           </div>
 
-          <h2 className={`text-balance font-bold leading-tight text-neutral-900 ${isMobile ? "text-2xl" : "text-3xl sm:text-4xl md:text-5xl"}`}>
+          <h2 className={`text-balance font-bold leading-tight text-neutral-900 ${isMobile ? "text-xl" : "text-2xl sm:text-3xl md:text-4xl"}`}>
             {title}
           </h2>
 
           {description && (
-            <p className={`mt-3 max-w-xl text-neutral-600 ${isMobile ? "text-xs mt-2" : "mt-4 text-sm"}`}>{description}</p>
+            <p className={`mt-2 max-w-xl text-neutral-600 ${isMobile ? "text-xs" : "mt-3 text-xs"}`}>{description}</p>
           )}
 
           {/* Stats chips */}
           {stats.length > 0 && (
-            <div className={isMobile ? "mt-3 flex flex-wrap gap-1.5" : "mt-4 flex flex-wrap gap-2"}>
+            <div className={isMobile ? "mt-2 flex flex-wrap gap-1.5" : "mt-3 flex flex-wrap gap-1.5"}>
               {stats.map((s, i) => (
                 <span
                   key={i}
-                  className={`inline-flex items-center rounded-full bg-neutral-100 px-3 py-1 text-neutral-700 ${isMobile ? "text-[10px]" : "text-xs"}`}
+                  className={`inline-flex items-center rounded-full bg-neutral-100 px-2.5 py-0.5 text-neutral-700 ${isMobile ? "text-[10px]" : "text-[11px]"}`}
                 >
                   {s}
                 </span>
@@ -79,7 +79,7 @@ export function FeatureShowcase({
           )}
 
           {/* Steps (Accordion) */}
-          <div className={isMobile ? "mt-4 max-w-xl" : "mt-6 max-w-xl"}>
+          <div className={isMobile ? "mt-3 max-w-xl" : "mt-4 max-w-xl"}>
             <div className={isMobile ? "w-full space-y-1.5" : "w-full space-y-2"}>
               {steps.map((step) => (
                 <div key={step.id} className="border border-neutral-200 rounded-lg overflow-hidden">
