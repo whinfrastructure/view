@@ -293,6 +293,7 @@ export default function Home() {
         currentSection={currentSection} 
         scrollToSection={scrollToSection} 
         isAtTop={isAtTop}
+        isMobile={isMobile}
       />
 
       {isMobile ? (
