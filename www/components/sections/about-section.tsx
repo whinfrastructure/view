@@ -21,9 +21,9 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
         <div className={`grid grid-cols-1 lg:grid-cols-2 items-center ${isMobile ? "gap-8" : "gap-12 lg:gap-16"}`}>
           {/* Image Column */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: isMobile ? -20 : -50 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: isMobile ? -20 : -50 }}
+            transition={{ duration: isMobile ? 0.5 : 0.8, ease: "easeOut" }}
             className="relative"
           >
             <div className={`relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl bg-neutral-100 ${isMobile ? "" : ""}`}>
@@ -47,17 +47,17 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, x: isMobile ? 20 : 50 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: isMobile ? 20 : 50 }}
+            transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.1 : 0.2, ease: "easeOut" }}
             className={isMobile ? "space-y-4" : "space-y-8"}
           >
             {/* Gooey Title */}
-            <div className={isMobile ? "h-[60px] flex items-start mb-2" : "h-[80px] flex items-start mb-3"}>
+            <div className={isMobile ? "h-[60px] flex items-start justify-center mb-2" : "h-[80px] flex items-start mb-3"}>
               <GooeyText
                 texts={["WELKOM", "HOME", "LUXE", "EXCELLENCE"]}
-                morphTime={1.5}
-                cooldownTime={0.5}
+                morphTime={2}
+                cooldownTime={1.5}
                 className="font-bold"
                 textClassName={isMobile ? "text-3xl text-neutral-900" : "text-3xl md:text-4xl lg:text-5xl text-neutral-900"}
               />

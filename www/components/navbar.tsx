@@ -169,7 +169,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
     <nav
       className={`fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-3 transition-all duration-700 md:px-8 border-b opacity-100 ${
         shouldBeTransparent
-          ? "text-white bg-transparent border-transparent"
+          ? "md:text-white md:bg-transparent md:border-transparent text-black bg-white/95 backdrop-blur-md border-black/10 shadow-sm"
           : "text-black bg-white/95 backdrop-blur-md border-black/10 shadow-sm"
       }`}
       style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 12px)" }}
@@ -180,7 +180,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
         className="flex items-center gap-2 transition-transform hover:scale-105"
       >
         <svg 
-          className={`h-9 w-9 transition-colors ${shouldBeTransparent ? "text-white" : "text-black"}`}
+          className={`h-9 w-9 transition-colors ${shouldBeTransparent ? "md:text-white text-black" : "text-black"}`}
           viewBox="0 0 226.26 214.71"
         >
           <polygon fill="currentColor" points="34.37 58.99 52.78 58.99 100.51 165.6 80.96 165.6 34.37 58.99"/>
@@ -191,7 +191,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
           <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="149.38" y1="154.24" x2="191.89" y2="61.95"/>
         </svg>
         <span className={`font-sans text-base font-semibold tracking-tight transition-colors ${
-          shouldBeTransparent ? "text-white" : "text-black"
+          shouldBeTransparent ? "md:text-white text-black" : "text-black"
         }`}>WelkomHome</span>
       </button>
 
@@ -353,8 +353,8 @@ export function Navbar({ currentSection, scrollToSection, isAtTop }: NavbarProps
                           onClick={() => {
                             if (item.index >= 0) {
                               scrollToSection(item.index)
-                              setMobileMenuOpen(false)
                             }
+                            setMobileMenuOpen(false)
                           }}
                           className={`w-full text-left px-4 py-3 rounded-lg font-medium transition-colors ${
                             currentSection === item.index
