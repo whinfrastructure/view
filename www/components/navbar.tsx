@@ -167,6 +167,11 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
     }
   }, [])
 
+  // Fermer le menu mobile quand on change de section
+  useEffect(() => {
+    setMobileMenuOpen(false)
+  }, [currentSection])
+
   return (
     <nav
       className={`fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-3 transition-all duration-700 md:px-8 border-b opacity-100 ${
@@ -328,7 +333,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
               className="fixed right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl z-50 md:hidden overflow-y-auto"
             >
               <div className="flex flex-col h-full">
@@ -353,11 +358,10 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
                       <div key={item.label}>
                         <button
                           onClick={() => {
-                            if (item.index >= 0) {
-                              scrollToSection(item.index)
-                            }
-                            // Fermer le menu dans tous les cas
                             setMobileMenuOpen(false)
+                            if (item.index >= 0) {
+                              setTimeout(() => scrollToSection(item.index), 100)
+                            }
                           }}
                           className={`w-full text-left px-4 py-3 rounded-lg font-medium transition-colors ${
                             currentSection === item.index
@@ -373,8 +377,8 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
                               <button
                                 key={idx}
                                 onClick={() => {
-                                  dropdownItem.onClick()
                                   setMobileMenuOpen(false)
+                                  setTimeout(() => dropdownItem.onClick(), 100)
                                 }}
                                 className="w-full text-left px-4 py-2 rounded-lg text-sm text-black/70 hover:bg-black/5 hover:text-black transition-colors flex items-center gap-2"
                               >
