@@ -22,18 +22,18 @@
 - [x] Seed data pour développement (villas de test)
 
 ### 🏠 Admin - Gestion Listings (CRUD Basique)
-- [ ] Page liste des villas (`/account/admin/listings`)
-  - [ ] Tableau avec toutes les villas
-  - [ ] Filtres : Statut, Localisation
-  - [ ] Recherche
-- [ ] Page création villa (`/account/admin/listings/new`)
-  - [ ] Formulaire : Titre, Description, Localisation
-  - [ ] Caractéristiques : Chambres, Salle de bains, Superficie
-  - [ ] Équipements : Checkboxes (WiFi, Piscine, etc.)
-  - [ ] Règles de la maison
-  - [ ] Statut : Publié/Brouillon
-- [ ] Page édition villa (`/account/admin/listings/[id]/edit`)
-- [ ] Suppression de villa
+- [x] Page liste des villas (`/account/admin/listings`)
+  - [x] Tableau avec toutes les villas
+  - [x] Filtres : Statut, Localisation
+  - [x] Recherche
+- [x] Page création villa (`/account/admin/listings/new`)
+  - [x] Formulaire : Titre, Description, Localisation
+  - [x] Caractéristiques : Chambres, Salle de bains, Superficie
+  - [x] Équipements : Checkboxes (WiFi, Piscine, etc.)
+  - [x] Règles de la maison
+  - [x] Statut : Publié/Brouillon
+- [x] Page édition villa (`/account/admin/listings/[id]/edit`)
+- [x] Suppression de villa
 
 ---
 

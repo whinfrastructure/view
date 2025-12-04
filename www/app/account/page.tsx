@@ -120,7 +120,7 @@ export default function AccountPage() {
 
       {/* Admin Panel */}
       {isAdmin && (
-        <Card className="p-6 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950 dark:to-blue-950">
+        <Card className="p-6 bg-linear-to-br from-purple-50 to-blue-50 dark:from-purple-950 dark:to-blue-950">
           <h2 className="text-xl font-semibold mb-4">Administration</h2>
           <p className="text-muted-foreground mb-4">
             Vous avez les privilèges administrateur. Accédez aux fonctions de gestion avancées.

@@ -37,6 +37,7 @@ import {
   Shield,
   LogOut,
   User,
+  Building2,
 } from "lucide-react";
 
 function UserMenu({ session }: { session: any }) {
@@ -111,6 +112,7 @@ function AccountSidebar({ session }: { session: any }) {
 
   const adminMenuItems = [
     { title: "Dashboard", url: "/account", icon: Home },
+    { title: "Villas", url: "/account/admin/listings", icon: Building2 },
     { title: "Utilisateurs", url: "/account/admin/users", icon: Users },
     { title: "Réservations", url: "/account/admin/bookings", icon: Calendar },
     { title: "Messages", url: "/account/admin/messages", icon: Inbox },
