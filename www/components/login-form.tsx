@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -5,39 +7,45 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
 import Link from "next/link"
+import { authClient } from "@/lib/auth-client"
+import { useRouter } from "next/navigation"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+  const router = useRouter()
+
+  const handleSocialSignIn = async (provider: "facebook" | "google") => {
+    try {
+      await authClient.signIn.social({
+        provider,
+        callbackURL: "/account",
+      })
+    } catch (error) {
+      console.error(`Error signing in with ${provider}:`, error)
+    }
+  }
+
   return (
     <form className={cn("flex flex-col gap-6", className)} {...props}>
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Connexion à votre compte</h1>
           <p className="text-muted-foreground text-sm text-balance">
-            Entrez votre email pour vous connecter
+            Choisissez votre méthode de connexion
           </p>
         </div>
         <Field>
-          <FieldLabel htmlFor="email">Email</FieldLabel>
-          <Input id="email" type="email" placeholder="m@example.com" required />
-        </Field>
-        <Field>
-          <FieldLabel htmlFor="password">Mot de passe</FieldLabel>
-          <Input id="password" type="password" required />
-        </Field>
-        <Field>
-          <Button type="submit" className="w-full">Se connecter</Button>
-        </Field>
-        <FieldSeparator>Ou continuer avec</FieldSeparator>
-        <Field>
-          <Button variant="outline" type="button" className="w-full">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5">
+          <Button 
+            variant="outline" 
+            type="button" 
+            className="w-full"
+            onClick={() => handleSocialSignIn("google")}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-2">
               <path
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                 fill="#4285F4"
@@ -56,6 +64,19 @@ export function LoginForm({
               />
             </svg>
             Continuer avec Google
+          </Button>
+        </Field>
+        <Field>
+          <Button 
+            variant="outline" 
+            type="button" 
+            className="w-full"
+            onClick={() => handleSocialSignIn("facebook")}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 mr-2" fill="#1877F2">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            Continuer avec Facebook
           </Button>
           <FieldDescription className="text-center">
             Vous n&apos;avez pas de compte?{" "}
