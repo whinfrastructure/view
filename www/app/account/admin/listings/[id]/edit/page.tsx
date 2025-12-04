@@ -5,7 +5,8 @@ import { useRouter, useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Building2, ArrowLeft, Save } from "lucide-react";
+import { Building2, ArrowLeft, Save, X } from "lucide-react";
+import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
 
 const AMENITIES_OPTIONS = [
   { id: "wifi", label: "WiFi" },
@@ -136,21 +137,17 @@ export default function EditListingPage() {
     }));
   };
 
-  const addImage = () => {
-    const url = prompt("URL de l'image :");
-    if (url) {
-      setFormData((prev) => ({
-        ...prev,
-        images: [...prev.images, url],
-        coverImage: prev.coverImage || url,
-      }));
-    }
-  };
-
   const removeImage = (index: number) => {
     setFormData((prev) => ({
       ...prev,
       images: prev.images.filter((_, i) => i !== index),
+    }));
+  };
+
+  const setCoverImage = (url: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      coverImage: url,
     }));
   };
 
@@ -521,35 +518,59 @@ export default function EditListingPage() {
         <section className="space-y-4 p-6 border rounded-lg">
           <h2 className="text-xl font-semibold">Images</h2>
 
-          <Button type="button" onClick={addImage} variant="outline">
-            Ajouter une image
-          </Button>
+          <div className="space-y-4">
+            <UploadDropzone
+              endpoint="listingImageUploader"
+              onClientUploadComplete={(res) => {
+                if (res) {
+                  const newImages = res.map((file) => file.url);
+                  setFormData((prev) => ({
+                    ...prev,
+                    images: [...prev.images, ...newImages],
+                    coverImage: prev.coverImage || newImages[0],
+                  }));
+                }
+              }}
+              onUploadError={(error: Error) => {
+                alert(`Erreur: ${error.message}`);
+              }}
+              config={{ mode: "auto" }}
+            />
 
-          {formData.images.length > 0 && (
-            <div className="grid grid-cols-4 gap-4">
-              {formData.images.map((url, index) => (
-                <div key={index} className="relative group">
-                  <img
-                    src={url}
-                    alt={`Image ${index + 1}`}
-                    className="w-full h-32 object-cover rounded-lg"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(index)}
-                    className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition"
-                  >
-                    ×
-                  </button>
-                  {formData.coverImage === url && (
-                    <div className="absolute bottom-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                      Cover
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+            {formData.images.length > 0 && (
+              <div className="grid grid-cols-4 gap-4">
+                {formData.images.map((url, index) => (
+                  <div key={index} className="relative group">
+                    <img
+                      src={url}
+                      alt={`Image ${index + 1}`}
+                      className="w-full h-32 object-cover rounded-lg border-2 border-transparent hover:border-primary transition"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeImage(index)}
+                      className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition hover:bg-red-600"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                    {formData.coverImage === url ? (
+                      <div className="absolute bottom-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded font-medium">
+                        Cover
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setCoverImage(url)}
+                        className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition hover:bg-black/70"
+                      >
+                        Définir comme cover
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </section>
 
         {/* Actions */}
