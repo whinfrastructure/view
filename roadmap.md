@@ -11,15 +11,15 @@
 - [x] Protection des routes admin
 
 ### 🎯 Base de Données & Modèles
-- [ ] Créer le schéma de base de données
-  - [ ] Table `listings` (villas)
+- [x] Créer le schéma de base de données
+  - [x] Table `listings` (villas)
   - [ ] Table `bookings` (demandes de réservation)
   - [ ] Table `messages` (tchat)
   - [ ] Table `reviews` (avis)
-  - [ ] Table `favorites` (favoris user)
-  - [ ] Relations avec table `user` existante
-- [ ] Migrations Prisma/Drizzle
-- [ ] Seed data pour développement (villas de test)
+  - [x] Table `favorites` (favoris user)
+  - [x] Relations avec table `user` existante
+- [x] Migrations Prisma/Drizzle
+- [x] Seed data pour développement (villas de test)
 
 ### 🏠 Admin - Gestion Listings (CRUD Basique)
 - [ ] Page liste des villas (`/account/admin/listings`)
