@@ -301,7 +301,7 @@ export default function AccountLayout({
   }
 
   return (
-    <div className="min-h-screen bg-muted/30 flex flex-col">
+    <div className="min-h-screen h-screen bg-muted/30 flex flex-col">
       <AccountHeader session={session} />
       <main className="flex-1 w-full overflow-y-auto">
         <div className="w-full max-w-7xl mx-auto px-6 py-6">
