@@ -474,9 +474,9 @@ export default function NewListingPage() {
           <div className="space-y-4">
             <UploadDropzone
               endpoint="listingImageUploader"
-              onClientUploadComplete={(res) => {
+              onClientUploadComplete={(res: any) => {
                 if (res) {
-                  const newImages = res.map((file) => file.url);
+                  const newImages = res.map((file: any) => file.url);
                   setFormData((prev) => ({
                     ...prev,
                     images: [...prev.images, ...newImages],
