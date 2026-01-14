@@ -22,8 +22,8 @@ interface DragCarouselProps {
   items: CarouselItem[];
 }
 
-const FULL_WIDTH_PX = 100;
-const COLLAPSED_WIDTH_PX = 30;
+const FULL_WIDTH_PX = 80;
+const COLLAPSED_WIDTH_PX = 24;
 const GAP_PX = 2;
 const MARGIN_PX = 2;
 
@@ -61,7 +61,7 @@ function Thumbnails({ items, index, setIndex }: ThumbnailsProps) {
           display: none;
         }
       `}</style>
-      <div className='flex gap-0.5 h-16 pb-2' style={{ width: 'fit-content' }}>
+      <div className='flex gap-0.5 h-12 sm:h-14 pb-1' style={{ width: 'fit-content' }}>
         {items.map((item, i) => (
           <motion.button
             key={item.id}
@@ -89,7 +89,8 @@ function Thumbnails({ items, index, setIndex }: ThumbnailsProps) {
               fill
               sizes="100px"
               className='object-cover pointer-events-none select-none'
-              loading="lazy"
+              loading="eager"
+              quality={75}
             />
           </motion.button>
         ))}
@@ -119,8 +120,8 @@ export default function DragCarousel({ items }: DragCarouselProps) {
   }, [index, x, isDragging]);
 
   return (
-    <div className='w-full max-w-6xl mx-auto'>
-      <div className='flex flex-col gap-3'>
+    <div className='w-full max-w-5xl mx-auto'>
+      <div className='flex flex-col gap-2'>
         {/* Main Carousel */}
         <div className='relative overflow-hidden rounded-lg bg-gray-100' ref={containerRef}>
           <motion.div
@@ -153,7 +154,7 @@ export default function DragCarousel({ items }: DragCarouselProps) {
             style={{ x }}
           >
             {items.map((item) => (
-              <div key={item.id} className='shrink-0 w-full h-[280px] sm:h-[350px] md:h-[400px] lg:h-[450px] relative'>
+              <div key={item.id} className='shrink-0 w-full h-[220px] sm:h-[280px] md:h-[320px] lg:h-[360px] relative'>
                 {item.href ? (
                   <Link href={item.href} className="block w-full h-full">
                     <Image
@@ -163,7 +164,7 @@ export default function DragCarousel({ items }: DragCarouselProps) {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                       className='object-cover rounded-lg select-none pointer-events-none'
                       priority={item.id === 1}
-                      quality={85}
+                      quality={95}
                     />
                     <div className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors rounded-lg flex items-end p-6">
                       <h3 className="text-white font-semibold text-xl">{item.title}</h3>
@@ -176,8 +177,8 @@ export default function DragCarousel({ items }: DragCarouselProps) {
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                     className='object-cover rounded-lg select-none pointer-events-none'
-                    loading="lazy"
-                    quality={75}
+                    priority={item.id === 1}
+                    quality={95}
                   />
                 )}
               </div>
@@ -188,7 +189,7 @@ export default function DragCarousel({ items }: DragCarouselProps) {
           <motion.button
             disabled={index === 0}
             onClick={() => setIndex((i) => Math.max(0, i - 1))}
-            className={`absolute left-4 text-black top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
+            className={`absolute left-2 sm:left-4 text-black top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
               ${
                 index === 0
                   ? 'opacity-40 cursor-not-allowed'
@@ -196,7 +197,7 @@ export default function DragCarousel({ items }: DragCarouselProps) {
               }`}
           >
             <svg
-              className='w-6 h-6'
+              className='w-5 h-5 sm:w-6 sm:h-6'
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
@@ -214,7 +215,7 @@ export default function DragCarousel({ items }: DragCarouselProps) {
           <motion.button
             disabled={index === items.length - 1}
             onClick={() => setIndex((i) => Math.min(items.length - 1, i + 1))}
-            className={`absolute text-black right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
+            className={`absolute text-black right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
               ${
                 index === items.length - 1
                   ? 'opacity-40 cursor-not-allowed'
@@ -222,7 +223,7 @@ export default function DragCarousel({ items }: DragCarouselProps) {
               }`}
           >
             <svg
-              className='w-6 h-6'
+              className='w-5 h-5 sm:w-6 sm:h-6'
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
@@ -237,7 +238,7 @@ export default function DragCarousel({ items }: DragCarouselProps) {
           </motion.button>
 
           {/* Image Counter */}
-          <div className='absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm'>
+          <div className='absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm'>
             {index + 1} / {items.length}
           </div>
         </div>
