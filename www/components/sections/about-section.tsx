@@ -3,6 +3,8 @@
 import { useReveal } from "@/hooks/use-reveal"
 import { motion } from "framer-motion"
 import { GooeyText } from "@/components/ui/gooey-text"
+import { ArrowRight, CheckCircle2 } from "lucide-react"
+import Image from "next/image"
 
 interface AboutSectionProps {
   scrollToSection: (index: number) => void
@@ -15,108 +17,100 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
   return (
     <section 
       ref={ref}
-      className={`flex shrink-0 items-center justify-center bg-white ${isMobile ? "w-full pt-10 pb-8 px-4" : "w-screen h-screen px-6 pt-28 pb-20 md:px-12"}`}
+      className={`relative flex shrink-0 items-center justify-center bg-white overflow-hidden ${isMobile ? "w-full py-20 px-4" : "w-screen h-screen px-12"}`}
     >
-      <div className={`w-full max-w-7xl mx-auto ${isMobile ? "" : ""}`}>
-        <div className={`grid grid-cols-1 lg:grid-cols-2 items-center ${isMobile ? "gap-8" : "gap-12 lg:gap-16"}`}>
-          {/* Image Column */}
-          <motion.div
-            initial={{ opacity: 0, x: isMobile ? -20 : -50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: isMobile ? -20 : -50 }}
-            transition={{ duration: isMobile ? 0.5 : 0.8, ease: "easeOut" }}
-            className="relative"
-          >
-            <div className={`relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl bg-neutral-100 ${isMobile ? "" : ""}`}>
-              <img
-                src="/daronnedaron.jpg"
-                alt="Équipe WelkomHome"
-                className="w-full h-full object-cover"
-              />
-              
-              {/* Badge overlay */}
-              <div className={`absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-white rounded-2xl shadow-xl ${isMobile ? "px-4 py-3" : "px-6 py-4"}`}>
-                <div className="flex items-center gap-2 md:gap-3">
-                  <div className={isMobile ? "text-3xl" : "text-4xl"}>🏡</div>
-                  <div className={isMobile ? "text-xs" : "text-sm"}>
-                    <p className="font-semibold text-neutral-900">Yohan & Shirley</p>
-                    <p className="text-neutral-600 text-[10px] md:text-xs">Fondateurs</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+      {/* Decorative background elements - optimized */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-1/4 -right-1/4 w-96 h-96 bg-blue-50/30 rounded-full blur-2xl will-change-auto" />
+        <div className="absolute -bottom-1/4 -left-1/4 w-80 h-80 bg-orange-50/30 rounded-full blur-2xl will-change-auto" />
+      </div>
 
+      <div className={`relative w-full max-w-7xl mx-auto z-10 ${isMobile ? "flex flex-col gap-12" : "grid grid-cols-12 gap-12 items-center"}`}>
+        
+        {/* Text Content */}
+        <div className={`${isMobile ? "w-full" : "col-span-6 lg:col-span-5"}`}>
           <motion.div
-            initial={{ opacity: 0, x: isMobile ? 20 : 50 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: isMobile ? 20 : 50 }}
-            transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.1 : 0.2, ease: "easeOut" }}
-            className={isMobile ? "space-y-4" : "space-y-8"}
+            initial={{ opacity: 0, y: 15 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+            transition={{ duration: 0.4 }}
           >
-            {/* Gooey Title */}
-            <div className={isMobile ? "h-[60px] flex items-start mb-2" : "h-[80px] flex items-start mb-3"}>
-              <GooeyText
-                texts={["WELKOM", "HOME", "LUXE", "EXCELLENCE"]}
+            <div className="flex items-center gap-2 mb-4">
+              <span className="h-px w-6 bg-neutral-300"></span>
+              <span className="text-xs font-medium tracking-widest text-neutral-400 uppercase">Notre Histoire</span>
+            </div>
+
+            <div className="mb-6 h-16 md:h-20 flex items-center">
+               <GooeyText
+                texts={["L'ART DE", "RECEVOIR", "SUR MESURE"]}
                 morphTime={2}
-                cooldownTime={1.5}
-                className="font-bold"
-                textClassName={isMobile ? "text-3xl text-neutral-900" : "text-3xl md:text-4xl lg:text-5xl text-neutral-900"}
+                cooldownTime={2}
+                className="font-bold leading-tight"
+                textClassName={isMobile ? "text-3xl text-neutral-900" : "text-4xl lg:text-5xl text-neutral-900"}
               />
             </div>
 
-            <div className={`text-neutral-700 ${isMobile ? "space-y-3" : "space-y-4"}`}>
-              <p className={isMobile ? "text-sm leading-relaxed" : "text-base leading-relaxed"}>
-                WelkomHome vous ouvre les portes des plus belles propriétés de la Côte d&apos;Azur. 
-                Grâce à des années d&apos;expérience et une relation de confiance avec nos propriétaires, 
-                nous vous proposons des villas d&apos;exception en exclusivité.
-              </p>
-              
-              <p className={`leading-relaxed text-neutral-600 ${isMobile ? "text-xs" : "text-sm"}`}>
-                Que vous recherchiez une villa moderne à Saint-Tropez, une demeure élégante à Cannes 
-                ou un refuge prestigieux à Monaco, notre sélection rigoureuse garantit des séjours 
-                inoubliables dans un cadre d&apos;exception.
-              </p>
+            <p className="text-neutral-600 text-base leading-relaxed mb-6">
+              WelkomHome redéfinit l&apos;expérience de la location saisonnière sur la Côte d&apos;Azur. 
+              Née de la passion de Yohan & Shirley, notre agence cultive l&apos;excellence et la proximité 
+              pour offrir des séjours inoubliables.
+            </p>
 
-              <div className={isMobile ? "pt-2" : "pt-3"}>
-                <ul className={isMobile ? "space-y-1" : "space-y-2"}>
-                  <li className="flex items-start gap-2 md:gap-3">
-                    <span className={`text-black ${isMobile ? "mt-0.5 text-xs" : "mt-0.5 text-sm"}`}>✓</span>
-                    <span className={`text-neutral-700 ${isMobile ? "text-xs" : "text-sm"}`}>Sélection exclusive de propriétés d&apos;exception</span>
-                  </li>
-                  <li className="flex items-start gap-2 md:gap-3">
-                    <span className={`text-black ${isMobile ? "mt-0.5 text-xs" : "mt-0.5 text-sm"}`}>✓</span>
-                    <span className={`text-neutral-700 ${isMobile ? "text-xs" : "text-sm"}`}>Service personnalisé et accompagnement sur-mesure</span>
-                  </li>
-                  <li className="flex items-start gap-2 md:gap-3">
-                    <span className={`text-black ${isMobile ? "mt-0.5 text-xs" : "mt-0.5 text-sm"}`}>✓</span>
-                    <span className={`text-neutral-700 ${isMobile ? "text-xs" : "text-sm"}`}>Expertise locale et connaissance approfondie</span>
-                  </li>
-                </ul>
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className={isMobile ? "pt-3" : "pt-4"}
-              >
-                <button
-                  onClick={() => scrollToSection(4)}
-                  className={`group relative inline-flex items-center gap-2 rounded-full bg-black text-white font-medium transition-all duration-300 hover:bg-black/80 hover:scale-105 shadow-lg hover:shadow-xl ${isMobile ? "px-5 py-2.5 text-xs" : "px-6 py-3 text-sm"}`}
+            <div className="space-y-3 mb-8">
+              {[
+                "Sélection rigoureuse de propriétés de prestige",
+                "Conciergerie privée disponible 7j/7",
+                "Expérience locale authentique et exclusive"
+              ].map((item, i) => (
+                <div 
+                  key={i}
+                  className="flex items-center gap-3"
                 >
-                  <span>Contactez-nous</span>
-                  <svg 
-                    className={`transition-transform group-hover:translate-x-1 ${isMobile ? "w-4 h-4" : "w-5 h-5"}`}
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </button>
-              </motion.div>
+                  <div className="shrink-0 w-5 h-5 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-900">
+                    <CheckCircle2 size={12} />
+                  </div>
+                  <span className="text-neutral-600 text-sm">{item}</span>
+                </div>
+              ))}
             </div>
+
+            <button
+              onClick={() => scrollToSection(4)}
+              className="group flex items-center gap-3 text-neutral-900 font-semibold border-b-2 border-neutral-900 pb-1 hover:text-neutral-600 hover:border-neutral-600 transition-all"
+            >
+              <span>Rencontrer l&apos;équipe</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </button>
           </motion.div>
         </div>
+
+        {/* Image Composition */}
+        <div className={`${isMobile ? "w-full" : "col-span-6 lg:col-span-7 relative"}`}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="relative"
+          >
+            {/* Main Image - Optimized */}
+            <div className="relative z-10 rounded-2xl overflow-hidden shadow-xl aspect-4/3 max-w-sm lg:max-w-md mx-auto">
+              <Image
+                src="/daronnedaron.jpg"
+                alt="Yohan & Shirley - Fondateurs WelkomHome"
+                fill
+                sizes="(max-width: 768px) 320px, (max-width: 1024px) 384px, 448px"
+                className="object-cover"
+                loading="lazy"
+                quality={75}
+              />
+              
+              
+            </div>
+
+            {/* Decorative element - simplified */}
+            <div className="absolute -top-8 -right-8 w-48 h-48 bg-neutral-100/50 rounded-full -z-10 hidden lg:block" />
+          </motion.div>
+        </div>
+
       </div>
     </section>
   )

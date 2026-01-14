@@ -2,11 +2,14 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, animate } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export interface CarouselItem {
   id: number;
   url: string;
   title: string;
+  href?: string;
 }
 
 interface ThumbnailsProps {
@@ -80,11 +83,13 @@ function Thumbnails({ items, index, setIndex }: ThumbnailsProps) {
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className='relative shrink-0 h-full overflow-hidden rounded'
           >
-            <img
+            <Image
               src={item.url}
               alt={item.title}
-              className='w-full h-full object-cover pointer-events-none select-none'
-              draggable={false}
+              fill
+              sizes="100px"
+              className='object-cover pointer-events-none select-none'
+              loading="lazy"
             />
           </motion.button>
         ))}
@@ -148,13 +153,33 @@ export default function DragCarousel({ items }: DragCarouselProps) {
             style={{ x }}
           >
             {items.map((item) => (
-              <div key={item.id} className='shrink-0 w-full h-[350px]'>
-                <img
-                  src={item.url}
-                  alt={item.title}
-                  className='w-full h-full object-cover rounded-lg select-none pointer-events-none'
-                  draggable={false}
-                />
+              <div key={item.id} className='shrink-0 w-full h-[280px] sm:h-[350px] md:h-[400px] lg:h-[450px] relative'>
+                {item.href ? (
+                  <Link href={item.href} className="block w-full h-full">
+                    <Image
+                      src={item.url}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                      className='object-cover rounded-lg select-none pointer-events-none'
+                      priority={item.id === 1}
+                      quality={85}
+                    />
+                    <div className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors rounded-lg flex items-end p-6">
+                      <h3 className="text-white font-semibold text-xl">{item.title}</h3>
+                    </div>
+                  </Link>
+                ) : (
+                  <Image
+                    src={item.url}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                    className='object-cover rounded-lg select-none pointer-events-none'
+                    loading="lazy"
+                    quality={75}
+                  />
+                )}
               </div>
             ))}
           </motion.div>

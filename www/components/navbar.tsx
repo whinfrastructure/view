@@ -2,11 +2,11 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 
 interface NavbarProps {
   currentSection: number
-  scrollToSection: (index: number) => void
+  scrollToSection?: (index: number) => void
   isAtTop: boolean
   isMobile?: boolean
 }
@@ -29,11 +29,21 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const router = useRouter()
+  const pathname = usePathname()
+  const isHomePage = pathname === "/"
 
   // When at top of hero (section 0), use transparent/dark styling
   // When scrolled or on other sections, use solid white background
   // On mobile, always use white background
-  const shouldBeTransparent = isAtTop && currentSection === 0
+  const shouldBeTransparent = isAtTop && currentSection === 0 && isHomePage
+
+  const handleNavClick = (index: number) => {
+    if (isHomePage) {
+      if (index >= 0 && scrollToSection) scrollToSection(index)
+    } else {
+      router.push("/")
+    }
+  }
 
   const navItems: NavItem[] = [
     {
@@ -48,25 +58,25 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
           label: "Tous les logements",
           description: "Découvrez notre collection complète",
           icon: "🏠",
-          onClick: () => scrollToSection(1),
+          onClick: () => router.push('/hosting'),
         },
         {
           label: "Villas de luxe",
           description: "Propriétés haut de gamme",
           icon: "✨",
-          onClick: () => scrollToSection(1),
+          onClick: () => router.push('/hosting'),
         },
         {
           label: "Vues sur mer",
           description: "Panoramas exceptionnels",
           icon: "🌊",
-          onClick: () => scrollToSection(1),
+          onClick: () => router.push('/hosting'),
         },
         {
           label: "Avec piscine",
           description: "Espaces aquatiques privés",
           icon: "🏊",
-          onClick: () => scrollToSection(1),
+          onClick: () => router.push('/hosting'),
         },
       ],
     },
@@ -90,25 +100,25 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
           label: "Conciergerie",
           description: "Service personnalisé 24/7",
           icon: "🔑",
-          onClick: () => scrollToSection(3),
+          onClick: () => isHomePage ? scrollToSection(3) : router.push("/#about"),
         },
         {
           label: "Chef à domicile",
           description: "Gastronomie raffinée",
           icon: "👨‍🍳",
-          onClick: () => scrollToSection(3),
+          onClick: () => isHomePage ? scrollToSection(3) : router.push("/#about"),
         },
         {
           label: "Transferts VIP",
           description: "Transport premium",
           icon: "🚗",
-          onClick: () => scrollToSection(3),
+          onClick: () => isHomePage ? scrollToSection(3) : router.push("/#about"),
         },
         {
           label: "Événements privés",
           description: "Organisation sur-mesure",
           icon: "🎉",
-          onClick: () => scrollToSection(3),
+          onClick: () => isHomePage ? scrollToSection(3) : router.push("/#about"),
         },
       ],
     },
@@ -120,25 +130,25 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
           label: "Saint-Tropez",
           description: "Élégance et glamour",
           icon: "⛵",
-          onClick: () => scrollToSection(1),
+          onClick: () => router.push('/destinations/saint-tropez'),
         },
         {
           label: "Les Issambres",
           description: "Tranquillité et authenticité",
           icon: "🏖️",
-          onClick: () => scrollToSection(1),
+          onClick: () => router.push('/destinations/les-issambres'),
         },
         {
           label: "Sainte-Maxime",
           description: "Charme familial",
           icon: "🌊",
-          onClick: () => scrollToSection(1),
+          onClick: () => router.push('/destinations/sainte-maxime'),
         },
         {
           label: "Grimaud",
           description: "Village médiéval",
           icon: "🏰",
-          onClick: () => scrollToSection(1),
+          onClick: () => router.push('/destinations/grimaud'),
         },
       ],
     },
@@ -183,7 +193,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
     >
       {/* Logo */}
       <button
-        onClick={() => scrollToSection(0)}
+        onClick={() => handleNavClick(0)}
         className="flex items-center gap-2 transition-transform hover:scale-105"
       >
         <svg 
@@ -212,7 +222,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
             onMouseLeave={handleMouseLeave}
           >
             <button
-              onClick={() => item.index >= 0 && scrollToSection(item.index)}
+              onClick={() => item.index >= 0 && handleNavClick(item.index)}
               className={`group relative flex items-center gap-1 font-sans text-xs font-medium transition-colors ${
                 currentSection === item.index 
                   ? (shouldBeTransparent ? "text-white" : "text-black")
@@ -360,7 +370,7 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
                           onClick={() => {
                             setMobileMenuOpen(false)
                             if (item.index >= 0) {
-                              setTimeout(() => scrollToSection(item.index), 100)
+                              setTimeout(() => handleNavClick(item.index), 100)
                             }
                           }}
                           className={`w-full text-left px-4 py-3 rounded-lg font-medium transition-colors ${

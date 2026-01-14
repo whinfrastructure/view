@@ -5,12 +5,15 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { Users, Search, Shield, Ban, Trash2, Edit } from "lucide-react";
-import { useEffect } from "react";
+import { Users, Search, Shield, Ban, Trash2, Edit, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import type { User } from "@/lib/db/schema";
 
 export default function AdminUsersPage() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (session && (session.user as any).role !== "admin") {
@@ -18,38 +21,37 @@ export default function AdminUsersPage() {
     }
   }, [session, router]);
 
-  const users = [
-    {
-      id: 1,
-      name: "Jean Dupont",
-      email: "jean@example.com",
-      role: "user",
-      status: "Actif",
-      createdAt: "Dec 2025",
-      bookings: 3,
-    },
-    {
-      id: 2,
-      name: "Marie Martin",
-      email: "marie@example.com",
-      role: "user",
-      status: "Actif",
-      createdAt: "Nov 2025",
-      bookings: 5,
-    },
-    {
-      id: 3,
-      name: "Admin User",
-      email: "admin@example.com",
-      role: "admin",
-      status: "Actif",
-      createdAt: "Jan 2025",
-      bookings: 0,
-    },
-  ];
+  useEffect(() => {
+    if (session && (session.user as any).role === "admin") {
+      fetchUsers();
+    }
+  }, [session]);
+
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/admin/users");
+      if (response.ok) {
+        const data = await response.json();
+        setUsers(data);
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (!session || (session.user as any).role !== "admin") {
     return null;
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
   }
 
   return (
@@ -119,11 +121,19 @@ export default function AdminUsersPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="shrink-0 h-10 w-10">
-                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                          <span className="text-primary font-medium">
-                            {user.name.charAt(0)}
-                          </span>
-                        </div>
+                        {user.image ? (
+                          <img
+                            src={user.image}
+                            alt={user.name}
+                            className="h-10 w-10 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <span className="text-primary font-medium">
+                              {user.name.charAt(0)}
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <div className="ml-4">
                         <div className="text-sm font-medium">{user.name}</div>
@@ -148,15 +158,24 @@ export default function AdminUsersPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      {user.status}
+                    <span
+                      className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        user.banned
+                          ? "bg-red-100 text-red-800"
+                          : "bg-green-100 text-green-800"
+                      }`}
+                    >
+                      {user.banned ? "Banni" : "Actif"}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
-                    {user.bookings}
+                    0
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
-                    {user.createdAt}
+                    {new Date(user.createdAt).toLocaleDateString("fr-FR", {
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex gap-2">

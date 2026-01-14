@@ -1,0 +1,124 @@
+Role / Domain: General and Operations Manager (online gaming platform operations)  
+
+Context I am the Operations Manager for an online chess platform. We are seeing inconsistent player experience across time controls (abort spikes, timeouts, and unusually short games), and leadership needs a single, auditable “ops scorecard” to decide where to focus matchmaking tuning and anti-abuse review.  
+
+Input Use ONLY the attached dataset: Chess Game Dataset (Lichess) CSV (one row per game). 
+
+Use the original column names.  
+
+Primary Goal (close-ended) 
+
+Produce an “Operations Scorecard” that quantifies match quality and engagement by time-control segment and rated status, and clearly surfaces the worst-performing segments for intervention.  
+
+Deliverables (NO XLSX/CSV outputs) 
+
+Return a ZIP file named: Chess_Ops_Scorecard_Pack.zip containing exactly two files:  
+
+1) Chess_Ops_Scorecard.pdf A management-ready PDF with the following tables (grid borders, consistent number formatting):  
+
+Table A — Executive KPIs (overall, whole dataset) 
+
+- Total games 
+
+- % Rated games 
+
+- Avg turns per game (1 decimal) 
+
+- Avg game duration (minutes, 1 decimal) if start/end timestamps exist; otherwise omit duration and include a note 
+
+- Outcome mix: % White win, % Black win, % Draw (1 decimal, percent) 
+
+- % Aborted (1 decimal, percent) based on game status indicating abort 
+
+- % Timeout (1 decimal, percent) based on game status indicating timeout  
+
+Table B — Segment Summary (one row per segment) 
+
+Define “segment” as: 
+
+(Time Control Category) × (Rated Status) 
+
+Time Control Category rules: 
+
+- If the dataset contains an explicit time-control field (e.g., “TimeControl” like “600+0”, “300+5”, etc.), categorize by initial time:   
+
+Bullet: < 180s   
+
+Blitz: 180–479s   
+
+Rapid: 480–1499s   
+
+Classical: >= 1500s 
+
+- If no time-control field exists, categorize using observed game duration (minutes):   
+
+Bullet: < 3   
+
+Blitz: 3–7.9   
+
+Rapid: 8–24.9   
+
+Classical: >= 25 
+
+Rated Status: use the dataset’s rated indicator.  
+
+For each segment row, include: 
+
+- Games (count) 
+
+- Avg turns (1 decimal) 
+
+- Outcome mix: % White win, % Black win, % Draw (1 decimal) 
+
+- % Aborted (1 decimal) 
+
+- % Timeout (1 decimal) 
+
+- “Quality Flags” column with TRUE/FALSE for:   
+
+Flag_AbortSpike: 
+
+segment abort % >= (overall abort % + 5.0 percentage points)   Flag_TimeoutSpike: 
+
+segment timeout % >= (overall timeout % + 3.0 percentage points)  
+
+Sort Table B by (Abort % desc, then Timeout % desc, then Games desc).  
+
+Table C — “Intervention List” (Top 5) 
+
+Show the 5 segments with the highest combined disruption index: Disruption Index = (Abort % * 0.6) + (Timeout % * 0.4) Include: 
+
+- Time Control Category 
+
+- Rated Status 
+
+- Games 
+
+- Abort % 
+
+- Timeout % 
+
+- Disruption Index (1 decimal) 
+
+Add a short, ops-oriented note for each row (one sentence) describing the likely operational follow-up (e.g., matchmaking tuning review, anti-abuse sampling, time-control specific UX friction check). Do not give generic advice—tie it to the metrics.  
+
+2) Spreadsheet_Blueprint.docx 
+
+A DOCX “build spec” that makes the scorecard reproducible in a spreadsheet later. It must include: 
+
+- Data Prep: the exact derived columns you created (names + logic), written in spreadsheet-style formulas where possible (e.g., duration minutes from timestamps; outcome label; abort/timeout flags; segment keys). 
+
+- Segment Summary: the aggregation definitions (COUNTIFS/AVERAGEIFS-style descriptions) matching Tables A–C. 
+
+- Data quality handling rules (e.g., what you did if duration fields are missing).  
+
+Constraints / Quality Bar 
+
+- Use the dataset’s professional vocabulary (abort rate, timeout incidence, outcome distribution, segment exposure). 
+
+- Do not over-explain basic terms (assume a colleague reader). 
+
+- The PDF tables must be internally consistent: segment totals should reconcile to the overall totals. 
+
+- No extra files in the ZIP. No XLSX. No CSV output. 
+

@@ -35,9 +35,12 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
           src="/image.png"
           alt="Hero background"
           fill
+          sizes="100vw"
           className="object-cover"
           priority
-          quality={100}
+          quality={85}
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAHxAAAgICAgMBAAAAAAAAAAAAAQIDBAAREjEFIUFR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwT/xAAYEQEBAQEBAAAAAAAAAAAAAAABAgADEf/aAAwDAQACEQMRAD8A0OC1FE95mRCXlVA7KCWKBjob7+nGVPkqkN2xLDGsaMxKqo0APQGMZ0Y5F1//2Q=="
         />
         {/* Gradient overlays for better text contrast */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
@@ -45,7 +48,7 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
       </div>
 
       {/* Hero Content - Responsive avec padding pour navbar */}
-      <div className={`absolute left-4 sm:left-8 md:left-12 z-20 max-w-lg right-4 sm:right-auto ${isMobile ? "bottom-24 sm:bottom-28" : "bottom-8"}`}>
+      <div className={`absolute left-6 sm:left-12 md:left-20 z-20 max-w-lg right-6 sm:right-auto ${isMobile ? "bottom-24 sm:bottom-28" : "bottom-8"}`}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -89,7 +92,7 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
       {/* Texte animé "Swipe" - affiché uniquement sur desktop */}
       {!isMobile && (
         <motion.div
-          className="absolute right-4 sm:right-8 md:right-12 top-[40%] sm:top-1/2 -translate-y-1/2 z-30"
+          className="absolute right-6 sm:right-12 md:right-20 top-[40%] sm:top-1/2 -translate-y-1/2 z-30"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ 

@@ -73,14 +73,14 @@ const thirdColumn = testimonials.slice(6, 9)
 export function TestimonialsSection({ isMobile = false }: TestimonialsSectionProps) {
   return (
     <section 
-      className={`relative flex shrink-0 items-center justify-center overflow-hidden bg-neutral-50 ${isMobile ? "w-full py-20" : "w-screen h-screen"}`}
+      className={`relative flex shrink-0 items-center justify-center overflow-hidden bg-neutral-50 pt-24 ${isMobile ? "w-full pb-20" : "w-screen h-screen"}`}
     >
       <DotPattern
         className={cn(
           "opacity-40 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
         )}
       />
-      <div className="container z-10 mx-auto px-4 w-full relative">
+      <div className="max-w-7xl z-10 mx-auto px-4 w-full relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
