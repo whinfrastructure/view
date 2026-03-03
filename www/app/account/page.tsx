@@ -86,7 +86,8 @@ export default function AccountPage() {
               <img
                 src={session.user.image}
                 alt={session.user.name || "User avatar"}
-                className="w-16 h-16 rounded-full"
+                className="w-16 h-16 rounded-full object-cover"
+                referrerPolicy="no-referrer"
               />
             )}
             <div>

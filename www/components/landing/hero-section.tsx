@@ -43,56 +43,71 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
           blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAHxAAAgICAgMBAAAAAAAAAAAAAQIDBAAREjEFIUFR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwT/xAAYEQEBAQEBAAAAAAAAAAAAAAABAgADEf/aAAwDAQACEQMRAD8A0OC1FE95mRCXlVA7KCWKBjob7+nGVPkqkN2xLDGsaMxKqo0APQGMZ0Y5F1//2Q=="
         />
         {/* Gradient overlays for better text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent w-full md:w-3/4" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/60 to-transparent" />
       </div>
 
-      {/* Hero Content - Responsive avec padding pour navbar */}
-      <div className={`absolute left-6 sm:left-12 md:left-20 z-20 max-w-lg right-6 sm:right-auto ${isMobile ? "bottom-24 sm:bottom-28" : "bottom-8"}`}>
+      {/* Hero Content - Centré avec proportions élégantes */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-20 w-full max-w-4xl px-4 mx-auto pt-16 sm:pt-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="text-left"
+          className="text-center flex flex-col items-center"
         >
           {/* Badge */}
-          <GlassButton size="sm" className="mb-4">
-            <span className="text-white/90 text-xs font-light">✨ Côte d&apos;Azur Exclusive</span>
-          </GlassButton>
+          <motion.div
+            initial={{ opacity: 0, letterSpacing: "0px" }}
+            animate={{ opacity: 1, letterSpacing: "2px" }}
+            transition={{ duration: 1.5, delay: 0.5 }}
+            className="mb-6 inline-block"
+          >
+            <span className="uppercase text-[9px] md:text-[10px] tracking-[0.4em] text-[#E6D5B8] font-medium border-b border-[#E6D5B8]/30 pb-3">
+              L&apos;art de vivre méditerranéen
+            </span>
+          </motion.div>
 
           {/* Main Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl tracking-tight font-light text-white mb-4">
-            <span className="font-medium italic">Venez découvrir</span>
-            <br />
-            <span className="font-light tracking-tight text-white">la Côte d&apos;Azur</span>
-            <br />
-            <span className="italic font-light">différemment</span>
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] tracking-tight text-white mb-6 leading-[1.05] flex flex-col items-center">
+            <span className="font-playfair italic font-light text-white/90 mb-2 text-2xl sm:text-3xl md:text-4xl">Venez découvrir</span>
+            <span className="font-playfair uppercase tracking-[0.1em] text-[#E6D5B8] drop-shadow-lg block">La Côte d&apos;Azur</span>
+            <span className="font-mea-culpa text-5xl sm:text-7xl md:text-[7rem] -mt-2 sm:-mt-4 text-white/90 leading-normal" style={{ textShadow: "0 4px 30px rgba(0,0,0,0.3)"}}>
+              différemment
+            </span>
           </h1>
 
           {/* Description */}
-          <p className="text-xs font-light text-white/70 mb-4 leading-relaxed max-w-md">
-            Nos logements en exclusivité sur la Côte d&apos;Azur. Des villas d&apos;exception que vous ne trouverez nulle part ailleurs.
+          <p className="text-sm md:text-base font-light text-white/80 mb-8 md:mb-10 leading-relaxed max-w-md instrument border-t-[0.5px] border-[#E6D5B8]/30 pt-5">
+            Une sélection exclusive de villas de prestige. L&apos;élégance, le service sur-mesure et l&apos;intimité que vous méritez sur la French Riviera.
           </p>
 
           {/* Buttons */}
-          <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
-            <GlassButton size="default" className="text-sm">
-              Découvrir nos logements
-            </GlassButton>
-            <button className="px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white text-black font-medium text-sm sm:text-base transition-all duration-200 hover:bg-white/90 cursor-pointer">
-              Contactez-nous
+          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+            <button className="group relative px-8 py-4 bg-white/5 backdrop-blur-md border-[0.5px] border-[#E6D5B8]/30 hover:bg-[#E6D5B8]/10 text-white font-playfair text-lg italic tracking-wide transition-all duration-500 overflow-hidden">
+              <span className="relative z-10 flex items-center justify-center gap-4 text-center">
+                Explorer nos villas
+                <span className="inline-block transition-transform duration-500 group-hover:translate-x-2 text-[#E6D5B8]">→</span>
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#E6D5B8]/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+            </button>
+            <button className="text-white/80 hover:text-[#E6D5B8] font-sans uppercase tracking-[0.25em] text-[10px] transition-all duration-500 relative flex items-center justify-center gap-2 group py-2">
+              <span className="relative">
+                Contact Privé
+                <span className="absolute -bottom-2 left-1/2 -transform -translate-x-1/2 w-0 h-[0.5px] bg-[#E6D5B8] transition-all duration-500 group-hover:w-full"></span>
+              </span>
             </button>
           </div>
         </motion.div>
       </div>
 
       {/* Transition douce vers le blanc - Visible seulement sur desktop */}
-      <div className="hidden md:block absolute top-0 right-0 bottom-0 w-12 bg-gradient-to-l from-white/90 via-white/40 to-transparent pointer-events-none z-30" />
+      <div className="hidden md:block absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FDFBF7] to-transparent pointer-events-none z-30" />
       
-      {/* Texte animé "Swipe" - affiché uniquement sur desktop */}
+      {/* Swipe/Scroll Indicator - Right aligned on desktop */}
       {!isMobile && (
         <motion.div
-          className="absolute right-6 sm:right-12 md:right-20 top-[40%] sm:top-1/2 -translate-y-1/2 z-30"
+          className="absolute right-6 sm:right-12 md:right-24 bottom-24 z-30"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ 
@@ -103,17 +118,12 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
             repeatDelay: 1
           }}
         >
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="text-right">
-              <p className="text-white text-xs sm:text-sm font-light mb-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
-                Glissez
-              </p>
-              <p className="text-white/70 text-[10px] sm:text-xs font-light" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
-                Swipe →
-              </p>
-            </div>
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-white/60 text-[10px] tracking-[0.3em] font-light uppercase" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+              Découvrir
+            </p>
             <motion.div
-              animate={{ x: [0, 10, 0] }}
+              animate={{ y: [0, 8, 0] }}
               transition={{ 
                 duration: 1.5,
                 repeat: Infinity,
@@ -121,7 +131,7 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
               }}
             >
               <svg 
-                className="w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-lg" 
+                className="w-4 h-4 text-[#E6D5B8] drop-shadow-lg" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -129,8 +139,8 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
                 <path 
                   strokeLinecap="round" 
                   strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M13 7l5 5m0 0l-5 5m5-5H6" 
+                  strokeWidth={1.5} 
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3" 
                 />
               </svg>
             </motion.div>

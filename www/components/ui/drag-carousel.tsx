@@ -61,7 +61,7 @@ function Thumbnails({ items, index, setIndex }: ThumbnailsProps) {
           display: none;
         }
       `}</style>
-      <div className='flex gap-0.5 h-12 sm:h-14 pb-1' style={{ width: 'fit-content' }}>
+      <div className='flex gap-[2px] h-12 sm:h-16 pb-2 mt-4' style={{ width: 'fit-content' }}>
         {items.map((item, i) => (
           <motion.button
             key={item.id}
@@ -70,28 +70,33 @@ function Thumbnails({ items, index, setIndex }: ThumbnailsProps) {
             animate={i === index ? 'active' : 'inactive'}
             variants={{
               active: {
-                width: FULL_WIDTH_PX,
+                width: FULL_WIDTH_PX * 1.5,
                 marginLeft: MARGIN_PX,
                 marginRight: MARGIN_PX,
+                opacity: 1
               },
               inactive: {
-                width: COLLAPSED_WIDTH_PX,
+                width: COLLAPSED_WIDTH_PX * 1.5,
                 marginLeft: 0,
                 marginRight: 0,
+                opacity: 0.4
               },
             }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className='relative shrink-0 h-full overflow-hidden rounded'
+            transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
+            className='relative shrink-0 h-full overflow-hidden hover:opacity-80 transition-opacity'
           >
             <Image
               src={item.url}
               alt={item.title}
               fill
-              sizes="100px"
+              sizes="150px"
               className='object-cover pointer-events-none select-none'
               loading="eager"
               quality={75}
             />
+            {i === index && (
+              <div className="absolute inset-0 border border-[#E6D5B8]/50" />
+            )}
           </motion.button>
         ))}
       </div>
@@ -120,10 +125,10 @@ export default function DragCarousel({ items }: DragCarouselProps) {
   }, [index, x, isDragging]);
 
   return (
-    <div className='w-full max-w-5xl mx-auto'>
-      <div className='flex flex-col gap-2'>
+    <div className='w-full max-w-6xl mx-auto'>
+      <div className='flex flex-col'>
         {/* Main Carousel */}
-        <div className='relative overflow-hidden rounded-lg bg-gray-100' ref={containerRef}>
+        <div className='relative overflow-hidden group' ref={containerRef}>
           <motion.div
             className='flex'
             drag='x'
@@ -154,20 +159,42 @@ export default function DragCarousel({ items }: DragCarouselProps) {
             style={{ x }}
           >
             {items.map((item) => (
-              <div key={item.id} className='shrink-0 w-full h-[220px] sm:h-[280px] md:h-[320px] lg:h-[360px] relative'>
+              <div key={item.id} className='shrink-0 w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] relative'>
                 {item.href ? (
-                  <Link href={item.href} className="block w-full h-full">
+                  <Link href={item.href} className="block w-full h-full relative cursor-[ew-resize]">
                     <Image
                       src={item.url}
                       alt={item.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                      className='object-cover rounded-lg select-none pointer-events-none'
+                      className='object-cover select-none pointer-events-none'
                       priority={item.id === 1}
                       quality={95}
                     />
-                    <div className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors rounded-lg flex items-end p-6">
-                      <h3 className="text-white font-semibold text-xl">{item.title}</h3>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 sm:p-12 md:p-16">
+                      <div className="overflow-hidden mb-2">
+                        <motion.h3 
+                          className="text-white font-playfair text-3xl sm:text-4xl md:text-5xl font-light tracking-wide origin-bottom"
+                          initial={{ y: 20, opacity: 0 }}
+                          whileInView={{ y: 0, opacity: 1 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          {item.title.split(' - ')[0]}
+                        </motion.h3>
+                      </div>
+                      <div className="overflow-hidden">
+                        <motion.div 
+                          className="flex items-center gap-4"
+                          initial={{ y: 20, opacity: 0 }}
+                          whileInView={{ y: 0, opacity: 1 }}
+                          transition={{ duration: 0.5, delay: 0.1 }}
+                        >
+                          <span className="w-8 h-[0.5px] bg-[#E6D5B8]"></span>
+                          <span className="text-[#E6D5B8] uppercase tracking-[0.3em] text-[10px] sm:text-xs">
+                            {item.title.split(' - ')[1] || 'French Riviera'}
+                          </span>
+                        </motion.div>
+                      </div>
                     </div>
                   </Link>
                 ) : (
@@ -176,7 +203,7 @@ export default function DragCarousel({ items }: DragCarouselProps) {
                     alt={item.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                    className='object-cover rounded-lg select-none pointer-events-none'
+                    className='object-cover select-none pointer-events-none'
                     priority={item.id === 1}
                     quality={95}
                   />
@@ -189,25 +216,16 @@ export default function DragCarousel({ items }: DragCarouselProps) {
           <motion.button
             disabled={index === 0}
             onClick={() => setIndex((i) => Math.max(0, i - 1))}
-            className={`absolute left-2 sm:left-4 text-black top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
-              ${
-                index === 0
-                  ? 'opacity-40 cursor-not-allowed'
-                  : 'bg-white hover:scale-110 hover:opacity-100 opacity-70'
-              }`}
+            className={`absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center border border-white/30 text-white backdrop-blur-sm transition-all duration-500 z-10 hover:bg-white hover:text-black group-hover:opacity-100
+              ${index === 0 ? 'opacity-0 cursor-not-allowed pointer-events-none' : 'opacity-0 sm:opacity-0 cursor-pointer'}`}
           >
             <svg
-              className='w-5 h-5 sm:w-6 sm:h-6'
+              className='w-4 h-4 sm:w-6 sm:h-6 transition-transform duration-300 -translate-x-0.5'
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
             >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M15 19l-7-7 7-7'
-              />
+              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1} d='M15 19l-7-7 7-7' />
             </svg>
           </motion.button>
 
@@ -215,31 +233,28 @@ export default function DragCarousel({ items }: DragCarouselProps) {
           <motion.button
             disabled={index === items.length - 1}
             onClick={() => setIndex((i) => Math.min(items.length - 1, i + 1))}
-            className={`absolute text-black right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
-              ${
-                index === items.length - 1
-                  ? 'opacity-40 cursor-not-allowed'
-                  : 'bg-white hover:scale-110 hover:opacity-100 opacity-70'
-              }`}
+            className={`absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center border border-white/30 text-white backdrop-blur-sm transition-all duration-500 z-10 hover:bg-white hover:text-black group-hover:opacity-100
+              ${index === items.length - 1 ? 'opacity-0 cursor-not-allowed pointer-events-none' : 'opacity-0 sm:opacity-0 cursor-pointer'}`}
           >
             <svg
-              className='w-5 h-5 sm:w-6 sm:h-6'
+              className='w-4 h-4 sm:w-6 sm:h-6 transition-transform duration-300 translate-x-0.5'
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
             >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M9 5l7 7-7 7'
-              />
+              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1} d='M9 5l7 7-7 7' />
             </svg>
           </motion.button>
 
           {/* Image Counter */}
-          <div className='absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm'>
-            {index + 1} / {items.length}
+          <div className='absolute top-6 right-6 sm:top-8 sm:right-8 flex items-center gap-3 z-10 mix-blend-difference pointer-events-none'>
+            <span className="text-white font-sans text-xs tracking-[0.2em]">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <span className="w-6 h-[0.5px] bg-white"></span>
+            <span className="text-white/60 font-sans text-xs tracking-[0.2em]">
+              {String(items.length).padStart(2, '0')}
+            </span>
           </div>
         </div>
 

@@ -244,8 +244,8 @@ export default function Home() {
     },
     {
       id: "collection",
-      mobileClass: "w-full flex items-center justify-center bg-white py-20",
-      desktopClass: "shrink-0 w-screen h-screen flex items-center bg-white",
+      mobileClass: "w-full flex items-center justify-center bg-background py-20",
+      desktopClass: "shrink-0 w-screen h-screen flex items-center bg-background",
       render: () => <CollectionStrip />,
     },
     {
@@ -273,7 +273,7 @@ export default function Home() {
   }
 
   return (
-    <main className={`relative w-full bg-white ${isMobile ? "" : "h-screen overflow-hidden"}`}>
+    <main className={`relative w-full bg-background ${isMobile ? "" : "h-screen overflow-hidden"}`}>
       <GrainOverlay />
 
       <div

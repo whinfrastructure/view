@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Sans, Mea_Culpa } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Sans, Mea_Culpa, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 
@@ -24,6 +24,11 @@ const meaCulpa = Mea_Culpa({
   weight: "400",
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "wh riviera",
   description: "Create stunning visual experiences with advanced shader technology",
@@ -37,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSans.variable} ${meaCulpa.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSans.variable} ${meaCulpa.variable} ${playfair.variable} antialiased`}
       >
         {children}
 

@@ -17,18 +17,29 @@ export function ListingDetailClient() {
   };
 
   return (
-    <div className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur">
+    <div className="sticky top-0 z-50 border-b border-border/50 bg-background/90 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Button variant="ghost" size="sm" onClick={() => router.back()}>
-          ← Retour
-        </Button>
-        <div className="flex gap-2">
-          <Button variant="ghost" size="icon" onClick={handleShare}>
-            <Share2 className="h-4 w-4" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Heart className="h-4 w-4" />
-          </Button>
+        <button 
+          onClick={() => router.back()}
+          className="group flex items-center gap-3 text-[10px] tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <span className="transform transition-transform group-hover:-translate-x-1">←</span> 
+          Retour au portfolio
+        </button>
+        <div className="flex gap-4">
+          <button 
+            onClick={handleShare}
+            className="text-muted-foreground hover:text-foreground transition-colors p-2"
+            aria-label="Partager"
+          >
+            <Share2 className="h-4 w-4 stroke-[1.5]" />
+          </button>
+          <button 
+            className="text-muted-foreground hover:text-foreground transition-colors p-2"
+            aria-label="Ajouter aux favoris"
+          >
+            <Heart className="h-4 w-4 stroke-[1.5]" />
+          </button>
         </div>
       </div>
     </div>

@@ -2,8 +2,9 @@
 
 import { useReveal } from "@/hooks/use-reveal"
 import { motion } from "framer-motion"
-import { GooeyText } from "@/components/ui/gooey-text"
+import { TypewriterText } from "@/components/ui/typewriter-text"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { cn } from "@/lib/utils"
 import Image from "next/image"
 
 interface AboutSectionProps {
@@ -39,15 +40,19 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
               <span className="text-xs font-medium tracking-widest text-neutral-400 uppercase">Notre Histoire</span>
             </div>
 
-            <div className="mb-6 h-16 md:h-20 flex items-center">
-               <GooeyText
-                texts={["L'ART DE", "RECEVOIR", "SUR MESURE"]}
-                morphTime={2}
-                cooldownTime={2}
-                className="font-bold leading-tight"
-                textClassName={isMobile ? "text-3xl text-neutral-900" : "text-4xl lg:text-5xl text-neutral-900"}
+            <h2 className="mb-6 h-16 md:h-20 flex items-center">
+              <TypewriterText
+                texts={["L'art de recevoir", "Sur mesure", "L'excellence"]}
+                typingSpeed={70}
+                deletingSpeed={35}
+                pauseDuration={2500}
+                className={cn(
+                  "font-serif font-medium tracking-tight",
+                  isMobile ? "text-3xl" : "text-4xl lg:text-5xl"
+                )}
+                cursorClassName="bg-neutral-900"
               />
-            </div>
+            </h2>
 
             <p className="text-neutral-600 text-base leading-relaxed mb-6">
               WelkomHome redéfinit l&apos;expérience de la location saisonnière sur la Côte d&apos;Azur. 

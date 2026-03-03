@@ -223,7 +223,8 @@ function AccountHeader({ session }: { session: any }) {
                       <img
                         src={session.user.image}
                         alt={session.user.name || "User"}
-                        className="h-6 w-6 rounded-full"
+                        className="h-6 w-6 rounded-full object-cover"
+                        referrerPolicy="no-referrer"
                       />
                     ) : (
                       <CircleUserRound className="h-6 w-6" />

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Building2, ArrowLeft, Save, X } from "lucide-react";
-import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+
 
 const AMENITIES_OPTIONS = [
   { id: "wifi", label: "WiFi" },

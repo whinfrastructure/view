@@ -327,6 +327,10 @@ export default function AdminListingsPage() {
                           src={listing.coverImage}
                           alt={listing.title}
                           className="w-16 h-16 rounded-lg object-cover"
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
                         />
                       ) : (
                         <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center">

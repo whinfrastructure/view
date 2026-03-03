@@ -17,6 +17,29 @@ const nextConfig: NextConfig = {
         hostname: "randomuser.me",
         pathname: "/api/portraits/**",
       },
+      // Google profile images
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+      // Facebook profile images
+      {
+        protocol: "https",
+        hostname: "platform-lookaside.fbsbx.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**.fbcdn.net",
+      },
+      // Wix static images (for scraped listings)
+      {
+        protocol: "https",
+        hostname: "static.wixstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.welkomhome.eu",
+      },
     ],
     // Optimisation des formats et qualités d'image
     formats: ["image/avif", "image/webp"],

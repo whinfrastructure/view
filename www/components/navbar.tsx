@@ -194,26 +194,27 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
       {/* Logo */}
       <button
         onClick={() => handleNavClick(0)}
-        className="flex items-center gap-2 transition-transform hover:scale-105"
+        className="flex items-center gap-3 transition-opacity hover:opacity-80"
       >
         <svg 
-          className={`h-9 w-9 transition-colors ${!isMobile && shouldBeTransparent ? "text-white" : "text-black"}`}
+          className={`h-7 w-7 transition-colors ${!isMobile && shouldBeTransparent ? "text-[#E6D5B8]" : "text-primary"}`}
           viewBox="0 0 226.26 214.71"
+          aria-hidden="true"
         >
           <polygon fill="currentColor" points="34.37 58.99 52.78 58.99 100.51 165.6 80.96 165.6 34.37 58.99"/>
           <polygon fill="currentColor" points="83.01 58.99 100.51 58.99 118.24 97.63 108.92 115.36 83.01 58.99"/>
           <polygon fill="currentColor" points="118.24 137.87 126.88 119.68 148.93 165.6 130.06 165.6 118.24 137.87"/>
-          <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="100.51" y1="155.37" x2="143.25" y2="60.58"/>
-          <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="125.28" y1="100.44" x2="173.48" y2="100.82"/>
-          <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="5" x1="149.38" y1="154.24" x2="191.89" y2="61.95"/>
+          <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="3" x1="100.51" y1="155.37" x2="143.25" y2="60.58"/>
+          <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="3" x1="125.28" y1="100.44" x2="173.48" y2="100.82"/>
+          <line fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="3" x1="149.38" y1="154.24" x2="191.89" y2="61.95"/>
         </svg>
-        <span className={`font-sans text-base font-semibold tracking-tight transition-colors ${
-          !isMobile && shouldBeTransparent ? "text-white" : "text-black"
+        <span className={`font-playfair text-xl tracking-widest uppercase transition-colors ${
+          !isMobile && shouldBeTransparent ? "text-white" : "text-foreground"
         }`}>WelkomHome</span>
       </button>
 
       {/* Desktop Navigation */}
-      <div className="hidden items-center gap-6 md:flex">
+      <div className="hidden items-center gap-8 md:flex">
         {navItems.map((item) => (
           <div
             key={item.label}
@@ -223,26 +224,26 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
           >
             <button
               onClick={() => item.index >= 0 && handleNavClick(item.index)}
-              className={`group relative flex items-center gap-1 font-sans text-xs font-medium transition-colors ${
+              className={`group relative flex items-center gap-1 font-sans text-[10px] tracking-[0.15em] uppercase font-light transition-colors py-2 ${
                 currentSection === item.index 
-                  ? (shouldBeTransparent ? "text-white" : "text-black")
-                  : (shouldBeTransparent ? "text-white/80 hover:text-white" : "text-black/60 hover:text-black")
+                  ? (shouldBeTransparent ? "text-white" : "text-foreground")
+                  : (shouldBeTransparent ? "text-white/70 hover:text-[#E6D5B8]" : "text-foreground/60 hover:text-primary")
               }`}
             >
               {item.label}
               {item.dropdown && (
                 <svg 
-                  className={`w-3 h-3 transition-transform ${activeDropdown === item.label ? "rotate-180" : ""}`}
+                  className={`w-3 h-3 transition-transform duration-500 opacity-50 ${activeDropdown === item.label ? "rotate-180" : ""}`}
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 9l-7 7-7-7" />
                 </svg>
               )}
               <span
-                className={`absolute -bottom-1 left-0 h-px transition-all duration-300 ${
-                  shouldBeTransparent ? "bg-white" : "bg-black"
+                className={`absolute bottom-0 left-1/2 h-[1px] -translate-x-1/2 transition-all duration-500 ${
+                  shouldBeTransparent ? "bg-[#E6D5B8]" : "bg-primary"
                 } ${currentSection === item.index ? "w-full" : "w-0 group-hover:w-full"}`}
               />
             </button>
@@ -318,13 +319,18 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
       {/* CTA Button - Desktop only */}
       <button
         onClick={() => router.push('/auth/register')}
-        className={`hidden md:block rounded-full backdrop-blur-md px-4 py-1.5 text-xs font-medium transition-all duration-300 ${
+        className={`hidden md:flex items-center justify-center relative overflow-hidden px-6 py-2.5 text-[10px] tracking-[0.2em] uppercase font-light transition-all duration-700 bg-transparent ${
           shouldBeTransparent 
-            ? "bg-white/10 border border-white/20 text-white hover:bg-white/20" 
-            : "bg-black text-white hover:bg-black/80"
-        }`}
+            ? "text-white hover:text-[#E6D5B8]" 
+            : "text-foreground hover:text-primary"
+        } group`}
       >
-        Réserver
+        <span className="relative z-10">Réserver</span>
+        {/* Borders */}
+        <span className={`absolute top-0 right-0 w-full h-[1px] transform translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 delay-100 ${shouldBeTransparent ? "bg-[#E6D5B8]" : "bg-primary"}`}></span>
+        <span className={`absolute bottom-0 left-0 w-full h-[1px] transform translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 delay-100 ${shouldBeTransparent ? "bg-[#E6D5B8]" : "bg-primary"}`}></span>
+        <span className={`absolute bottom-0 right-0 w-[1px] h-full transform translate-y-[100%] group-hover:translate-y-0 transition-transform duration-700 ${shouldBeTransparent ? "bg-white/20" : "bg-black/10"}`}></span>
+        <span className={`absolute top-0 left-0 w-[1px] h-full transform translate-y-[-100%] group-hover:translate-y-0 transition-transform duration-700 ${shouldBeTransparent ? "bg-white/20" : "bg-black/10"}`}></span>
       </button>
 
       {/* Mobile Menu Overlay */}

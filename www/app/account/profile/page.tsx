@@ -32,7 +32,8 @@ export default function ProfilePage() {
               <img
                 src={session.user.image}
                 alt={session.user.name || "User"}
-                className="w-24 h-24 rounded-full"
+                className="w-24 h-24 rounded-full object-cover"
+                referrerPolicy="no-referrer"
               />
             ) : (
               <div className="w-24 h-24 rounded-full bg-muted flex items-center justify-center">

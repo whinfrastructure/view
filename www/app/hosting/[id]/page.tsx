@@ -1,12 +1,19 @@
-import { db } from "@/lib/db";
-import { listings } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { MapPin, Users, BedDouble, Bath, Home, Heart } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ListingDetailClient } from "@/components/listing-detail-client";
+import listingsData from "@/data/listings.json";
+import type { Listing } from "@/lib/types";
+
+const allListings: Listing[] = (listingsData as Omit<Listing, "id">[]).map(
+  (l, i) => ({ ...l, id: i + 1, images: [], houseRules: null })
+);
+
+export function generateStaticParams() {
+  return allListings.map((l) => ({ id: String(l.id) }));
+}
 
 interface ListingDetailPageProps {
   params: Promise<{ id: string }>;
@@ -20,17 +27,12 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
     notFound();
   }
 
-  const listing = await db
-    .select()
-    .from(listings)
-    .where(eq(listings.id, listingId))
-    .limit(1);
+  const currentListing = allListings.find((l) => l.id === listingId);
 
-  if (!listing || listing.length === 0) {
+  if (!currentListing) {
     notFound();
   }
 
-  const currentListing = listing[0];
   const images = currentListing.images as string[] || [];
   const amenities = currentListing.amenities as string[] || [];
   const houseRules = currentListing.houseRules as any || {};
@@ -68,19 +70,19 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-10">
             {/* Title & Location */}
-            <div>
+            <div className="border-b border-border/50 pb-8">
               {currentListing.featured && (
-                <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">
-                  <span className="text-xs">⭐</span>
-                  Coup de coeur
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 text-primary text-[10px] uppercase tracking-widest font-medium mb-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  Exclusivité
                 </div>
               )}
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">
+              <h1 className="text-4xl md:text-5xl font-playfair font-light mb-4 text-foreground leading-tight">
                 {currentListing.title}
               </h1>
-              <div className="flex items-center gap-2 text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground uppercase tracking-widest">
                 <MapPin className="h-4 w-4" />
                 <span>{currentListing.location}</span>
                 {currentListing.city && <span>• {currentListing.city}</span>}
@@ -89,69 +91,69 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
             </div>
 
             {/* Features */}
-            <Card className="p-6">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="py-2">
+              <div className="flex flex-wrap gap-8 md:gap-12">
                 <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <Users className="h-5 w-5 text-primary" />
+                  <div className="p-0">
+                    <Users className="h-5 w-5 text-primary/70 stroke-[1.5]" />
                   </div>
                   <div>
-                    <div className="text-sm text-muted-foreground">Voyageurs</div>
-                    <div className="font-semibold">{currentListing.maxGuests}</div>
+                    <div className="text-[10px] tracking-widest uppercase text-muted-foreground">Voyageurs</div>
+                    <div className="font-playfair text-xl">{currentListing.maxGuests}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <BedDouble className="h-5 w-5 text-primary" />
+                  <div className="p-0">
+                    <BedDouble className="h-5 w-5 text-primary/70 stroke-[1.5]" />
                   </div>
                   <div>
-                    <div className="text-sm text-muted-foreground">Chambres</div>
-                    <div className="font-semibold">{currentListing.bedrooms}</div>
+                    <div className="text-[10px] tracking-widest uppercase text-muted-foreground">Chambres</div>
+                    <div className="font-playfair text-xl">{currentListing.bedrooms}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <Bath className="h-5 w-5 text-primary" />
+                  <div className="p-0">
+                    <Bath className="h-5 w-5 text-primary/70 stroke-[1.5]" />
                   </div>
                   <div>
-                    <div className="text-sm text-muted-foreground">Salles de bain</div>
-                    <div className="font-semibold">{currentListing.bathrooms}</div>
+                    <div className="text-[10px] tracking-widest uppercase text-muted-foreground">Salles de bain</div>
+                    <div className="font-playfair text-xl">{currentListing.bathrooms}</div>
                   </div>
                 </div>
                 {currentListing.surface && (
                   <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-lg bg-primary/10">
-                      <Home className="h-5 w-5 text-primary" />
+                    <div className="p-0">
+                      <Home className="h-5 w-5 text-primary/70 stroke-[1.5]" />
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground">Surface</div>
-                      <div className="font-semibold">{currentListing.surface}m²</div>
+                      <div className="text-[10px] tracking-widest uppercase text-muted-foreground">Surface</div>
+                      <div className="font-playfair text-xl">{currentListing.surface}m²</div>
                     </div>
                   </div>
                 )}
               </div>
-            </Card>
+            </div>
 
             {/* Description */}
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Description</h2>
-              <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+            <div className="pt-6">
+              <h2 className="text-[10px] tracking-[0.2em] uppercase text-primary mb-6">À propos de cette propriété</h2>
+              <p className="text-muted-foreground/90 leading-relaxed whitespace-pre-line instrument font-light text-[15px]">
                 {currentListing.description}
               </p>
             </div>
 
             {/* Amenities */}
             {amenities.length > 0 && (
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Équipements</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <div className="pt-6 border-t border-border/50">
+                <h2 className="text-[10px] tracking-[0.2em] uppercase text-primary mb-6">Équipements & Services</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                   {amenities.map((amenity, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center gap-2 p-3 rounded-lg border bg-card"
+                      className="flex items-center gap-3 text-muted-foreground"
                     >
-                      <div className="text-lg">{getAmenityIcon(amenity)}</div>
-                      <span className="text-sm capitalize">
+                      <div className="text-xl opacity-80">{getAmenityIcon(amenity)}</div>
+                      <span className="text-sm font-light capitalize">
                         {amenity.replace(/_/g, " ")}
                       </span>
                     </div>
@@ -161,36 +163,36 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
             )}
 
             {/* House Rules */}
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Règles de la maison</h2>
-              <Card className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Animaux</span>
-                    <span className={houseRules.pets ? "text-green-600" : "text-red-600"}>
-                      {houseRules.pets ? "✓ Autorisés" : "✗ Non autorisés"}
+            <div className="pt-6 border-t border-border/50">
+              <h2 className="text-[10px] tracking-[0.2em] uppercase text-primary mb-6">Conditions & Règles</h2>
+              <div className="bg-primary/5 p-8 border border-primary/10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-12">
+                  <div className="flex items-center justify-between border-b border-primary/10 pb-3">
+                    <span className="text-sm font-light text-muted-foreground">Animaux</span>
+                    <span className={`text-sm ${houseRules.pets ? "text-primary" : "text-muted-foreground/50"}`}>
+                      {houseRules.pets ? "Autorisés" : "Non autorisés"}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Fumeur</span>
-                    <span className={houseRules.smoking ? "text-green-600" : "text-red-600"}>
-                      {houseRules.smoking ? "✓ Autorisé" : "✗ Non autorisé"}
+                  <div className="flex items-center justify-between border-b border-primary/10 pb-3">
+                    <span className="text-sm font-light text-muted-foreground">Fumeur</span>
+                    <span className={`text-sm ${houseRules.smoking ? "text-primary" : "text-muted-foreground/50"}`}>
+                      {houseRules.smoking ? "Autorisé" : "Non autorisé"}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Fêtes</span>
-                    <span className={houseRules.parties ? "text-green-600" : "text-red-600"}>
-                      {houseRules.parties ? "✓ Autorisées" : "✗ Non autorisées"}
+                  <div className="flex items-center justify-between border-b border-primary/10 pb-3">
+                    <span className="text-sm font-light text-muted-foreground">Événements</span>
+                    <span className={`text-sm ${houseRules.parties ? "text-primary" : "text-muted-foreground/50"}`}>
+                      {houseRules.parties ? "Sur demande" : "Non autorisés"}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Check-in / Check-out</span>
-                    <span>
-                      {houseRules.checkIn || "15:00"} / {houseRules.checkOut || "11:00"}
+                  <div className="flex items-center justify-between border-b border-primary/10 pb-3">
+                    <span className="text-sm font-light text-muted-foreground">Check-in / Check-out</span>
+                    <span className="text-sm text-foreground">
+                      {houseRules.checkIn || "15:00"} — {houseRules.checkOut || "11:00"}
                     </span>
                   </div>
                 </div>
-              </Card>
+              </div>
             </div>
 
             {/* Location Map Placeholder */}
@@ -214,46 +216,50 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
 
           {/* Sidebar - Booking Card */}
           <div className="lg:col-span-1">
-            <Card className="p-6 sticky top-24">
-              <div className="space-y-6">
-                <div>
-                  <div className="text-sm text-muted-foreground mb-1">
-                    Prix sur demande
+            <div className="sticky top-24 border border-border/50 bg-background p-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
+              <div className="space-y-8">
+                <div className="text-center pb-6 border-b border-border/50">
+                  <div className="font-playfair text-3xl mb-2 text-foreground">
+                    Sur mesure
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    Contactez-nous pour un devis personnalisé
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+                    Tarification & Disponibilités
                   </p>
                 </div>
 
-                <Button className="w-full" size="lg">
-                  Réserver
-                </Button>
+                <button className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-widest uppercase font-medium hover:bg-primary/90 transition-colors">
+                  Demande de réservation
+                </button>
 
-                <div className="pt-4 border-t space-y-3">
+                <div className="space-y-4 pt-4">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Statut</span>
-                    <span className="font-medium capitalize">{currentListing.status}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Vues</span>
-                    <span className="font-medium">{currentListing.viewCount}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Ajouté le</span>
-                    <span className="font-medium">
-                      {new Date(currentListing.createdAt).toLocaleDateString("fr-FR")}
+                    <span className="text-muted-foreground font-light">Disponibilité</span>
+                    <span className="font-medium text-primary flex items-center gap-2">
+                       <span className="w-2 h-2 rounded-full bg-green-500/80"></span> Sur demande
                     </span>
                   </div>
+                  {currentListing.viewCount != null && (
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground font-light">Intérêt</span>
+                      <span className="font-medium">{currentListing.viewCount} vues récentes</span>
+                    </div>
+                  )}
+                  {currentListing.createdAt && (
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground font-light">Référence</span>
+                      <span className="font-medium uppercase text-xs">WH-{currentListing.id.toString().padStart(4, '0')}</span>
+                    </div>
+                  )}
                 </div>
 
-                <div className="pt-4 border-t">
-                  <Button variant="outline" className="w-full">
-                    <Heart className="h-4 w-4 mr-2" />
-                    Ajouter aux favoris
-                  </Button>
+                <div className="pt-6 border-t border-border/50">
+                  <button className="w-full flex items-center justify-center gap-3 text-sm text-foreground/80 hover:text-primary transition-colors py-2 border border-transparent hover:border-primary/20">
+                    <Heart className="h-4 w-4" />
+                    <span className="tracking-widest uppercase text-[10px]">Sauvegarder</span>
+                  </button>
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>
