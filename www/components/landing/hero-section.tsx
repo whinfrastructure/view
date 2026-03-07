@@ -104,34 +104,33 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
       {/* Transition douce vers le blanc - Visible seulement sur desktop */}
       <div className="hidden md:block absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FDFBF7] to-transparent pointer-events-none z-30" />
       
-      {/* Swipe/Scroll Indicator - Right aligned on desktop */}
-      {!isMobile && (
-        <motion.div
-          className="absolute right-6 sm:right-12 md:right-24 bottom-24 z-30"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ 
-            duration: 1,
-            delay: 2,
-            repeat: Infinity,
-            repeatType: "reverse",
-            repeatDelay: 1
-          }}
-        >
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-white/60 text-[10px] tracking-[0.3em] font-light uppercase" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
-              Découvrir
-            </p>
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ 
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
+      {/* Swipe/Scroll Indicator */}
+      <motion.div
+        className={`absolute z-30 ${isMobile ? 'bottom-8 left-1/2 -translate-x-1/2' : 'right-12 bottom-12'}`}
+        initial={{ opacity: 0, x: isMobile ? 0 : -20, y: isMobile ? -20 : 0 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ 
+          duration: 1,
+          delay: 2,
+        }}
+      >
+        <div className={`flex ${isMobile ? 'flex-col gap-3' : 'flex-row gap-4'} items-center`}>
+          <p className="text-white/60 text-[10px] tracking-[0.3em] font-light uppercase" 
+             style={isMobile ? { writingMode: 'vertical-rl', transform: 'rotate(180deg)' } : {}}>
+            Découvrir
+          </p>
+          <motion.div
+            animate={isMobile ? { y: [0, 8, 0] } : { x: [0, 8, 0] }}
+            transition={{ 
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            {isMobile ? (
+              // Mobile: Down Arrow
               <svg 
-                className="w-4 h-4 text-[#E6D5B8] drop-shadow-lg" 
+                className="w-4 h-4 text-[#E6D5B8] drop-shadow-lg"
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -143,10 +142,25 @@ export function HeroSection({ isMobile }: HeroSectionProps) {
                   d="M19 14l-7 7m0 0l-7-7m7 7V3" 
                 />
               </svg>
-            </motion.div>
-          </div>
-        </motion.div>
-      )}
+            ) : (
+              // Desktop: Right Arrow
+              <svg 
+                className="w-4 h-4 text-[#E6D5B8] drop-shadow-lg"
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={1.5} 
+                  d="M14 5l7 7m0 0l-7 7m7-7H3" 
+                />
+              </svg>
+            )}
+          </motion.div>
+        </div>
+      </motion.div>
     </div>
   )
 }

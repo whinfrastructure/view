@@ -1,104 +1,160 @@
 "use client"
 
-import React, { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import React from "react"
+import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { FadeContent } from "@/components/ui/fade-content"
 
 export function CollectionStrip() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const translateTitle = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const showcaseVillas = villaData.slice(0, 3)
 
   return (
-    <section ref={containerRef} className="min-h-screen w-full shrink-0 flex flex-col justify-center bg-background py-20 relative overflow-hidden">
-      <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-12 md:px-20 relative z-10 flex flex-col md:flex-row justify-between items-end gap-8 mb-16 md:mb-24">
-        <FadeContent className="max-w-3xl">
-          <span className="uppercase text-[9px] sm:text-[10px] tracking-[0.4em] text-[#E6D5B8] font-medium mb-6 block border-l border-[#E6D5B8] pl-4">
-            Portfolio Privé
-          </span>
-          <motion.h2 
-            style={{ y: translateTitle }}
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-playfair text-foreground font-light leading-[1.1] tracking-tight"
+    <section className="h-screen w-full shrink-0 flex items-center justify-center bg-background relative overflow-hidden">
+      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-12 md:px-20 relative z-10 flex flex-col md:flex-row items-center justify-between h-full py-4">
+        
+        {/* Left Side: Text Content - Decoupled from images */}
+        <div className="w-full md:w-[40%] flex flex-col items-center md:items-start text-center md:text-left z-20 mb-8 md:mb-0">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="mb-4 inline-block"
           >
-            Propriétés <br className="hidden md:block" />
-            <span className="font-mea-culpa italic text-6xl sm:text-8xl md:text-[8rem] text-[#E6D5B8] relative pr-6 leading-[0.8] mt-2 block md:inline-block">d'exception</span>
-          </motion.h2>
-        </FadeContent>
-        
-        <FadeContent delay={0.2} className="pb-4 shrink-0">
-          <Link href="/hosting" className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground transition-colors">
-            Voir la collection
-            <span className="w-12 h-[1px] bg-muted-foreground/30 group-hover:w-20 group-hover:bg-foreground transition-all duration-500"></span>
-          </Link>
-        </FadeContent>
-      </div>
-
-      <div className="w-full relative z-10">
-        <div className="absolute top-0 left-0 right-0 h-[0.5px] bg-muted-foreground/10" />
-        
-        <div 
-          className="flex overflow-x-auto snap-x snap-mandatory gap-8 md:gap-16 px-6 sm:px-12 md:px-20 py-16 items-start"
-          style={{ 
-            scrollbarWidth: 'none', 
-            msOverflowStyle: 'none' 
-          }}
-        >
-          <style dangerouslySetInnerHTML={{__html: `
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}} />
-
-          {villaData.map((villa, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
+            <span className="uppercase text-[10px] tracking-[0.4em] text-[#E6D5B8] font-medium border-b border-[#E6D5B8]/30 pb-2">
+              Portfolio Privé
+            </span>
+          </motion.div>
+          
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair text-foreground font-light leading-[0.9] tracking-tight mb-8">
+            <motion.span 
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 1, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-              className="shrink-0 snap-center group w-[85vw] sm:w-[500px] md:w-[600px] flex flex-col"
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.4 }}
+              className="block mb-2"
             >
-              <Link href={`/destinations/${villa.city.toLowerCase().replace(/[' ]/g, "-")}`} className="block w-full">
-                {/* Cadre image de luxe (Aspect ratio 3/4) */}
-                <div className="relative aspect-[3/4] w-full overflow-hidden mb-8 bg-muted/20">
-                  <Image
-                    src={villa.src}
-                    alt={villa.title}
-                    fill
-                    sizes="(max-width: 768px) 85vw, 600px"
-                    className="object-cover transition-transform duration-[2s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-1000" />
-                </div>
-                
-                {/* Typographie de la carte */}
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-                  <div>
-                    <h3 className="font-playfair text-3xl sm:text-4xl text-foreground font-light mb-3 group-hover:text-[#E6D5B8] transition-colors duration-700">
-                      {villa.title}
-                    </h3>
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground flex items-center gap-4">
-                      <span className="w-6 h-[0.5px] bg-muted-foreground/50 transition-colors group-hover:bg-[#E6D5B8]"></span>
-                      {villa.city}
-                    </p>
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 transition-all duration-700 -translate-x-6 group-hover:translate-x-0 hidden md:block mt-2">
-                    <svg className="w-6 h-6 text-[#E6D5B8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
+              Collection
+            </motion.span>
+            <motion.span 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="font-mea-culpa italic text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#E6D5B8] leading-[0.8] block ml-4 md:ml-12" 
+              style={{ textShadow: "0 4px 30px rgba(0,0,0,0.05)"}}
+            >
+              d'exception
+            </motion.span>
+          </h2>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="hidden md:block max-w-sm text-muted-foreground font-light leading-relaxed mb-8"
+          >
+            <p>Une sélection rigoureuse de propriétés où le luxe rencontre l'authenticité. Chaque villa raconte une histoire unique sur la Côte d'Azur.</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 1 }}
+          >
+            <Link href="/hosting" className="group relative px-6 py-3 bg-transparent border-[0.5px] border-[#E6D5B8]/50 hover:bg-[#E6D5B8]/10 text-foreground font-playfair italic tracking-wide transition-all duration-500 overflow-hidden inline-flex items-center gap-3">
+              <span className="relative z-10">Découvrir le portfolio</span>
+              <span className="inline-block transition-transform duration-500 group-hover:translate-x-1 text-[#E6D5B8]">→</span>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Right Side: Images Grid - Chic Layout */}
+        <div className="w-full md:w-[55%] h-[50vh] md:h-[65vh] relative flex items-center justify-center">
+          <div className="relative w-full h-full">
+            {/* Main Center Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] aspect-[3/4] z-20"
+            >
+               <Link href={`/destinations/${showcaseVillas[1].city.toLowerCase().replace(/[' ]/g, "-")}`} className="block w-full h-full relative group overflow-hidden border border-white/20 shadow-2xl">
+                <Image
+                  src={showcaseVillas[1].src}
+                  alt={showcaseVillas[1].title}
+                  fill
+                  className="object-cover transition-transform duration-[2s] group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500" />
+                <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <p className="font-playfair text-xl italic">{showcaseVillas[1].title}</p>
                 </div>
               </Link>
             </motion.div>
-          ))}
-          <div className="shrink-0 w-12 md:w-24 h-full" />
+
+            {/* Top Right Image (Floating) */}
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              className="absolute right-[5%] top-[5%] w-[30%] aspect-square z-10"
+            >
+              <Link href={`/destinations/${showcaseVillas[0].city.toLowerCase().replace(/[' ]/g, "-")}`} className="block w-full h-full relative group overflow-hidden border border-white/20 shadow-xl">
+                <Image
+                  src={showcaseVillas[0].src}
+                  alt={showcaseVillas[0].title}
+                  fill
+                  className="object-cover transition-transform duration-[2s] group-hover:scale-110"
+                />
+                <div className="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <p className="font-playfair text-sm italic">{showcaseVillas[0].city}</p>
+                </div>
+              </Link>
+            </motion.div>
+
+            {/* Bottom Left Image (Floating) */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              className="absolute left-[5%] bottom-[5%] w-[30%] aspect-square z-30"
+            >
+              <Link href={`/destinations/${showcaseVillas[2].city.toLowerCase().replace(/[' ]/g, "-")}`} className="block w-full h-full relative group overflow-hidden border border-white/20 shadow-xl">
+                <Image
+                  src={showcaseVillas[2].src}
+                  alt={showcaseVillas[2].title}
+                  fill
+                  className="object-cover transition-transform duration-[2s] group-hover:scale-110"
+                />
+                <div className="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <p className="font-playfair text-sm italic">{showcaseVillas[2].city}</p>
+                </div>
+              </Link>
+            </motion.div>
+
+            {/* Decorative Elements */}
+            <motion.div 
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              transition={{ duration: 1.5, delay: 0.8 }}
+              className="absolute top-1/2 left-0 w-full h-[1px] bg-[#E6D5B8]/20 -z-10 origin-left"
+            />
+            <motion.div 
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              transition={{ duration: 1.5, delay: 0.8 }}
+              className="absolute left-1/2 top-0 w-[1px] h-full bg-[#E6D5B8]/20 -z-10 origin-top"
+            />
+          </div>
         </div>
+
       </div>
     </section>
   )

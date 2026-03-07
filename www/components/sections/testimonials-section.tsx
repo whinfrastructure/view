@@ -1,15 +1,21 @@
 "use client"
 
-import { TestimonialsColumn } from "@/components/ui/testimonials-column"
-import { motion } from "framer-motion"
-import { DotPattern } from "@/components/ui/dot-pattern"
-import { cn } from "@/lib/utils"
+import React from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
+
+interface Testimonial {
+  text: string;
+  image: string;
+  name: string;
+  role: string;
+}
 
 interface TestimonialsSectionProps {
   isMobile?: boolean
 }
 
-const testimonials = [
+const testimonials: Testimonial[] = [
   {
     text: "Une expérience inoubliable dans cette villa d'exception. Le service était impeccable et la vue à couper le souffle. Je recommande vivement !",
     image: "https://randomuser.me/api/portraits/women/1.jpg",
@@ -66,72 +72,104 @@ const testimonials = [
   },
 ]
 
-const firstColumn = testimonials.slice(0, 3)
-const secondColumn = testimonials.slice(3, 6)
-const thirdColumn = testimonials.slice(6, 9)
-
 export function TestimonialsSection({ isMobile = false }: TestimonialsSectionProps) {
   return (
     <section 
-      className={`relative flex shrink-0 items-center justify-center overflow-hidden bg-neutral-50 pt-24 ${isMobile ? "w-full pb-20" : "w-screen h-screen"}`}
+      className={`relative flex shrink-0 items-center justify-center overflow-hidden bg-[#FDFBF7] ${isMobile ? "w-full py-20" : "w-screen h-screen"}`}
     >
-      <DotPattern
-        className={cn(
-          "opacity-40 [mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
-        )}
-      />
-      <div className="max-w-7xl z-10 mx-auto px-4 w-full relative">
+      <div className="absolute inset-0 z-0 opacity-30">
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay" />
+      </div>
+
+      <div className="max-w-6xl z-10 mx-auto px-6 w-full relative flex flex-col items-center justify-center h-full">
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className={`flex flex-col items-center justify-center max-w-[640px] mx-auto ${isMobile ? "mb-6" : "mb-8 md:mb-12"}`}
+          className="text-center mb-12 md:mb-20"
         >
-          <div className="flex justify-center">
-            <div className={`inline-flex items-center rounded-full bg-neutral-100 font-medium text-neutral-700 ${isMobile ? "px-3 py-1 text-xs" : "px-3 md:px-4 py-1 md:py-1.5 text-xs md:text-sm"}`}>
-              TÉMOIGNAGES
-            </div>
-          </div>
-
-          <h2 className={`font-bold tracking-tight text-center leading-tight px-4 ${isMobile ? "text-2xl mt-3" : "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mt-4 md:mt-6"}`}>
-            Ils nous ont fait{" "}
-            <span 
-              className="inline-block gradient-text whitespace-nowrap"
-              style={{
-                fontFamily: "'Dancing Script', cursive",
-                background: "linear-gradient(135deg, #d4c5b0 0%, #e8dcc8 50%, #f5ede0 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              confiance
-            </span>
+          <span className="uppercase text-[10px] tracking-[0.3em] text-[#E6D5B8] font-medium border-b border-[#E6D5B8]/30 pb-2 mb-4 inline-block">
+            Témoignages
+          </span>
+          <h2 className="font-playfair text-3xl md:text-5xl lg:text-6xl text-foreground font-light leading-tight">
+            Ils nous ont fait <span className="font-mea-culpa italic text-[#E6D5B8] text-4xl md:text-6xl lg:text-7xl ml-2">confiance</span>
           </h2>
-          
         </motion.div>
 
-        <div className={`flex justify-center gap-3 md:gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] overflow-hidden ${isMobile ? "h-[300px]" : "h-[500px]"}`}>
-          <TestimonialsColumn testimonials={firstColumn} duration={15} reverse={true} />
-          <TestimonialsColumn 
-            testimonials={secondColumn} 
-            className="hidden md:block" 
-            duration={19} 
-            reverse={true}
-          />
-          <TestimonialsColumn 
-            testimonials={thirdColumn} 
-            className="hidden lg:block" 
-            duration={17} 
-            reverse={true}
-          />
+        {/* Elegant Slider */}
+        <div className="w-full max-w-4xl relative">
+          <TestimonialSlider testimonials={testimonials} />
         </div>
+
       </div>
-      
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
-      `}</style>
     </section>
+  )
+}
+
+function TestimonialSlider({ testimonials }: { testimonials: Testimonial[] }) {
+  const [currentIndex, setCurrentIndex] = React.useState(0)
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [testimonials.length])
+
+  return (
+    <div className="relative w-full min-h-[300px] flex flex-col items-center justify-center">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col items-center text-center"
+        >
+          <div className="mb-8 relative">
+             <span className="absolute -top-8 -left-8 text-6xl text-[#E6D5B8]/20 font-serif">"</span>
+             <p className="font-playfair text-xl md:text-3xl italic text-foreground/80 leading-relaxed max-w-2xl">
+              {testimonials[currentIndex].text}
+            </p>
+            <span className="absolute -bottom-8 -right-8 text-6xl text-[#E6D5B8]/20 font-serif">"</span>
+          </div>
+
+          <div className="flex flex-col items-center gap-3 mt-4">
+            <div className="relative w-16 h-16 overflow-hidden rounded-full border border-[#E6D5B8]/30 p-1">
+              <Image
+                src={testimonials[currentIndex].image}
+                alt={testimonials[currentIndex].name}
+                fill
+                className="object-cover rounded-full"
+              />
+            </div>
+            <div className="flex flex-col items-center">
+              <h4 className="font-sans uppercase tracking-[0.2em] text-xs font-medium text-foreground">
+                {testimonials[currentIndex].name}
+              </h4>
+              <p className="font-playfair italic text-sm text-[#E6D5B8] mt-1">
+                {testimonials[currentIndex].role}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Navigation Dots */}
+      <div className="flex gap-3 mt-12">
+        {testimonials.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentIndex(idx)}
+            className={`h-1 transition-all duration-300 ${
+              idx === currentIndex ? "w-8 bg-[#E6D5B8]" : "w-2 bg-[#E6D5B8]/30 hover:bg-[#E6D5B8]/50"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
   )
 }

@@ -16,104 +16,129 @@ export function AboutSection({ scrollToSection, isMobile = false }: AboutSection
   const { ref, isVisible } = useReveal(0.2)
 
   return (
-    <section 
-      ref={ref}
-      className={`relative flex shrink-0 items-center justify-center bg-white overflow-hidden ${isMobile ? "w-full py-20 px-4" : "w-screen h-screen px-12"}`}
-    >
-      {/* Decorative background elements - optimized */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-1/4 -right-1/4 w-96 h-96 bg-blue-50/30 rounded-full blur-2xl will-change-auto" />
-        <div className="absolute -bottom-1/4 -left-1/4 w-80 h-80 bg-orange-50/30 rounded-full blur-2xl will-change-auto" />
-      </div>
-
-      <div className={`relative w-full max-w-7xl mx-auto z-10 ${isMobile ? "flex flex-col gap-12" : "grid grid-cols-12 gap-12 items-center"}`}>
+    <section className="h-screen w-full shrink-0 flex items-center bg-[#FDFBF7] relative overflow-hidden">
+      <div className="w-full max-w-[1400px] mx-auto px-6 sm:px-12 md:px-20 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-24 h-full">
         
-        {/* Text Content */}
-        <div className={`${isMobile ? "w-full" : "col-span-6 lg:col-span-5"}`}>
+        {/* Left Side: Content */}
+        <div className="w-full lg:w-1/2 flex flex-col justify-center items-start z-20">
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="mb-8"
           >
-            <div className="flex items-center gap-2 mb-4">
-              <span className="h-px w-6 bg-neutral-300"></span>
-              <span className="text-xs font-medium tracking-widest text-neutral-400 uppercase">Notre Histoire</span>
-            </div>
+            <span className="uppercase text-[10px] tracking-[0.4em] text-[#E6D5B8] font-medium border-b border-[#E6D5B8]/30 pb-2">
+              Notre Histoire
+            </span>
+          </motion.div>
 
-            <h2 className="mb-6 h-16 md:h-20 flex items-center">
-              <TypewriterText
-                texts={["L'art de recevoir", "Sur mesure", "L'excellence"]}
-                typingSpeed={70}
-                deletingSpeed={35}
-                pauseDuration={2500}
-                className={cn(
-                  "font-serif font-medium tracking-tight",
-                  isMobile ? "text-3xl" : "text-4xl lg:text-5xl"
-                )}
-                cursorClassName="bg-neutral-900"
-              />
-            </h2>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-playfair text-foreground font-light leading-[1.1] mb-8">
+            <motion.span 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="block"
+            >
+              L'art de recevoir
+            </motion.span>
+            <motion.span 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="font-mea-culpa italic text-5xl sm:text-6xl md:text-7xl text-[#E6D5B8] leading-[0.8] block ml-12 mt-2" 
+              style={{ textShadow: "0 4px 30px rgba(0,0,0,0.05)"}}
+            >
+              sur mesure
+            </motion.span>
+          </h2>
 
-            <p className="text-neutral-600 text-base leading-relaxed mb-6">
-              WelkomHome redéfinit l&apos;expérience de la location saisonnière sur la Côte d&apos;Azur. 
-              Née de la passion de Yohan & Shirley, notre agence cultive l&apos;excellence et la proximité 
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="text-muted-foreground font-light leading-relaxed mb-10 max-w-lg space-y-6 text-lg"
+          >
+            <p>
+              WelkomHome redéfinit l'expérience de la location saisonnière sur la Côte d'Azur. 
+              Née de la passion de Yohan & Shirley, notre agence cultive l'excellence et la proximité 
               pour offrir des séjours inoubliables.
             </p>
-
-            <div className="space-y-3 mb-8">
+            <div className="grid grid-cols-1 gap-4 mt-6">
               {[
-                "Sélection rigoureuse de propriétés de prestige",
+                "Sélection rigoureuse de propriétés",
                 "Conciergerie privée disponible 7j/7",
-                "Expérience locale authentique et exclusive"
+                "Expérience locale authentique"
               ].map((item, i) => (
-                <div 
-                  key={i}
-                  className="flex items-center gap-3"
-                >
-                  <div className="shrink-0 w-5 h-5 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-900">
-                    <CheckCircle2 size={12} />
-                  </div>
-                  <span className="text-neutral-600 text-sm">{item}</span>
+                <div key={i} className="flex items-center gap-4 group">
+                  <span className="w-8 h-[1px] bg-[#E6D5B8] group-hover:w-12 transition-all duration-500" />
+                  <span className="text-sm uppercase tracking-wider text-foreground/80">{item}</span>
                 </div>
               ))}
             </div>
+          </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.9 }}
+          >
             <button
               onClick={() => scrollToSection(4)}
-              className="group flex items-center gap-3 text-neutral-900 font-semibold border-b-2 border-neutral-900 pb-1 hover:text-neutral-600 hover:border-neutral-600 transition-all"
+              className="group relative px-8 py-4 bg-transparent border-[0.5px] border-foreground/20 hover:border-[#E6D5B8] text-foreground font-playfair italic tracking-wide transition-all duration-500 overflow-hidden inline-flex items-center gap-3"
             >
-              <span>Rencontrer l&apos;équipe</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <span className="relative z-10 group-hover:text-[#E6D5B8] transition-colors duration-500">Rencontrer l'équipe</span>
+              <span className="inline-block transition-transform duration-500 group-hover:translate-x-2 text-[#E6D5B8]">→</span>
             </button>
           </motion.div>
         </div>
 
-        {/* Image Composition */}
-        <div className={`${isMobile ? "w-full" : "col-span-6 lg:col-span-7 relative"}`}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative"
-          >
-            {/* Main Image - Optimized */}
-            <div className="relative z-10 rounded-2xl overflow-hidden shadow-xl aspect-4/3 max-w-sm lg:max-w-md mx-auto">
+        {/* Right Side: Image Composition */}
+        <div className="w-full lg:w-1/2 h-[60vh] lg:h-full relative flex items-center justify-center">
+          <div className="relative w-full max-w-md aspect-[3/4]">
+            {/* Main Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+              className="relative z-20 w-full h-full overflow-hidden shadow-2xl"
+            >
               <Image
                 src="/daronnedaron.jpg"
                 alt="Yohan & Shirley - Fondateurs WelkomHome"
                 fill
-                sizes="(max-width: 768px) 320px, (max-width: 1024px) 384px, 448px"
-                className="object-cover"
-                loading="lazy"
-                quality={75}
+                className="object-cover transition-transform duration-[2s] hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              
-              
-            </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            </motion.div>
 
-            {/* Decorative element - simplified */}
-            <div className="absolute -top-8 -right-8 w-48 h-48 bg-neutral-100/50 rounded-full -z-10 hidden lg:block" />
-          </motion.div>
+            {/* Decorative Frame */}
+            <motion.div
+              initial={{ opacity: 0, x: 20, y: 20 }}
+              whileInView={{ opacity: 1, x: 40, y: 40 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.2 }}
+              className="absolute inset-0 border-[1px] border-[#E6D5B8] z-10"
+            />
+            
+            {/* Floating Element */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="absolute -bottom-10 -left-10 bg-[#FDFBF7] p-6 shadow-xl z-30 max-w-[200px]"
+            >
+              <p className="font-playfair text-3xl text-[#E6D5B8] mb-1">10+</p>
+              <p className="text-xs uppercase tracking-widest text-foreground/60">Années d'expérience</p>
+            </motion.div>
+          </div>
         </div>
 
       </div>

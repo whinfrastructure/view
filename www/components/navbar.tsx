@@ -248,18 +248,21 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
               />
             </button>
 
-            {/* Dropdown Menu */}
+            {/* Dropdown Menu - Chic Redesign */}
             <AnimatePresence>
               {item.dropdown && activeDropdown === item.label && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute left-0 top-full pt-2 min-w-[280px]"
+                  initial={{ opacity: 0, y: 20, clipPath: "inset(0% 0% 100% 0%)" }}
+                  animate={{ opacity: 1, y: 0, clipPath: "inset(0% 0% -20% 0%)" }}
+                  exit={{ opacity: 0, y: 10, clipPath: "inset(0% 0% 100% 0%)" }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute left-1/2 -translate-x-1/2 top-full pt-6 w-[360px]"
                 >
-                  <div className="rounded-xl bg-white shadow-xl border border-neutral-200 overflow-hidden">
-                    <div className="p-2">
+                  <div className="relative bg-[#1C1C1C] text-white p-8 shadow-2xl border border-white/5">
+                    {/* Decorative Line */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-4 bg-[#E6D5B8]" />
+                    
+                    <div className="grid gap-6">
                       {item.dropdown.map((dropdownItem, index) => (
                         <button
                           key={index}
@@ -267,31 +270,21 @@ export function Navbar({ currentSection, scrollToSection, isAtTop, isMobile = fa
                             dropdownItem.onClick()
                             setActiveDropdown(null)
                           }}
-                          className="w-full flex items-start gap-3 rounded-lg p-3 text-left transition-colors hover:bg-neutral-50 group"
+                          className="group flex items-start gap-4 text-left transition-all duration-300 hover:translate-x-2"
                         >
-                          {dropdownItem.icon && (
-                            <span className="text-2xl mt-0.5 transition-transform group-hover:scale-110">
-                              {dropdownItem.icon}
-                            </span>
-                          )}
-                          <div className="flex-1">
-                            <div className="font-medium text-sm text-neutral-900 mb-0.5">
+                          <span className="text-xl text-[#E6D5B8] opacity-60 group-hover:opacity-100 transition-opacity font-playfair italic">
+                            {index + 1 < 10 ? `0${index + 1}` : index + 1}
+                          </span>
+                          <div>
+                            <div className="font-playfair text-lg text-white group-hover:text-[#E6D5B8] transition-colors mb-1">
                               {dropdownItem.label}
                             </div>
                             {dropdownItem.description && (
-                              <div className="text-xs text-neutral-500">
+                              <div className="text-[10px] uppercase tracking-wider text-white/40 group-hover:text-white/60 transition-colors">
                                 {dropdownItem.description}
                               </div>
                             )}
                           </div>
-                          <svg 
-                            className="w-4 h-4 text-neutral-400 mt-1 transition-transform group-hover:translate-x-1" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
                         </button>
                       ))}
                     </div>
