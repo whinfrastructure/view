@@ -85,6 +85,7 @@ export default function HostingPage() {
           </div>
         )}
       </section>
+      </main>
     </div>
   );
 }

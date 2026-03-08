@@ -182,20 +182,22 @@ function CollapsibleSubGroup({
             className="overflow-hidden"
           >
             <SidebarMenu>
-              {childrenItems.map((item) => (
+              {childrenItems.map((item) => {
+                const Icon = item.icon
+                return (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild tooltip={item.title}>
                     <a
                       href={item.url}
                       className="flex items-center text-muted-foreground hover:text-foreground"
                     >
-                      <item.icon className="h-4 w-4 mr-2" />
+                      {Icon && <Icon className="h-4 w-4 mr-2" />}
                       <span>{item.title}</span>
                       <StatusBadge status={item.status} />
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ))}
+              )})}
             </SidebarMenu>
           </motion.div>
         )}
@@ -223,8 +225,9 @@ export function SidebarDemo() {
               <SidebarGroupContent>
                 {group.label === "Work" ? (
                   <>
-                    {group.items.map((item: any) =>
-                      item.children ? (
+                    {group.items.map((item: any) => {
+                      const Icon = item.icon
+                      return item.children ? (
                         <CollapsibleSubGroup
                           key={item.sublabel}
                           sublabel={item.sublabel}
@@ -239,7 +242,7 @@ export function SidebarDemo() {
                                 href={item.url}
                                 className="flex items-center text-muted-foreground hover:text-foreground"
                               >
-                                <item.icon className="h-4 w-4 mr-2" />
+                                {Icon && <Icon className="h-4 w-4 mr-2" />}
                                 <span>{item.title}</span>
                                 <StatusBadge status={item.status} />
                               </a>
@@ -247,24 +250,26 @@ export function SidebarDemo() {
                           </SidebarMenuItem>
                         </SidebarMenu>
                       )
-                    )}
+                    })}
                   </>
                 ) : (
                   <SidebarMenu>
-                    {group.items.map((item) => (
+                    {group.items.map((item) => {
+                      const Icon = item.icon
+                      return (
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton asChild tooltip={item.title}>
                           <a
                             href={item.url}
                             className="flex items-center text-muted-foreground hover:text-foreground"
                           >
-                            <item.icon className="h-4 w-4 mr-2" />
+                            {Icon && <Icon className="h-4 w-4 mr-2" />}
                             <span>{item.title}</span>
                             <StatusBadge status={item.status} />
                           </a>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
-                    ))}
+                    )})}
                   </SidebarMenu>
                 )}
               </SidebarGroupContent>

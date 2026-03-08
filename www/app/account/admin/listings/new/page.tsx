@@ -472,23 +472,10 @@ export default function NewListingPage() {
           <h2 className="text-xl font-semibold">Images</h2>
 
           <div className="space-y-4">
-            <UploadDropzone
-              endpoint="listingImageUploader"
-              onClientUploadComplete={(res: any) => {
-                if (res) {
-                  const newImages = res.map((file: any) => file.url);
-                  setFormData((prev) => ({
-                    ...prev,
-                    images: [...prev.images, ...newImages],
-                    coverImage: prev.coverImage || newImages[0],
-                  }));
-                }
-              }}
-              onUploadError={(error: Error) => {
-                alert(`Erreur: ${error.message}`);
-              }}
-              config={{ mode: "auto" }}
-            />
+            {/* UploadDropzone removed as per request */}
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
+              <p className="text-muted-foreground">Upload functionality disabled (Frontend only)</p>
+            </div>
 
             {formData.images.length > 0 && (
               <div className="grid grid-cols-4 gap-4">
