@@ -1,2 +1,0 @@
-[    2113ms] [WARNING] Image with src "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=90" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
-[ 1318822ms] [WARNING] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_7a8122d0._.js:2287
