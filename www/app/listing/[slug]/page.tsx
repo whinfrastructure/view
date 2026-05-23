@@ -1,3 +1,4 @@
+import DOMPurify from "isomorphic-dompurify";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
@@ -21,8 +22,14 @@ export default async function PropertyDetailPage({
   if (!property) notFound();
 
   const photos = (property.photos ?? []).slice().sort((a, b) => a.position - b.position);
-  const cover = photos[0];
-  const others = photos.slice(1);
+  // The "gallery" set is the 5 hero photos curated in admin. If the admin
+  // hasn't marked anything yet, we fall back to the first 5 by position so
+  // the hero never collapses to a single image.
+  const galleryFromAdmin = photos.filter((p) => p.category === "gallery");
+  const heroPhotos =
+    galleryFromAdmin.length > 0 ? galleryFromAdmin.slice(0, 5) : photos.slice(0, 5);
+  const cover = heroPhotos[0];
+  const others = heroPhotos.slice(1);
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -79,15 +86,13 @@ export default async function PropertyDetailPage({
               />
             </div>
 
-            {/* Description */}
+            {/* Description — admin edits this with a WYSIWYG, so we render HTML.
+                Input comes from the trusted admin so no sanitization here, but
+                if owner-side editing is ever opened up, sanitize server-side. */}
             {property.description && (
               <section>
                 <h2 className="text-xl font-semibold text-zinc-900">À propos</h2>
-                <div className="mt-3 space-y-3 text-sm leading-relaxed text-zinc-700">
-                  {property.description.split(/\r?\n\r?\n+/).map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </div>
+                <DescriptionBody html={property.description} />
               </section>
             )}
 
@@ -213,6 +218,38 @@ export default async function PropertyDetailPage({
           </aside>
         </div>
       </main>
+    </div>
+  );
+}
+
+// Renders admin-authored HTML (from the TipTap editor). Content is sanitized
+// via DOMPurify with a tag/attr allowlist matching what the editor can emit,
+// so even a future trust-boundary change (eg. owner-side editing) stays safe.
+// Falls back to plain paragraphs for legacy plain-text descriptions.
+function DescriptionBody({ html }: { html: string }) {
+  const looksLikeHtml = /<\/?(p|h[1-6]|ul|ol|li|strong|em|u|blockquote|br)/i.test(html);
+  if (looksLikeHtml) {
+    const clean = DOMPurify.sanitize(html, {
+      ALLOWED_TAGS: [
+        "p", "br", "strong", "em", "u", "s",
+        "h1", "h2", "h3",
+        "ul", "ol", "li",
+        "blockquote", "code", "pre",
+      ],
+      ALLOWED_ATTR: [],
+    });
+    return (
+      <div
+        className="prose prose-sm prose-zinc mt-3 max-w-none text-zinc-700"
+        dangerouslySetInnerHTML={{ __html: clean }}
+      />
+    );
+  }
+  return (
+    <div className="mt-3 space-y-3 text-sm leading-relaxed text-zinc-700">
+      {html.split(/\r?\n\r?\n+/).map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
     </div>
   );
 }
