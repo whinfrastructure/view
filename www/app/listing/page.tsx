@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { logout } from "@/app/actions/auth";
+import { SiteHeader } from "@/components/site-header";
 import { getCurrentUser } from "@/lib/auth";
 import { publicProperties, type PropertyListItem } from "@/lib/properties";
 
@@ -27,27 +27,7 @@ export default async function ListingPage({
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      {/* Header */}
-      <header className="sticky top-0 z-10 border-b border-zinc-200 bg-white/80 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
-          <Link href="/" className="text-sm font-semibold tracking-tight text-zinc-900">
-            Welkom Home
-          </Link>
-          <nav className="flex items-center gap-3 text-sm">
-            <Link href="/listing" className="text-zinc-700 hover:text-zinc-900">Villas</Link>
-            {me ? (
-              <UserMenu email={me.email} firstName={me.first_name} />
-            ) : (
-              <Link
-                href="/login"
-                className="rounded-md bg-zinc-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-zinc-800"
-              >
-                Se connecter
-              </Link>
-            )}
-          </nav>
-        </div>
-      </header>
+      <SiteHeader me={me} />
 
       <main className="mx-auto max-w-6xl px-6 py-10">
         <div className="mb-8 flex items-end justify-between">
@@ -55,7 +35,7 @@ export default async function ListingPage({
             <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">Catalogue</p>
             <h1 className="mt-2 text-3xl font-semibold text-zinc-900">
               {list.pagination.total} villa{list.pagination.total > 1 ? "s" : ""}
-              <span className="ml-1 text-zinc-500 italic">à la location</span>
+              <span className="ml-1 italic text-zinc-500">à la location</span>
             </h1>
           </div>
         </div>
@@ -67,7 +47,7 @@ export default async function ListingPage({
             type="search"
             defaultValue={sp.q ?? ""}
             placeholder="Recherche par nom, description…"
-            className="flex-1 min-w-64 max-w-md rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-100"
+            className="min-w-64 max-w-md flex-1 rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-900 focus:ring-2 focus:ring-zinc-100"
           />
           <input
             name="city"
@@ -130,15 +110,18 @@ export default async function ListingPage({
 
 function PropertyCard({ property: p }: { property: PropertyListItem }) {
   return (
-    <article className="overflow-hidden rounded-lg border border-zinc-200 bg-white transition-shadow hover:shadow-md">
-      <div className="aspect-[4/3] w-full bg-zinc-100">
+    <Link
+      href={`/listing/${p.slug}`}
+      className="group block overflow-hidden rounded-lg border border-zinc-200 bg-white transition-shadow hover:shadow-md"
+    >
+      <div className="aspect-[4/3] w-full overflow-hidden bg-zinc-100">
         {p.cover_photo ? (
-          // eslint-disable-next-line @next/next/no-img-element
+          /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src={p.cover_photo}
             alt={p.name}
             loading="lazy"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-xs text-zinc-400">
@@ -148,7 +131,9 @@ function PropertyCard({ property: p }: { property: PropertyListItem }) {
       </div>
       <div className="p-4">
         <div className="flex items-baseline justify-between gap-2">
-          <h3 className="truncate text-base font-semibold text-zinc-900">{p.name}</h3>
+          <h3 className="truncate text-base font-semibold text-zinc-900 group-hover:underline group-hover:decoration-zinc-900 group-hover:underline-offset-4">
+            {p.name}
+          </h3>
           {p.base_price_eur != null && (
             <span className="shrink-0 font-mono text-xs text-zinc-700">
               {p.base_price_eur.toLocaleString("fr-FR")} €/n
@@ -170,7 +155,7 @@ function PropertyCard({ property: p }: { property: PropertyListItem }) {
           ))}
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
 
@@ -179,23 +164,6 @@ function Tag({ label }: { label: string }) {
     <span className="rounded bg-zinc-100 px-1.5 py-0.5 text-[10px] uppercase tracking-wider text-zinc-600">
       {label}
     </span>
-  );
-}
-
-function UserMenu({ email, firstName }: { email: string; firstName: string | null }) {
-  const display = firstName || email.split("@")[0];
-  return (
-    <div className="flex items-center gap-2">
-      <span className="text-xs text-zinc-600">{display}</span>
-      <form action={logout}>
-        <button
-          type="submit"
-          className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50"
-        >
-          Déconnexion
-        </button>
-      </form>
-    </div>
   );
 }
 
