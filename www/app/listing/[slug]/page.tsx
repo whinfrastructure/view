@@ -152,16 +152,20 @@ export default async function PropertyDetailPage({
           className="grid grid-cols-2 gap-y-12 border-t border-b py-12 sm:grid-cols-3 lg:grid-cols-6"
           style={{ borderColor: HAIRLINE_INK }}
         >
-          <BigStat label="Personnes" value={property.max_guests} />
-          <BigStat label="Chambres" value={property.bedrooms} />
-          <BigStat label="Salles d'eau" value={property.bathrooms} />
+          <BigStat icon={<IconUsers />} label="Personnes" value={property.max_guests} />
+          <BigStat icon={<IconBed />} label="Chambres" value={property.bedrooms} />
+          <BigStat icon={<IconBath />} label="Salles d'eau" value={property.bathrooms} />
           {property.surface_m2 != null && (
-            <BigStat label="Surface" value={property.surface_m2} unit="m²" />
+            <BigStat icon={<IconRuler />} label="Surface" value={property.surface_m2} unit="m²" />
           )}
           {property.terrain_m2 != null && (
-            <BigStat label="Terrain" value={property.terrain_m2} unit="m²" />
+            <BigStat icon={<IconTree />} label="Terrain" value={property.terrain_m2} unit="m²" />
           )}
-          {property.view_type && <BigStat label="Vue" valueText={viewLabel(property.view_type)} />}
+          {/* Filter out the "none" value the backend sometimes returns when no
+              view has been picked — there's nothing useful to display. */}
+          {property.view_type && property.view_type !== "none" && (
+            <BigStat icon={<IconEye />} label="Vue" valueText={viewLabel(property.view_type)} />
+          )}
         </div>
       </Chapter>
 
@@ -781,18 +785,25 @@ function FullBleedPhoto({
 // ─── Stat / row helpers ───────────────────────────────────────────
 
 function BigStat({
+  icon,
   label,
   value,
   valueText,
   unit,
 }: {
+  icon?: React.ReactNode;
   label: string;
   value?: number;
   valueText?: string;
   unit?: string;
 }) {
   return (
-    <div className="text-center">
+    <div className="flex flex-col items-center text-center">
+      {icon && (
+        <span aria-hidden className="mb-5" style={{ color: CLAY }}>
+          {icon}
+        </span>
+      )}
       <p
         className="text-[5rem] leading-[0.85] tracking-tight md:text-[6rem]"
         style={{
@@ -818,6 +829,132 @@ function BigStat({
         {label}
       </p>
     </div>
+  );
+}
+
+// ─── Icons (1.5px stroke, 28px box, currentColor inherits from parent) ───
+
+function IconUsers() {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M16 19v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="3.5" />
+      <path d="M22 19v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+
+function IconBed() {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M2 4v16" />
+      <path d="M2 8h18a3 3 0 0 1 3 3v9" />
+      <path d="M2 17h20" />
+      <circle cx="7" cy="11" r="1.6" />
+    </svg>
+  );
+}
+
+function IconBath() {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M9 6V4a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v.5" />
+      <path d="M2 12h20" />
+      <path d="M3 12v3a4 4 0 0 0 4 4h10a4 4 0 0 0 4-4v-3" />
+      <path d="M5 19l-1.5 3" />
+      <path d="M19 19l1.5 3" />
+    </svg>
+  );
+}
+
+function IconRuler() {
+  // Square/surface (interior surface in m²)
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="0.5" />
+      <path d="M3 9h3" />
+      <path d="M3 15h3" />
+      <path d="M9 21v-3" />
+      <path d="M15 21v-3" />
+    </svg>
+  );
+}
+
+function IconTree() {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 2c-3 2.5-5 5-5 8a5 5 0 0 0 4 4.9V22h2v-7.1A5 5 0 0 0 17 10c0-3-2-5.5-5-8z" />
+    </svg>
+  );
+}
+
+function IconEye() {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
   );
 }
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BrandStatement } from "@/components/brand-statement";
+import { DualCtaSection } from "@/components/dual-cta-section";
 import { EditorialSection } from "@/components/editorial-section";
 import { HomeHero } from "@/components/home-hero";
 import { Mark } from "@/components/mark";
@@ -89,6 +90,10 @@ export default async function HomePage() {
           imageSrc="/1.png"
           imageAlt="Coucher de soleil sur le golfe de Saint-Tropez depuis une villa Welkom Home"
         />
+
+        {/* ─── Audience split (Propriétaires / Voyageurs) ─── */}
+        <DualCtaSection />
+
         {/* ─── Nos sélections (white bg, 3-up carousel) ─── */}
         <VillaSelections villas={featured} />
 
