@@ -111,6 +111,15 @@ export function SiteHeader({
           >
             <InstagramIcon />
           </a>
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="Facebook"
+            className="opacity-90 transition-opacity hover:opacity-100"
+          >
+            <FacebookIcon />
+          </a>
 
           <LangSwitcher ink={ink} ghost={ghost} />
 

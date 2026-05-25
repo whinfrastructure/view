@@ -98,10 +98,12 @@ function AudienceCard({
 }) {
   const isExternal = ctaHref.startsWith("mailto:") || ctaHref.startsWith("http");
   const ctaClass =
-    "mt-8 inline-flex items-center gap-3 border px-8 py-3.5 text-[10px] uppercase transition-colors hover:bg-[#f3ecd9] hover:text-[#5b3a1f]";
+    "mt-8 inline-flex items-center gap-3 border px-8 py-3.5 text-[10px] uppercase text-[#f3ecd9] transition-colors hover:bg-[#f3ecd9] hover:text-[#5b3a1f]";
+  // `color` is intentionally NOT set inline — inline styles beat Tailwind
+  // hover utilities, which would freeze the text colour to CREAM and make
+  // the label invisible against the cream hover background.
   const ctaStyle: React.CSSProperties = {
     borderColor: CREAM,
-    color: CREAM,
     letterSpacing: "0.3em",
     borderRadius: 2,
   };
