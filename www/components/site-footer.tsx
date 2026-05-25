@@ -12,30 +12,44 @@ import { WhLogo } from "@/components/wh-logo";
 
 const CREAM = "#f3ecd9";
 const CREAM_SOFT = "#efe6cf";
-const INK_DEEP = "#2a1810";   // very deep cocoa — bottom bar
+const CREAM_DARK = "#dfcb9d";  // sand — used as ornament tone on white variant
+const INK_DEEP = "#2a1810";    // very deep cocoa — bottom bar
 const INK_WARM = "#5b3a1f";
 const CLAY = "#8d4926";
-const HAIRLINE = "rgba(91, 58, 31, 0.16)";
+const HAIRLINE_CREAM = "rgba(91, 58, 31, 0.16)";
+const HAIRLINE_WHITE = "rgba(180, 150, 80, 0.22)";
 
 // Editorial 4-column footer with stacked depth:
-//   1. Atmospheric radial gradient (cream → cream-soft) for warmth
-//   2. Oversized Cormorant wordmark behind content (8% opacity)
+//   1. Atmospheric radial gradient for warmth
+//   2. Oversized Cormorant wordmark behind content (low opacity)
 //   3. Scattered SVG ornaments at varying depths
 //   4. Main column grid (z-10)
 //   5. Dark cocoa "ground" bar at the bottom — gives the page a base
-export function SiteFooter() {
+//
+// `variant`:
+//   "cream" (default) — bg cream, ornaments clay. Used on home.
+//   "white" — bg white, ornaments cream-sand. Used on contact / listing pages
+//             so the footer reads as a calmer surface after busy content.
+export function SiteFooter({
+  variant = "cream",
+}: {
+  variant?: "cream" | "white";
+}) {
   const year = new Date().getFullYear();
+  const isWhite = variant === "white";
+  const ornamentColor = isWhite ? CREAM_DARK : CLAY;
+  const hairline = isWhite ? HAIRLINE_WHITE : HAIRLINE_CREAM;
+  const gradient = isWhite
+    ? "radial-gradient(ellipse 110% 85% at 50% 0%, #ffffff 0%, #fbf8ef 60%, #f5edd8 100%)"
+    : "radial-gradient(ellipse 110% 85% at 50% 0%, #f7f0db 0%, #f3ecd9 45%, #ece1c2 100%)";
 
   return (
-    <footer className="relative overflow-hidden border-t" style={{ borderColor: HAIRLINE }}>
+    <footer className="relative overflow-hidden border-t" style={{ borderColor: hairline }}>
       {/* ─── Depth layer 1: atmospheric radial gradient ─── */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 110% 85% at 50% 0%, #f7f0db 0%, #f3ecd9 45%, #ece1c2 100%)",
-        }}
+        style={{ background: gradient }}
       />
 
       {/* ─── Depth layer 2: huge background wordmark ─── */}
@@ -48,8 +62,8 @@ export function SiteFooter() {
           style={{
             fontFamily: "var(--font-cormorant), serif",
             fontWeight: 500,
-            color: CLAY,
-            opacity: 0.07,
+            color: ornamentColor,
+            opacity: isWhite ? 0.18 : 0.07,
             letterSpacing: "-0.02em",
             whiteSpace: "nowrap",
           }}
@@ -62,21 +76,21 @@ export function SiteFooter() {
       <div
         aria-hidden
         className="pointer-events-none absolute right-12 top-16 hidden lg:block"
-        style={{ color: CLAY, opacity: 0.4 }}
+        style={{ color: ornamentColor, opacity: isWhite ? 0.6 : 0.4 }}
       >
         <SunCompass size={56} />
       </div>
       <div
         aria-hidden
         className="pointer-events-none absolute left-12 top-24 hidden lg:block"
-        style={{ color: CLAY, opacity: 0.3 }}
+        style={{ color: ornamentColor, opacity: isWhite ? 0.5 : 0.3 }}
       >
         <PalmFrond />
       </div>
       <div
         aria-hidden
         className="pointer-events-none absolute right-16 bottom-40 hidden lg:block"
-        style={{ color: CLAY, opacity: 0.5 }}
+        style={{ color: ornamentColor, opacity: isWhite ? 0.7 : 0.5 }}
       >
         <ArcMark size={70} />
       </div>

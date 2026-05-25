@@ -12,8 +12,8 @@ const CREAM = "#e8d6b7";
 
 const NAV_LINKS = [
   { label: "Villas", href: "/listing" },
-  { label: "Conciergerie", href: "/#approche" },
-  { label: "Contact", href: "mailto:contact@welkomhome.eu" },
+  { label: "L'agence", href: "/#approche" },
+  { label: "Contact", href: "/contact" },
 ];
 
 // Languages the brand actually publishes in (fr / en / nl per the AI modal).

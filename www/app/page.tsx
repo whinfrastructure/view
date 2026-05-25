@@ -130,7 +130,7 @@ export default async function HomePage() {
               className="text-[11px] uppercase"
               style={{ letterSpacing: "0.32em", color: INK_WARM, opacity: 0.75 }}
             >
-              Prêt à plonger ?
+              Une dernière chose
             </p>
             <h2
               className="mt-4 text-4xl leading-[1.1] md:text-5xl lg:text-[3.2rem]"
@@ -140,11 +140,12 @@ export default async function HomePage() {
                 color: INK_WARM,
               }}
             >
-              Trouve la villa qui te <Mark>ressemble</Mark>
+              Votre confiance, <Mark>nous savons la mériter</Mark>.
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-[15px] leading-[1.7] text-zinc-700">
-              Parcours notre catalogue ou raconte-nous ton projet — on te recommande
-              les villas qui collent à ton été, pas l&apos;inverse.
+              Raconte-nous ton projet ou parcours nos villas. On répond à chaque
+              message, à chaque appel — et on te dira honnêtement si on est la
+              bonne adresse pour ton séjour.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
