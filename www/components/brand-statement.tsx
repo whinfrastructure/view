@@ -142,6 +142,20 @@ export function BrandStatement() {
 
         {/* Right — body copy */}
         <div className="bs-body space-y-6 text-[15px] leading-[1.7] text-zinc-800 lg:pt-4">
+          {/* Tiny sparkle as a paragraph initial — magazine flourish */}
+          <span
+            aria-hidden
+            className="inline-flex items-center gap-2"
+            style={{ color: HEADING, opacity: 0.7 }}
+          >
+            <Sparkle size={10} />
+            <span
+              className="font-mono text-[10px] uppercase"
+              style={{ letterSpacing: "0.32em" }}
+            >
+              La maison
+            </span>
+          </span>
           <p>
             <strong className="font-semibold" style={{ color: HEADING }}>
               Welkom Home,
