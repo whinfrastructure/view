@@ -4,6 +4,7 @@ import { DualCtaSection } from "@/components/dual-cta-section";
 import { EditorialSection } from "@/components/editorial-section";
 import { HomeHero } from "@/components/home-hero";
 import { Mark } from "@/components/mark";
+import { Sparkle, SunCompass, WaveLine } from "@/components/ornaments";
 import { ReviewsCarousel } from "@/components/reviews-carousel";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -102,10 +103,29 @@ export default async function HomePage() {
         {/* ─── Closing band ─── */}
         <section
           id="approche"
-          className="scroll-mt-24 border-t py-28"
+          className="relative scroll-mt-24 overflow-hidden border-t py-28"
           style={{ background: CREAM_SOFT, borderColor: "rgba(91,58,31,0.12)" }}
         >
-          <div className="mx-auto max-w-4xl px-8 text-center lg:px-12">
+          {/* Decorative sun in the top-right of this band */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute right-10 top-10 hidden md:block"
+            style={{ color: "#8d4926", opacity: 0.35 }}
+          >
+            <SunCompass size={64} />
+          </div>
+
+          <div className="relative mx-auto max-w-4xl px-8 text-center lg:px-12">
+            {/* Ornamental top mark */}
+            <div
+              aria-hidden
+              className="mb-6 flex items-center justify-center gap-4"
+              style={{ color: "#8d4926", opacity: 0.7 }}
+            >
+              <WaveLine width={50} />
+              <Sparkle size={9} />
+              <WaveLine width={50} reverse />
+            </div>
             <p
               className="text-[11px] uppercase"
               style={{ letterSpacing: "0.32em", color: INK_WARM, opacity: 0.75 }}
@@ -124,7 +144,7 @@ export default async function HomePage() {
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-[15px] leading-[1.7] text-zinc-700">
               Parcours notre catalogue ou raconte-nous ton projet — on te recommande
-              les villas qui collent à ton été, pas l'inverse.
+              les villas qui collent à ton été, pas l&apos;inverse.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link

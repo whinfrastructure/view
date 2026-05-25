@@ -1,31 +1,110 @@
 import Link from "next/link";
+import {
+  ArcMark,
+  Diamond,
+  OliveBranch,
+  PalmFrond,
+  Sparkle,
+  SunCompass,
+  WaveLine,
+} from "@/components/ornaments";
 import { WhLogo } from "@/components/wh-logo";
 
 const CREAM = "#f3ecd9";
 const CREAM_SOFT = "#efe6cf";
+const INK_DEEP = "#2a1810";   // very deep cocoa — bottom bar
 const INK_WARM = "#5b3a1f";
 const CLAY = "#8d4926";
 const HAIRLINE = "rgba(91, 58, 31, 0.16)";
 
-// Editorial 4-column footer. Same brand palette as the rest of the site so
-// it reads as the bottom of one continuous surface rather than a tacked-on
-// block. Shared across home / listing / detail pages.
+// Editorial 4-column footer with stacked depth:
+//   1. Atmospheric radial gradient (cream → cream-soft) for warmth
+//   2. Oversized Cormorant wordmark behind content (8% opacity)
+//   3. Scattered SVG ornaments at varying depths
+//   4. Main column grid (z-10)
+//   5. Dark cocoa "ground" bar at the bottom — gives the page a base
 export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      className="border-t"
-      style={{ background: CREAM, borderColor: HAIRLINE, color: INK_WARM }}
-    >
-      <div className="mx-auto max-w-7xl px-8 py-20 lg:px-12 lg:py-24">
+    <footer className="relative overflow-hidden border-t" style={{ borderColor: HAIRLINE }}>
+      {/* ─── Depth layer 1: atmospheric radial gradient ─── */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 110% 85% at 50% 0%, #f7f0db 0%, #f3ecd9 45%, #ece1c2 100%)",
+        }}
+      />
+
+      {/* ─── Depth layer 2: huge background wordmark ─── */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-24 flex items-end justify-center overflow-hidden lg:bottom-32"
+      >
+        <span
+          className="select-none text-[22vw] leading-[0.78] italic"
+          style={{
+            fontFamily: "var(--font-cormorant), serif",
+            fontWeight: 500,
+            color: CLAY,
+            opacity: 0.07,
+            letterSpacing: "-0.02em",
+            whiteSpace: "nowrap",
+          }}
+        >
+          Welkom Home
+        </span>
+      </div>
+
+      {/* ─── Depth layer 3: scattered ornaments ─── */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-12 top-16 hidden lg:block"
+        style={{ color: CLAY, opacity: 0.4 }}
+      >
+        <SunCompass size={56} />
+      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-12 top-24 hidden lg:block"
+        style={{ color: CLAY, opacity: 0.3 }}
+      >
+        <PalmFrond />
+      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-16 bottom-40 hidden lg:block"
+        style={{ color: CLAY, opacity: 0.5 }}
+      >
+        <ArcMark size={70} />
+      </div>
+
+      {/* ─── Layer 4: main content grid (z-10) ─── */}
+      <div className="relative z-10 mx-auto max-w-7xl px-8 py-24 lg:px-12 lg:py-28">
+        {/* Small ornamental top mark */}
+        <div
+          aria-hidden
+          className="mb-16 flex items-center justify-center gap-5"
+          style={{ color: CLAY, opacity: 0.55 }}
+        >
+          <WaveLine width={80} />
+          <Sparkle size={11} />
+          <WaveLine width={80} reverse />
+        </div>
+
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-16">
           {/* ─── Brand column ─── */}
           <div className="lg:col-span-5">
-            <Link href="/" aria-label="Welkom Home — accueil" className="inline-flex items-center gap-3">
-              <WhLogo className="h-12 w-auto" fill={INK_WARM} />
+            <Link
+              href="/"
+              aria-label="Welkom Home — accueil"
+              className="inline-flex items-center gap-3"
+            >
+              <WhLogo className="h-14 w-auto" fill={INK_WARM} />
               <span
-                className="text-sm uppercase"
+                className="text-base uppercase"
                 style={{ letterSpacing: "0.35em", color: INK_WARM }}
               >
                 Welkom Home
@@ -38,13 +117,19 @@ export function SiteFooter() {
               Conciergerie de villas privées entre Saint-Tropez et Les Issambres.
               Calendriers synchronisés, devis sous 24h, équipe locale.
             </p>
+
+            {/* Ornament under the description */}
+            <div className="mt-8" style={{ color: CLAY, opacity: 0.7 }}>
+              <OliveBranch />
+            </div>
+
             <div className="mt-8 flex gap-3">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label="Instagram"
-                className="inline-flex h-10 w-10 items-center justify-center border transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
+                className="inline-flex h-11 w-11 items-center justify-center border transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
                 style={{ borderColor: INK_WARM, color: INK_WARM, borderRadius: 2 }}
               >
                 <InstagramIcon />
@@ -71,12 +156,13 @@ export function SiteFooter() {
               <span className="font-mono">+33 6 68 19 27 55</span>
             </FooterLink>
             <p
-              className="text-[13px] leading-[1.6]"
+              className="flex items-center gap-2 text-[13px] leading-[1.6]"
               style={{ color: INK_WARM, opacity: 0.75 }}
             >
-              Les Issambres
-              <br />
-              Var, Côte d&apos;Azur
+              <span style={{ color: CLAY }}>
+                <Diamond size={5} />
+              </span>
+              Les Issambres, Var
             </p>
           </FooterColumn>
 
@@ -86,7 +172,7 @@ export function SiteFooter() {
               className="text-[13px] leading-[1.6]"
               style={{ color: INK_WARM, opacity: 0.75 }}
             >
-              Quelques villas, quelques bonnes adresses, deux ou trois fois l&apos;an.
+              Quelques villas, quelques bonnes adresses — deux fois l&apos;an.
             </p>
             <form className="mt-2 flex flex-col gap-2" action="#">
               <label className="sr-only" htmlFor="newsletter-email">
@@ -107,7 +193,7 @@ export function SiteFooter() {
                 type="submit"
                 className="inline-flex items-center justify-center px-4 py-2 text-[10px] uppercase transition-opacity hover:opacity-90"
                 style={{
-                  background: "#3a2415",
+                  background: INK_DEEP,
                   color: CREAM,
                   letterSpacing: "0.28em",
                   borderRadius: 2,
@@ -118,13 +204,36 @@ export function SiteFooter() {
             </form>
           </FooterColumn>
         </div>
+
+        {/* Closing decorative band before the dark bar */}
+        <div
+          className="mt-20 flex flex-col items-center gap-5 border-t pt-10"
+          style={{ borderColor: HAIRLINE }}
+        >
+          <div
+            className="flex items-center gap-5"
+            style={{ color: CLAY, opacity: 0.6 }}
+          >
+            <WaveLine width={70} />
+            <SunCompass size={28} />
+            <WaveLine width={70} reverse />
+          </div>
+          <p
+            className="font-mono text-[10px] uppercase"
+            style={{ letterSpacing: "0.4em", color: CLAY, opacity: 0.7 }}
+          >
+            Riviera · MMXXVI
+          </p>
+        </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t" style={{ borderColor: HAIRLINE, background: CREAM_SOFT }}>
+      {/* ─── Layer 5: dark "ground" bar ─── */}
+      <div
+        className="relative z-10"
+        style={{ background: INK_DEEP, color: CREAM_SOFT }}
+      >
         <div
-          className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-8 py-5 text-[11px] sm:flex-row sm:items-center lg:px-12"
-          style={{ color: INK_WARM }}
+          className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-8 py-6 text-[11px] sm:flex-row sm:items-center lg:px-12"
         >
           <p style={{ opacity: 0.7 }}>
             © {year} Welkom Home — Tous droits réservés.
@@ -133,12 +242,16 @@ export function SiteFooter() {
             <BottomLink href="/mentions-legales">Mentions légales</BottomLink>
             <BottomLink href="/confidentialite">Confidentialité</BottomLink>
             <BottomLink href="/cgv">CGV</BottomLink>
-            <span
+            <li
               className="font-mono"
-              style={{ color: CLAY, letterSpacing: "0.18em", opacity: 0.85 }}
+              style={{
+                color: CREAM_SOFT,
+                opacity: 0.5,
+                letterSpacing: "0.18em",
+              }}
             >
-              Côte d&apos;Azur · MMXXVI
-            </span>
+              v0.1
+            </li>
           </ul>
         </div>
       </div>
@@ -160,9 +273,10 @@ function FooterColumn({
   return (
     <div className={cols}>
       <p
-        className="text-[10px] uppercase"
+        className="flex items-center gap-2 text-[10px] uppercase"
         style={{ letterSpacing: "0.34em", color: CLAY }}
       >
+        <Sparkle size={8} />
         {title}
       </p>
       <div className="mt-5 flex flex-col gap-3">{children}</div>
@@ -177,8 +291,10 @@ function FooterLink({
   href: string;
   children: React.ReactNode;
 }) {
-  const isExternal = href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("http");
-  const className = "text-[13px] transition-opacity hover:opacity-70";
+  const isExternal =
+    href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("http");
+  const className =
+    "text-[13px] transition-opacity hover:opacity-70 inline-flex items-center";
   const style = { color: INK_WARM };
 
   if (isExternal) {
@@ -200,8 +316,8 @@ function BottomLink({ href, children }: { href: string; children: React.ReactNod
     <li>
       <Link
         href={href}
-        className="uppercase transition-opacity hover:opacity-70"
-        style={{ letterSpacing: "0.2em", color: INK_WARM, opacity: 0.85 }}
+        className="uppercase transition-opacity hover:opacity-100"
+        style={{ letterSpacing: "0.2em", color: CREAM_SOFT, opacity: 0.7 }}
       >
         {children}
       </Link>
@@ -212,8 +328,8 @@ function BottomLink({ href, children }: { href: string; children: React.ReactNod
 function InstagramIcon() {
   return (
     <svg
-      width="16"
-      height="16"
+      width="17"
+      height="17"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

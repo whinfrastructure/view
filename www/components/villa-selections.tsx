@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { useCallback, useRef } from "react";
 import { Mark } from "@/components/mark";
+import { Sparkle, WaveLine } from "@/components/ornaments";
 import type { PropertyListItem } from "@/lib/properties";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);

@@ -3,16 +3,22 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import { Mark } from "@/components/mark";
+import {
+  OliveBranch,
+  PalmFrond,
+  Sparkle,
+  SunCompass,
+  WaveLine,
+} from "@/components/ornaments";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const INK = "#1a1a1a";
 const INK_WARM = "#5b3a1f";
 const CLAY = "#8d4926";
-const CREAM = "#f3ecd9";
-const CREAM_SOFT = "#efe6cf";
+const HAIRLINE_INK = "rgba(26, 26, 26, 0.12)";
 
 type Review = {
   quote: string;
@@ -21,50 +27,51 @@ type Review = {
   villa: string;
 };
 
-// Hand-curated testimonials surfaced on the home. Replace with backend data
-// when the reviews API ships — until then they're hard-coded so the section
-// always has something to render.
+// Hand-curated testimonials. Replace with backend data when the reviews API
+// ships — until then they're hard-coded so the section always has content.
+// The FIRST entry is the "hero" featured quote (longer, most evocative).
 const REVIEWS: Review[] = [
   {
     quote:
-      "Shirley et Yoan ont été disponibles et très réactifs à chaque demande. De plus très sympathiques et accueillants. Les prestations sont à la hauteur et la propreté était irréprochable. Nous vous les conseillons les yeux fermés — nous referons appel à eux pour nos prochaines vacances dans le sud.",
+      "Nous avons passé un séjour merveilleux, tant le lieu est exceptionnel — une vue époustouflante sur la Méditerranée, des prestations en corrélation parfaite avec nos attentes. Nous repartons la tête pleine de souvenirs inoubliables.",
+    author: "Laurence",
+    location: "Provence-Alpes-Côte d'Azur",
+    villa: "Villa Tumulus",
+  },
+  {
+    quote:
+      "Shirley et Yoan ont été disponibles et très réactifs. Les prestations sont à la hauteur et la propreté irréprochable. Nous les conseillons les yeux fermés.",
     author: "Jordan",
     location: "Le Raincy, France",
     villa: "Villa Les Tourterelles",
   },
   {
     quote:
-      "Merci à Yohan et Shirley pour leur écoute et leur accompagnement. Nous avons passé un magnifique moment au Mas Yuralla.",
+      "Merci à Yohan et Shirley pour leur écoute et leur accompagnement. Un magnifique moment au Mas Yuralla.",
     author: "Simon",
     location: "Paris, France",
     villa: "Mas Yuralla",
   },
   {
     quote:
-      "Spacious villa with exceptional view in a calm neighborhood. Great amenities!",
+      "Spacious villa with exceptional view in a calm neighborhood. Great amenities.",
     author: "Ernst",
     location: "Erlangen, Allemagne",
     villa: "Villa Tumulus",
   },
   {
     quote:
-      "Logement conforme à l'annonce, beaucoup d'équipements pour la cuisine, il suffit de poser vos valises et de vous régaler avec la vue magnifique. Merci à l'hôte pour sa gentillesse — nous recommandons ce logement au top.",
+      "Logement conforme à l'annonce, beaucoup d'équipements. Il suffit de poser vos valises et de profiter de la vue. Merci à l'hôte pour sa gentillesse — nous recommandons.",
     author: "François",
     location: "Paris, France",
     villa: "Villa Naïades",
   },
-  {
-    quote:
-      "Nous avons passé un séjour merveilleux, tant le lieu est exceptionnel — une vue époustouflante sur la Méditerranée et des prestations en corrélation avec nos attentes. Nous repartons la tête pleine de souvenirs inoubliables.",
-    author: "Laurence",
-    location: "Provence-Alpes-Côte d'Azur",
-    villa: "Villa Tumulus",
-  },
 ];
+
+const ROMAN = ["I", "II", "III", "IV", "V"];
 
 export function ReviewsCarousel() {
   const rootRef = useRef<HTMLElement>(null);
-  const scrollerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -82,46 +89,57 @@ export function ReviewsCarousel() {
       });
 
       tl.fromTo(
-        ".rc-header > *",
+        ".rv-header > *",
         { autoAlpha: 0, y: 14 },
-        { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.1 },
-      ).fromTo(
-        ".rc-card",
-        { autoAlpha: 0, y: 24 },
-        { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.1 },
-        "<0.2",
-      );
+        { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1 },
+      )
+        .fromTo(
+          ".rv-featured",
+          { autoAlpha: 0, y: 32 },
+          { autoAlpha: 1, y: 0, duration: 1, ease: "power3.out" },
+          "<0.15",
+        )
+        .fromTo(
+          ".rv-support",
+          { autoAlpha: 0, y: 24 },
+          { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.12 },
+          "<0.25",
+        );
     },
     { scope: rootRef },
   );
 
-  const scrollBy = useCallback((dir: 1 | -1) => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const card = el.querySelector(".rc-card") as HTMLElement | null;
-    if (!card) return;
-    const step = card.offsetWidth + 24; // gap-6
-    el.scrollBy({ left: step * dir, behavior: "smooth" });
-  }, []);
+  const featured = REVIEWS[0];
+  const support = REVIEWS.slice(1);
 
   return (
     <section
       ref={rootRef}
-      className="relative py-28 lg:py-32"
+      className="relative py-28 lg:py-36"
       style={{ background: "#ffffff" }}
     >
+      {/* Decorative top margin ornament — small sun on the right edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-8 top-12 lg:right-16 lg:top-16"
+        style={{ color: CLAY, opacity: 0.45 }}
+      >
+        <SunCompass size={36} />
+      </div>
+
       <div className="mx-auto max-w-7xl px-8 lg:px-12">
-        {/* Header */}
-        <div className="rc-header mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        {/* ─── Header ─── */}
+        <div className="rv-header mb-16 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end lg:mb-20">
           <div>
             <p
-              className="text-[10px] uppercase"
+              className="flex items-center gap-3 text-[10px] uppercase"
               style={{ letterSpacing: "0.34em", color: CLAY }}
             >
-              Ils en parlent
+              <Sparkle size={9} />
+              Témoignages — {String(REVIEWS.length).padStart(2, "0")}
             </p>
             <h2
-              className="mt-4 text-3xl leading-[1.1] md:text-5xl lg:text-[2.8rem]"
+              className="mt-4 text-3xl leading-[1.05] md:text-5xl lg:text-[3rem]"
               style={{
                 fontFamily: "var(--font-cormorant), serif",
                 fontWeight: 500,
@@ -132,100 +150,199 @@ export function ReviewsCarousel() {
             </h2>
           </div>
           <p
-            className="font-mono text-[11px] uppercase"
-            style={{ letterSpacing: "0.22em", color: CLAY }}
+            className="hidden max-w-xs text-[12px] italic leading-[1.5] md:block"
+            style={{
+              fontFamily: "var(--font-cormorant), serif",
+              color: CLAY,
+              opacity: 0.7,
+            }}
           >
-            {String(REVIEWS.length).padStart(2, "0")} témoignages
+            Quelques mots reçus après leur séjour, retranscrits sans retouche.
           </p>
         </div>
 
-        {/* Carousel */}
-        <div className="relative">
-          {/* Arrows */}
-          <button
-            type="button"
-            aria-label="Précédent"
-            onClick={() => scrollBy(-1)}
-            className="absolute -left-5 top-1/2 z-10 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border bg-white shadow-[0_4px_18px_rgba(26,26,26,0.08)] transition-all hover:scale-105 hover:bg-[#1a1a1a] hover:text-white md:flex"
-            style={{ borderColor: "rgba(26,26,26,0.16)", color: INK }}
-          >
-            <Arrow direction="left" />
-          </button>
-          <button
-            type="button"
-            aria-label="Suivant"
-            onClick={() => scrollBy(1)}
-            className="absolute -right-5 top-1/2 z-10 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border bg-white shadow-[0_4px_18px_rgba(26,26,26,0.08)] transition-all hover:scale-105 hover:bg-[#1a1a1a] hover:text-white md:flex"
-            style={{ borderColor: "rgba(26,26,26,0.16)", color: INK }}
-          >
-            <Arrow direction="right" />
-          </button>
+        {/* ─── I. FEATURED PULL-QUOTE ─── */}
+        <article
+          className="rv-featured grid grid-cols-1 gap-10 border-y py-16 lg:grid-cols-12 lg:gap-12 lg:py-20"
+          style={{ borderColor: HAIRLINE_INK }}
+        >
+          {/* Left margin: roman numeral + ornament */}
+          <div className="lg:col-span-2">
+            <span
+              className="flex items-center gap-3 font-mono text-[10px] uppercase"
+              style={{ letterSpacing: "0.32em", color: CLAY }}
+            >
+              <Sparkle size={10} />
+              {ROMAN[0]}
+            </span>
+            <span
+              aria-hidden
+              className="mt-6 block text-[6rem] leading-[0.6] italic"
+              style={{
+                fontFamily: "var(--font-cormorant), serif",
+                color: CLAY,
+                opacity: 0.45,
+              }}
+            >
+              «
+            </span>
+            {/* Vertical decorative palm/leaf running down the margin */}
+            <div
+              aria-hidden
+              className="mt-10 hidden lg:block"
+              style={{ color: CLAY, opacity: 0.5 }}
+            >
+              <PalmFrond />
+            </div>
+          </div>
 
-          {/* Scroller */}
-          <div
-            ref={scrollerRef}
-            className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {REVIEWS.map((r, i) => (
-              <article
-                key={i}
-                className="rc-card flex w-[88%] flex-shrink-0 snap-start flex-col justify-between p-8 sm:w-[60%] lg:w-[calc((100%-3rem)/3)] lg:p-10"
+          {/* Main quote + author */}
+          <div className="lg:col-span-10">
+            <blockquote
+              className="text-2xl leading-[1.25] italic md:text-[2.2rem] lg:text-[2.6rem]"
+              style={{
+                fontFamily: "var(--font-cormorant), serif",
+                fontWeight: 500,
+                color: INK_WARM,
+              }}
+            >
+              {featured.quote}
+            </blockquote>
+
+            {/* Olive branch separator before the author footer */}
+            <div className="mt-8" style={{ color: CLAY, opacity: 0.6 }}>
+              <OliveBranch />
+            </div>
+
+            <footer className="mt-6 flex flex-wrap items-baseline gap-x-8 gap-y-2">
+              <span
+                className="text-[12px] uppercase"
+                style={{ letterSpacing: "0.3em", color: INK }}
+              >
+                {featured.author}
+              </span>
+              <span
+                className="font-mono text-[11px]"
+                style={{ color: INK_WARM, opacity: 0.7 }}
+              >
+                {featured.location}
+              </span>
+              <span
+                className="text-[14px] italic"
                 style={{
-                  background: i % 2 === 0 ? CREAM_SOFT : CREAM,
-                  border: "1px solid rgba(91,58,31,0.12)",
-                  borderRadius: 2,
-                  minHeight: "320px",
+                  fontFamily: "var(--font-cormorant), serif",
+                  color: CLAY,
                 }}
               >
-                {/* Decorative opening quote mark */}
-                <span
-                  aria-hidden
-                  className="-mt-2 text-6xl leading-none italic"
-                  style={{
-                    fontFamily: "var(--font-cormorant), serif",
-                    color: CLAY,
-                    opacity: 0.5,
-                  }}
-                >
-                  «
-                </span>
+                — {featured.villa}
+              </span>
+            </footer>
+          </div>
+        </article>
 
+        {/* ─── Wave divider between featured and supporting ─── */}
+        <div
+          aria-hidden
+          className="my-16 flex items-center justify-center gap-6 lg:my-20"
+          style={{ color: CLAY, opacity: 0.5 }}
+        >
+          <WaveLine />
+          <Sparkle size={14} />
+          <WaveLine reverse />
+        </div>
+
+        {/* ─── II–V. SUPPORTING GRID (asymmetric spread) ─── */}
+        <div className="mt-20 grid grid-cols-1 gap-x-12 gap-y-16 lg:grid-cols-12 lg:gap-y-20">
+          {support.map((r, i) => {
+            // Asymmetric col-spans + offsets create the magazine rhythm.
+            // II: wide left   |  III: narrow right
+            // IV: narrow left |  V:  wide right
+            const layouts = [
+              "lg:col-span-7 lg:col-start-1",
+              "lg:col-span-4 lg:col-start-9",
+              "lg:col-span-5 lg:col-start-2",
+              "lg:col-span-6 lg:col-start-7",
+            ];
+            const layout = layouts[i] ?? "";
+            // Vary text alignment so the spread doesn't read like a uniform grid.
+            const isRightAligned = i === 1 || i === 3;
+            return (
+              <article
+                key={i}
+                className={`rv-support ${layout} ${isRightAligned ? "text-right" : "text-left"}`}
+              >
+                <span
+                  className={`flex items-center gap-2.5 font-mono text-[10px] uppercase ${
+                    isRightAligned ? "justify-end" : "justify-start"
+                  }`}
+                  style={{ letterSpacing: "0.32em", color: CLAY }}
+                >
+                  <Sparkle size={9} />
+                  {ROMAN[i + 1]}
+                </span>
                 <blockquote
-                  className="mt-4 text-[15px] italic leading-[1.65] flex-1"
+                  className="mt-5 text-lg italic leading-[1.45] md:text-xl lg:text-[1.45rem]"
                   style={{
                     fontFamily: "var(--font-cormorant), serif",
+                    fontWeight: 500,
                     color: INK_WARM,
                   }}
                 >
-                  {r.quote}
+                  « {r.quote} »
                 </blockquote>
-
-                <footer className="mt-6">
-                  <p
+                <footer
+                  className={`mt-6 flex flex-wrap items-baseline gap-x-5 gap-y-1 ${
+                    isRightAligned ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <span
                     className="text-[11px] uppercase"
                     style={{ letterSpacing: "0.28em", color: INK }}
                   >
                     {r.author}
-                  </p>
-                  <p
-                    className="mt-1 font-mono text-[11px]"
+                  </span>
+                  <span
+                    className="font-mono text-[11px]"
                     style={{ color: INK_WARM, opacity: 0.7 }}
                   >
                     {r.location}
-                  </p>
-                  <p
-                    className="mt-3 text-[13px] italic"
+                  </span>
+                  <span
+                    className="w-full text-[13px] italic"
                     style={{
                       fontFamily: "var(--font-cormorant), serif",
                       color: CLAY,
                     }}
                   >
                     {r.villa}
-                  </p>
+                  </span>
                 </footer>
               </article>
-            ))}
+            );
+          })}
+        </div>
+
+        {/* ─── Closing ornament (defined below) ─── */}
+        <div
+          className="mt-24 flex flex-col items-center gap-5 border-t pt-12"
+          style={{ borderColor: HAIRLINE_INK }}
+        >
+          <div style={{ color: CLAY }}>
+            <SunCompass size={32} />
+          </div>
+          <div
+            aria-hidden
+            className="flex items-center gap-4"
+            style={{ color: CLAY, opacity: 0.55 }}
+          >
+            <WaveLine />
+            <span
+              className="font-mono text-[10px] uppercase"
+              style={{ letterSpacing: "0.36em" }}
+            >
+              Fin du recueil
+            </span>
+            <WaveLine reverse />
           </div>
         </div>
       </div>
@@ -233,21 +350,3 @@ export function ReviewsCarousel() {
   );
 }
 
-function Arrow({ direction }: { direction: "left" | "right" }) {
-  return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={{ transform: direction === "left" ? "rotate(180deg)" : undefined }}
-      aria-hidden="true"
-    >
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
-}
