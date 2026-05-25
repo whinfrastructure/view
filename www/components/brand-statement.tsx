@@ -120,9 +120,9 @@ export function BrandStatement() {
               color: HEADING,
             }}
           >
-            Des villas d&apos;exception
+            Des villas d&apos;exception,
             <br />
-            sur la <Mark color={HIGHLIGHT}>Côte d&apos;Azur</Mark>
+            un <Mark color={HIGHLIGHT}>accueil hollandais</Mark>.
 
           </h2>
 
