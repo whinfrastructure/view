@@ -57,8 +57,8 @@ export function DualCtaSection() {
             description="Confiez-nous votre maison. On la met en lumière, on gère les locations, vous percevez."
             ctaLabel="En savoir plus"
             ctaHref="mailto:contact@welkomhome.eu?subject=Propri%C3%A9taire%20%E2%80%94%20Confier%20ma%20villa"
-            imageSrc="/1.png"
-            imageAlt="Vue sur le golfe depuis une villa Welkom Home"
+            imageSrc="/owners-villa.jpg"
+            imageAlt="Villa méditerranéenne perchée sur une falaise au-dessus du golfe (photo Niklas, Unsplash)"
           />
           <AudienceCard
             eyebrow="Voyageurs"
@@ -70,8 +70,8 @@ export function DualCtaSection() {
             description="Des villas triées sur le volet entre Saint-Tropez et Les Issambres."
             ctaLabel="Voir les villas"
             ctaHref="/listing"
-            imageSrc="/25.png"
-            imageAlt="Intérieur lumineux d'une villa Welkom Home, palmiers au-dehors"
+            imageSrc="/travelers-pool.jpg"
+            imageAlt="Vue depuis une villa : piscine à débordement, cyprès et mer turquoise (photo Arno Senoner, Unsplash)"
           />
         </div>
       </div>
