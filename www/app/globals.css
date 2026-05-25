@@ -25,3 +25,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Hide the native scrollbar on the villa-selection horizontal carousel —
+   navigation is driven by the arrow controls. Firefox/IE handled via
+   inline style on the element itself. */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
