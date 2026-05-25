@@ -52,41 +52,41 @@ export default async function HomePage() {
       <div className="relative z-10" style={{ background: CREAM }}>
         <BrandStatement />
 
-        {/* ─── Editorial: conciergerie (image left) ─── */}
+        {/* ─── Editorial: origine 2018 (image left) ─── */}
         <EditorialSection
           imageSide="left"
-          eyebrow="L'agence"
+          eyebrow="L'origine — 2018"
           heading={
             <>
-              Den&nbsp;Haag,
+              Née au cœur du
               <br />
-              <Mark>côté Sud</Mark>
+              <Mark>Golfe</Mark>
             </>
           }
           body={[
-            "Welkom Home, c'est une boîte hollandaise basée à Den Haag qui opère sur la Côte d'Azur depuis quinze ans. On parle néerlandais, français et anglais — on comprend ce que cherchent les voyageurs des Pays-Bas et de Belgique.",
-            "On choisit chaque villa nous-mêmes, on connaît les propriétaires, on s'occupe de tout sur place. Tu poses tes valises, on fait le reste — comme une famille qui t'accueille à la maison.",
+            "Après une année d'études, de conception et d'écoute des premiers clients, Welkom Home a vu le jour début 2018 dans le golfe de Saint-Tropez.",
+            "Cinq ans plus tard, l'agence est devenue une référence locale dans l'intendance haut de gamme et la mise en relation propriétaires-vacanciers. Un cap maintenu par une équipe dynamique et des partenaires triés sur le volet.",
           ]}
-          ctaLabel="Découvrir l'agence"
+          ctaLabel="Notre histoire"
           ctaHref="/#approche"
           imageSrc="/25.png"
           imageAlt="Chambre d'une villa Welkom Home — palmiers et lumière du Sud"
         />
 
-        {/* ─── Editorial: devis (image right) ─── */}
+        {/* ─── Editorial: méthode — périmètre réduit (image right) ─── */}
         <EditorialSection
           imageSide="right"
-          eyebrow="L'expérience"
+          eyebrow="La méthode"
           heading={
             <>
-              Pas de paiement en ligne,
+              Un périmètre
               <br />
-              juste un <Mark>devis ferme</Mark>
+              <Mark>volontairement réduit</Mark>
             </>
           }
           body={[
-            "Écris-nous en néerlandais, en français ou en anglais. On étudie ta demande, on confirme les disponibilités auprès des propriétaires, et on revient sous 24 heures avec un devis clair — sans surprise, sans engagement.",
-            "Une fois la villa repérée, on prend le relais : conditions négociées, prestations sur-mesure, séjour calé autour de toi — que tu viennes en couple, en famille, ou en tribu d'amis.",
+            "Proximité, disponibilité, réactivité. Notre zone d'intervention reste limitée — c'est cette contrainte qui nous permet d'être réellement présents sur place, en quelques minutes.",
+            "Nous ne travaillons qu'avec des prestataires connus, locaux, référencés. C'est notre manière de participer au tissu économique du golfe — et de garantir un service tenu de bout en bout.",
           ]}
           ctaLabel="Demander un devis"
           ctaHref="mailto:contact@welkomhome.eu"

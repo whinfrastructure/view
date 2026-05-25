@@ -160,18 +160,25 @@ export function BrandStatement() {
             <strong className="font-semibold" style={{ color: HEADING }}>
               Welkom Home,
             </strong>{" "}
-            c&apos;est une agence hollandaise basée à Den Haag qui accompagne les
-            voyageurs des Pays-Bas et de Belgique sur la Côte d&apos;Azur.
+            c&apos;est une agence hollandaise basée à Den Haag, ancrée sur la Côte
+            d&apos;Azur depuis 2018 — au cœur du golfe de Saint-Tropez.
           </p>
           <p>
-            Quinze ans à faire le pont entre les Pays-Bas et le Var. On parle
-            néerlandais, français et anglais, et on connaît chaque maison du
-            catalogue comme si c&apos;était la nôtre.
+            Notre métier : faciliter la vie de ceux qui viennent ici, qu&apos;ils
+            possèdent leur maison ou qu&apos;ils la louent pour quelques semaines.
+            On parle néerlandais, français et anglais, et on traite chaque dossier
+            comme si c&apos;était le seul.
           </p>
-          <p>
-            Pas de plateforme anonyme, pas de paiement en ligne. Tu nous écris dans
-            ta langue, on étudie ta demande, et on revient sous 24 heures avec un
-            devis ferme et toutes les options autour de la villa.
+          <p
+            className="border-l pl-4 italic"
+            style={{
+              fontFamily: "var(--font-cormorant), serif",
+              borderColor: HEADING,
+              color: HEADING,
+              fontSize: "1.05rem",
+            }}
+          >
+            « Votre confiance, nous savons la mériter. »
           </p>
         </div>
       </div>
