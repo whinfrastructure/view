@@ -161,10 +161,9 @@ export default async function HomePage() {
               </Link>
               <a
                 href="mailto:contact@welkomhome.eu"
-                className="inline-flex items-center gap-3 border px-9 py-4 text-[11px] uppercase transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
+                className="inline-flex items-center gap-3 border px-9 py-4 text-[11px] uppercase text-[#5b3a1f] transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
                 style={{
                   borderColor: INK_WARM,
-                  color: INK_WARM,
                   letterSpacing: "0.28em",
                   borderRadius: 2,
                 }}
