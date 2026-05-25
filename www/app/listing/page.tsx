@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { ListingGrid } from "@/components/listing-grid";
 import { Mark } from "@/components/mark";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCurrentUser } from "@/lib/auth";
 import { publicProperties } from "@/lib/properties";
@@ -8,10 +8,8 @@ import { publicProperties } from "@/lib/properties";
 export const dynamic = "force-dynamic";
 
 const CREAM = "#f3ecd9";
-const CREAM_SOFT = "#efe6cf";
 const INK_WARM = "#5b3a1f";
 const CLAY = "#8d4926";
-const HAIRLINE = "rgba(91, 58, 31, 0.16)";
 
 export default async function ListingPage({
   searchParams,
@@ -67,36 +65,7 @@ export default async function ListingPage({
         <ListingGrid initialQuery={sp.q ?? ""} villas={list.data} />
       </main>
 
-      {/* Minimal footer to match home */}
-      <footer
-        className="mt-24 border-t py-10"
-        style={{ background: CREAM_SOFT, borderColor: HAIRLINE }}
-      >
-        <div
-          className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-8 text-xs sm:flex-row lg:px-12"
-          style={{ color: INK_WARM, opacity: 0.85 }}
-        >
-          <div className="flex items-center gap-3">
-            <span style={{ letterSpacing: "0.3em" }} className="uppercase">
-              Welkom Home
-            </span>
-            <span>·</span>
-            <span>© {new Date().getFullYear()}</span>
-          </div>
-          <div className="flex items-center gap-5">
-            <Link href="/" className="uppercase tracking-widest hover:opacity-70">
-              Accueil
-            </Link>
-            <a
-              href="mailto:contact@welkomhome.eu"
-              className="uppercase tracking-widest hover:opacity-70"
-            >
-              Contact
-            </a>
-            <span className="font-mono">+33 668 192 755</span>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

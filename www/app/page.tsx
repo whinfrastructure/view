@@ -4,6 +4,8 @@ import { DualCtaSection } from "@/components/dual-cta-section";
 import { EditorialSection } from "@/components/editorial-section";
 import { HomeHero } from "@/components/home-hero";
 import { Mark } from "@/components/mark";
+import { ReviewsCarousel } from "@/components/reviews-carousel";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { VillaSelections } from "@/components/villa-selections";
 import { getCurrentUser } from "@/lib/auth";
@@ -153,36 +155,11 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* ─── Témoignages clients ─── */}
+        <ReviewsCarousel />
+
         {/* ─── Footer ─── */}
-        <footer
-          className="border-t py-12"
-          style={{ background: CREAM, borderColor: "rgba(91,58,31,0.12)" }}
-        >
-          <div
-            className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-8 text-xs sm:flex-row lg:px-12"
-            style={{ color: INK_WARM, opacity: 0.85 }}
-          >
-            <div className="flex items-center gap-3">
-              <span style={{ letterSpacing: "0.3em" }} className="uppercase">
-                Welkom Home
-              </span>
-              <span>·</span>
-              <span>© {new Date().getFullYear()}</span>
-            </div>
-            <div className="flex items-center gap-5">
-              <Link href="/listing" className="uppercase tracking-widest hover:opacity-70">
-                Villas
-              </Link>
-              <a
-                href="mailto:contact@welkomhome.eu"
-                className="uppercase tracking-widest hover:opacity-70"
-              >
-                Contact
-              </a>
-              <span className="font-mono">+33 668 192 755</span>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
       </div>
     </>
   );
