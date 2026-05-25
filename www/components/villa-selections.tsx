@@ -79,9 +79,10 @@ export function VillaSelections({ villas }: Props) {
         <div className="vs-header mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
             <p
-              className="text-[10px] uppercase"
+              className="flex items-center gap-3 text-[10px] uppercase"
               style={{ letterSpacing: "0.34em", color: CLAY }}
             >
+              <Sparkle size={9} />
               Nos villas
             </p>
             <h2
@@ -112,7 +113,7 @@ export function VillaSelections({ villas }: Props) {
         {/* Count + hairline divider — gives the carousel an editorial frame
             and tells the user how many properties are available. */}
         <div
-          className="vs-header mb-12 flex items-center gap-5 border-t pt-5"
+          className="vs-header mb-12 flex items-center gap-4 border-t pt-5"
           style={{ borderColor: "rgba(26,26,26,0.12)" }}
         >
           <span
@@ -120,6 +121,9 @@ export function VillaSelections({ villas }: Props) {
             style={{ letterSpacing: "0.22em", color: CLAY }}
           >
             {String(villas.length).padStart(2, "0")} villas
+          </span>
+          <span aria-hidden style={{ color: CLAY, opacity: 0.55 }}>
+            <WaveLine width={36} />
           </span>
           <span className="text-[11px] text-zinc-500" style={{ letterSpacing: "0.1em" }}>
             Saint-Tropez · Sainte-Maxime · Les Issambres

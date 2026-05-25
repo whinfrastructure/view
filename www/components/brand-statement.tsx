@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { useRef } from "react";
 import { Mark } from "@/components/mark";
+import { ArcMark, Sparkle, SunCompass } from "@/components/ornaments";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -73,6 +74,22 @@ export function BrandStatement() {
       {/* Vertical decorative phrase along the left edge. Sized small enough
           that the full phrase always fits the section height (no clipping),
           and toned down so it reads as an ornamental wash, not a headline. */}
+      {/* Decorative corner ornaments — anchor the layout */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-10 top-12 hidden md:block"
+        style={{ color: WATERMARK, opacity: 0.45 }}
+      >
+        <SunCompass size={52} />
+      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-0 right-0 hidden lg:block"
+        style={{ color: WATERMARK, opacity: 0.32 }}
+      >
+        <ArcMark size={140} />
+      </div>
+
       <span
         aria-hidden="true"
         className="bs-watermark pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 select-none whitespace-nowrap md:left-6"
