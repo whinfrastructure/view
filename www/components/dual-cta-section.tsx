@@ -54,7 +54,7 @@ export function DualCtaSection() {
                 Vous cherchez à <em className="italic">valoriser</em> votre villa ?
               </>
             }
-            description="Confiez-nous votre maison. On la met en lumière, on gère les locations, vous percevez."
+            description="Confiez-nous votre maison. On la met en lumière auprès d'une clientèle néerlandaise et belge fidèle, on gère les locations, vous percevez."
             ctaLabel="En savoir plus"
             ctaHref="mailto:contact@welkomhome.eu?subject=Propri%C3%A9taire%20%E2%80%94%20Confier%20ma%20villa"
             imageSrc="/owners-villa.jpg"
@@ -67,7 +67,7 @@ export function DualCtaSection() {
                 Vous cherchez <em className="italic">votre maison</em> d&apos;été ?
               </>
             }
-            description="Des villas triées sur le volet entre Saint-Tropez et Les Issambres."
+            description="Des villas triées sur le volet entre Saint-Tropez et Les Issambres. Accueil en néerlandais, français ou anglais."
             ctaLabel="Voir les villas"
             ctaHref="/listing"
             imageSrc="/travelers-pool.jpg"

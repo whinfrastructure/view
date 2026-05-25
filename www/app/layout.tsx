@@ -23,9 +23,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Welkom Home — Locations de villas Côte d'Azur",
+  title: "Welkom Home — Agence hollandaise sur la Côte d'Azur",
   description:
-    "Villas d'exception à louer entre les Issambres et Saint-Tropez. Conciergerie incluse, courte et longue durée.",
+    "Agence basée à Den Haag, spécialisée dans la location de villas privées sur la Côte d'Azur pour les voyageurs néerlandais et belges. Accueil en français, néerlandais et anglais — devis sous 24h.",
 };
 
 export default function RootLayout({

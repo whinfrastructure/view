@@ -160,18 +160,18 @@ export function BrandStatement() {
             <strong className="font-semibold" style={{ color: HEADING }}>
               Welkom Home,
             </strong>{" "}
-            votre conciergerie spécialisée dans la location de villas privées entre
-            Saint-Tropez et Les Issambres.
+            c&apos;est une agence hollandaise basée à Den Haag qui accompagne les
+            voyageurs des Pays-Bas et de Belgique sur la Côte d&apos;Azur.
           </p>
           <p>
-            Nous centralisons les plus belles maisons de la région avec des
-            calendriers synchronisés en temps réel — fini les doubles bookings, fini
-            les allers-retours pour vérifier les disponibilités.
+            Quinze ans à faire le pont entre les Pays-Bas et le Var. On parle
+            néerlandais, français et anglais, et on connaît chaque maison du
+            catalogue comme si c&apos;était la nôtre.
           </p>
           <p>
-            Chaque séjour est pensé sur mesure : conciergerie sur place, prestataires
-            triés, accueil personnalisé, équipe anglophone. Pas de paiement en ligne
-            — on étudie ta demande et on revient avec un devis ferme sous 24 heures.
+            Pas de plateforme anonyme, pas de paiement en ligne. Tu nous écris dans
+            ta langue, on étudie ta demande, et on revient sous 24 heures avec un
+            devis ferme et toutes les options autour de la villa.
           </p>
         </div>
       </div>

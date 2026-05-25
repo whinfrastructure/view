@@ -55,19 +55,19 @@ export default async function HomePage() {
         {/* ─── Editorial: conciergerie (image left) ─── */}
         <EditorialSection
           imageSide="left"
-          eyebrow="La conciergerie"
+          eyebrow="L'agence"
           heading={
             <>
-              Une équipe locale,
+              Den&nbsp;Haag,
               <br />
-              <Mark>à votre écoute</Mark>
+              <Mark>côté Sud</Mark>
             </>
           }
           body={[
-            "Welkom Home, c'est une équipe ancrée entre Les Issambres et Saint-Tropez. Une présence sur place, une connaissance fine des villas et des prestataires de la région.",
-            "De l'accueil personnalisé jusqu'au dernier service, chaque détail est anticipé pour que ton séjour se vive — pas qu'il se gère.",
+            "Welkom Home, c'est une boîte hollandaise basée à Den Haag qui opère sur la Côte d'Azur depuis quinze ans. On parle néerlandais, français et anglais — on comprend ce que cherchent les voyageurs des Pays-Bas et de Belgique.",
+            "On choisit chaque villa nous-mêmes, on connaît les propriétaires, on s'occupe de tout sur place. Tu poses tes valises, on fait le reste — comme une famille qui t'accueille à la maison.",
           ]}
-          ctaLabel="Découvrir l'approche"
+          ctaLabel="Découvrir l'agence"
           ctaHref="/#approche"
           imageSrc="/25.png"
           imageAlt="Chambre d'une villa Welkom Home — palmiers et lumière du Sud"
@@ -85,7 +85,7 @@ export default async function HomePage() {
             </>
           }
           body={[
-            "On étudie ta demande, on confirme les disponibilités auprès des propriétaires, et on revient sous 24 heures avec un devis clair — sans surprise, sans engagement.",
+            "Écris-nous en néerlandais, en français ou en anglais. On étudie ta demande, on confirme les disponibilités auprès des propriétaires, et on revient sous 24 heures avec un devis clair — sans surprise, sans engagement.",
             "Une fois la villa repérée, on prend le relais : conditions négociées, prestations sur-mesure, séjour calé autour de toi — que tu viennes en couple, en famille, ou en tribu d'amis.",
           ]}
           ctaLabel="Demander un devis"

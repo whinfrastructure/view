@@ -114,8 +114,9 @@ export function SiteFooter() {
               className="mt-7 max-w-sm text-[14px] leading-[1.7]"
               style={{ color: INK_WARM, opacity: 0.85 }}
             >
-              Conciergerie de villas privées entre Saint-Tropez et Les Issambres.
-              Calendriers synchronisés, devis sous 24h, équipe locale.
+              Agence hollandaise basée à Den Haag, spécialisée dans
+              l&apos;accompagnement des voyageurs néerlandais et belges à la
+              recherche de leur maison sur la Côte d&apos;Azur.
             </p>
 
             {/* Ornament under the description */}
@@ -166,13 +167,21 @@ export function SiteFooter() {
               <span className="font-mono">+33 6 68 19 27 55</span>
             </FooterLink>
             <p
-              className="flex items-center gap-2 text-[13px] leading-[1.6]"
+              className="flex flex-col gap-1 text-[13px] leading-[1.6]"
               style={{ color: INK_WARM, opacity: 0.75 }}
             >
-              <span style={{ color: CLAY }}>
-                <Diamond size={5} />
+              <span className="flex items-center gap-2">
+                <span style={{ color: CLAY }}>
+                  <Diamond size={5} />
+                </span>
+                Den Haag, Pays-Bas
               </span>
-              Les Issambres, Var
+              <span className="flex items-center gap-2">
+                <span style={{ color: CLAY }}>
+                  <Diamond size={5} />
+                </span>
+                Les Issambres, Var
+              </span>
             </p>
           </FooterColumn>
 
