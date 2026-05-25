@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Mark } from "@/components/mark";
 import { PhotoGallery } from "@/components/photo-gallery";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCurrentUser } from "@/lib/auth";
 import { publicProperties, type Photo, type PropertyDetail } from "@/lib/properties";
