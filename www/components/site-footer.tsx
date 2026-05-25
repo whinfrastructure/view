@@ -129,10 +129,20 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label="Instagram"
-                className="inline-flex h-11 w-11 items-center justify-center border transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
-                style={{ borderColor: INK_WARM, color: INK_WARM, borderRadius: 2 }}
+                className="inline-flex h-11 w-11 items-center justify-center border text-[#5b3a1f] transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
+                style={{ borderColor: INK_WARM, borderRadius: 2 }}
               >
                 <InstagramIcon />
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Facebook"
+                className="inline-flex h-11 w-11 items-center justify-center border text-[#5b3a1f] transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
+                style={{ borderColor: INK_WARM, borderRadius: 2 }}
+              >
+                <FacebookIcon />
               </a>
             </div>
           </div>

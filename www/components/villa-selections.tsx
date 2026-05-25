@@ -98,10 +98,9 @@ export function VillaSelections({ villas }: Props) {
           </div>
           <Link
             href="/listing"
-            className="inline-flex items-center gap-3 border px-7 py-3 text-[10px] uppercase transition-colors hover:bg-[#1a1a1a] hover:text-white"
+            className="inline-flex items-center gap-3 border px-7 py-3 text-[10px] uppercase text-[#1a1a1a] transition-colors hover:bg-[#1a1a1a] hover:text-white"
             style={{
               borderColor: INK,
-              color: INK,
               letterSpacing: "0.3em",
               borderRadius: 2,
             }}

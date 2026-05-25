@@ -170,10 +170,9 @@ export function ListingGrid({ initialQuery, villas }: Props) {
           </p>
           <a
             href="mailto:contact@welkomhome.eu"
-            className="mt-7 inline-flex items-center gap-3 border px-7 py-3 text-[10px] uppercase transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
+            className="mt-7 inline-flex items-center gap-3 border px-7 py-3 text-[10px] uppercase text-[#5b3a1f] transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
             style={{
               borderColor: INK_WARM,
-              color: INK_WARM,
               letterSpacing: "0.3em",
               borderRadius: 2,
             }}

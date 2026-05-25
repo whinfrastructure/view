@@ -155,10 +155,9 @@ export function EditorialSection({
 
           <Link
             href={ctaHref}
-            className="ed-cta mt-9 inline-flex items-center gap-3 border px-7 py-3 text-[10px] uppercase transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
+            className="ed-cta mt-9 inline-flex items-center gap-3 border px-7 py-3 text-[10px] uppercase text-[#5b3a1f] transition-colors hover:bg-[#5b3a1f] hover:text-[#f3ecd9]"
             style={{
               borderColor: INK_WARM,
-              color: INK_WARM,
               letterSpacing: "0.3em",
               borderRadius: 2,
             }}
