@@ -223,3 +223,17 @@ function InstagramIcon() {
     </svg>
   );
 }
+
+function FacebookIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.93.26-1.56 1.59-1.56H17V4.2c-.29-.04-1.3-.13-2.46-.13-2.43 0-4.1 1.48-4.1 4.21v2.52H7.7V14h2.74v8h3.06z" />
+    </svg>
+  );
+}
