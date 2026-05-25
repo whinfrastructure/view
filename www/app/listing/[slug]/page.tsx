@@ -563,38 +563,7 @@ export default async function PropertyDetailPage({
         </div>
       </Chapter>
 
-      {/* ─── Footer ───────────────────────────────────────────────── */}
-      <footer
-        className="border-t py-10"
-        style={{ background: CREAM_SOFT, borderColor: HAIRLINE }}
-      >
-        <div
-          className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-8 text-xs sm:flex-row lg:px-12"
-          style={{ color: INK_WARM, opacity: 0.85 }}
-        >
-          <div className="flex items-center gap-3">
-            <span style={{ letterSpacing: "0.3em" }} className="uppercase">
-              Welkom Home
-            </span>
-            <span>·</span>
-            <span>© {new Date().getFullYear()}</span>
-          </div>
-          <div className="flex items-center gap-5">
-            <Link href="/" className="uppercase tracking-widest hover:opacity-70">
-              Accueil
-            </Link>
-            <Link href="/listing" className="uppercase tracking-widest hover:opacity-70">
-              Catalogue
-            </Link>
-            <a
-              href="mailto:contact@welkomhome.eu"
-              className="uppercase tracking-widest hover:opacity-70"
-            >
-              Contact
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
