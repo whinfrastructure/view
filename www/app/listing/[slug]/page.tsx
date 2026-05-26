@@ -1,4 +1,4 @@
-import DOMPurify from "isomorphic-dompurify";
+import sanitizeHtml from "sanitize-html";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Mark } from "@/components/mark";
@@ -996,14 +996,14 @@ function Comfort({ ok, label }: { ok: boolean; label: string }) {
 function DescriptionBody({ html }: { html: string }) {
   const looksLikeHtml = /<\/?(p|h[1-6]|ul|ol|li|strong|em|u|blockquote|br)/i.test(html);
   if (looksLikeHtml) {
-    const clean = DOMPurify.sanitize(html, {
-      ALLOWED_TAGS: [
+    const clean = sanitizeHtml(html, {
+      allowedTags: [
         "p", "br", "strong", "em", "u", "s",
         "h1", "h2", "h3",
         "ul", "ol", "li",
         "blockquote", "code", "pre",
       ],
-      ALLOWED_ATTR: [],
+      allowedAttributes: {},
     });
     return (
       <div
