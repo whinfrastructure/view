@@ -25,71 +25,90 @@ export function HomeHero() {
         return;
       }
 
-      // Splash fades around 3s; start the hero reveal slightly earlier so the
-      // wordmark is already settling in as the splash clears, instead of
-      // making the user wait through a black moment.
+      // Splash sits on top for ~3s, then fades out. We want the hero to be
+      // *already in place* by the time the splash begins dissolving, so the
+      // reveal feels instant rather than a slow grow-in. Total reveal
+      // finishes around 1.6s — well before the splash fade-out kicks in.
       const tl = gsap.timeline({
-        delay: 2.3,
+        delay: 0.9,
         defaults: { ease: "power3.out" },
       });
 
       tl.fromTo(
         ".hero-logo",
         { autoAlpha: 0, scale: 0.97 },
-        { autoAlpha: 1, scale: 1, duration: 0.9, ease: "power2.out" },
+        { autoAlpha: 1, scale: 1, duration: 0.65, ease: "power2.out" },
       )
         .fromTo(
           ".hero-text",
           { autoAlpha: 0, y: 12 },
-          { autoAlpha: 1, y: 0, duration: 0.55 },
-          "-=0.55",
+          { autoAlpha: 1, y: 0, duration: 0.45 },
+          "-=0.4",
         )
         .fromTo(
           ".hero-scroll",
           { autoAlpha: 0, y: 8 },
-          { autoAlpha: 0.85, y: 0, duration: 0.5 },
-          "-=0.25",
+          { autoAlpha: 0.85, y: 0, duration: 0.4 },
+          "-=0.2",
         );
 
       // ─── Scroll-driven parallax ─────────────────────────────────
-      // Video slowly zooms in as the user scrolls past the hero (1 → 1.08).
-      // Wordmark drifts up and fades while the cream section slides over,
-      // so it feels like a fluid handoff instead of a sudden disappearance.
-      gsap.to(".hero-video", {
-        scale: 1.08,
-        ease: "none",
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
+      // `immediateRender: false` is CRITICAL here — the mount-reveal timeline
+      // above runs with a 2.3s delay (waiting for the splash). If the scrub
+      // tweens snapshot their starting state immediately, they capture the
+      // pre-mount values (autoAlpha 0) and scrolling back up would freeze the
+      // wordmark to invisible. Deferring the snapshot lets the scrub pick up
+      // the *post-mount* state (autoAlpha 1) when it first activates.
+      gsap.fromTo(
+        ".hero-video",
+        { scale: 1 },
+        {
+          scale: 1.08,
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
         },
-      });
+      );
 
-      gsap.to([".hero-logo", ".hero-text"], {
-        y: -60,
-        autoAlpha: 0.15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
+      gsap.fromTo(
+        [".hero-logo", ".hero-text"],
+        { y: 0, autoAlpha: 1 },
+        {
+          y: -60,
+          autoAlpha: 0.15,
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
         },
-      });
+      );
 
       // Scroll indicator fades out as soon as the user starts scrolling —
       // it has served its purpose.
-      gsap.to(".hero-scroll", {
-        autoAlpha: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: "top top",
-          end: "top -120",
-          scrub: 1,
+      gsap.fromTo(
+        ".hero-scroll",
+        { autoAlpha: 0.85 },
+        {
+          autoAlpha: 0,
+          ease: "none",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: "top top",
+            end: "top -120",
+            scrub: 1,
+          },
         },
-      });
+      );
     },
     { scope: rootRef },
   );

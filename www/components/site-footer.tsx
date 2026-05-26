@@ -175,15 +175,7 @@ export function SiteFooter({
             <FooterLink href="mailto:contact@welkomhome.eu">
               contact@welkomhome.eu
             </FooterLink>
-            <FooterLink href="tel:+33668192755">
-              <span className="font-mono">+33 6 68 19 27 55</span>
-              <span
-                className="ml-2 font-mono text-[10px] uppercase"
-                style={{ color: CLAY, letterSpacing: "0.2em", opacity: 0.7 }}
-              >
-                FR
-              </span>
-            </FooterLink>
+
             <FooterLink href="tel:+31690909090">
               <span className="font-mono">+31 6 90 90 90 90</span>
               <span
@@ -203,12 +195,7 @@ export function SiteFooter({
                 </span>
                 Den Haag, Pays-Bas
               </span>
-              <span className="flex items-center gap-2">
-                <span style={{ color: CLAY }}>
-                  <Diamond size={5} />
-                </span>
-                Les Issambres, Var
-              </span>
+              
             </p>
           </FooterColumn>
 
@@ -268,7 +255,7 @@ export function SiteFooter({
             className="font-mono text-[10px] uppercase"
             style={{ letterSpacing: "0.4em", color: CLAY, opacity: 0.7 }}
           >
-            Riviera · MMXXVI
+            WELKOM HOME · MMXXVI
           </p>
         </div>
       </div>

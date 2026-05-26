@@ -22,32 +22,72 @@ export function DualCtaSection() {
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduced) return;
 
+      // Each card slides in from its respective edge to its grid position.
+      // `xPercent: ±110` moves the card by ~its own width — combined with the
+      // section's `overflow-hidden`, the cards appear to fly in from off-screen
+      // and meet in the middle.
+      const scrollConfig = {
+        trigger: rootRef.current,
+        start: "top 78%",
+        end: "top 38%",
+        toggleActions: "play none none reverse",
+      };
+
       gsap.fromTo(
-        ".dual-card",
-        { autoAlpha: 0, y: 32 },
+        '.dual-card[data-side="left"]',
+        { xPercent: -110, autoAlpha: 0 },
         {
+          xPercent: 0,
           autoAlpha: 1,
-          y: 0,
-          duration: 0.9,
+          duration: 1.2,
           ease: "power3.out",
-          stagger: 0.18,
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: "top 80%",
-            end: "top 35%",
-            toggleActions: "play none none reverse",
-          },
+          scrollTrigger: scrollConfig,
         },
       );
+
+      gsap.fromTo(
+        '.dual-card[data-side="right"]',
+        { xPercent: 110, autoAlpha: 0 },
+        {
+          xPercent: 0,
+          autoAlpha: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: scrollConfig,
+        },
+      );
+
+      // Parallax on each card's image — slow drift while scrolling.
+      gsap.utils.toArray<HTMLElement>(".dual-card img").forEach((img) => {
+        gsap.fromTo(
+          img,
+          { yPercent: 6 },
+          {
+            yPercent: -6,
+            ease: "none",
+            scrollTrigger: {
+              trigger: img,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          },
+        );
+      });
     },
     { scope: rootRef },
   );
 
   return (
-    <section ref={rootRef} className="py-24 lg:py-32" style={{ background: CREAM }}>
+    <section
+      ref={rootRef}
+      className="overflow-hidden py-24 lg:py-32"
+      style={{ background: CREAM }}
+    >
       <div className="mx-auto max-w-7xl px-8 lg:px-12">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:gap-8">
           <AudienceCard
+            side="left"
             eyebrow="Propriétaires"
             heading={
               <>
@@ -61,6 +101,7 @@ export function DualCtaSection() {
             imageAlt="Villa méditerranéenne perchée sur une falaise au-dessus du golfe (photo Niklas, Unsplash)"
           />
           <AudienceCard
+            side="right"
             eyebrow="Voyageurs"
             heading={
               <>
@@ -80,6 +121,7 @@ export function DualCtaSection() {
 }
 
 function AudienceCard({
+  side,
   eyebrow,
   heading,
   description,
@@ -88,6 +130,7 @@ function AudienceCard({
   imageSrc,
   imageAlt,
 }: {
+  side: "left" | "right";
   eyebrow: string;
   heading: React.ReactNode;
   description: string;
@@ -109,7 +152,10 @@ function AudienceCard({
   };
 
   return (
-    <article className="dual-card group relative aspect-[5/4] overflow-hidden">
+    <article
+      data-side={side}
+      className="dual-card group relative aspect-[5/4] overflow-hidden"
+    >
       {/* Background photo */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img

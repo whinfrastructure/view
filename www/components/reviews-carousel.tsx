@@ -40,14 +40,14 @@ const REVIEWS: Review[] = [
   },
   {
     quote:
-      "Shirley et Yoan ont été disponibles et très réactifs. Les prestations sont à la hauteur et la propreté irréprochable. Nous les conseillons les yeux fermés.",
+      "Shirley à été disponibles et très réactifs. Les prestations sont à la hauteur et la propreté irréprochable. Nous les conseillons les yeux fermés.",
     author: "Jordan",
     location: "Le Raincy, France",
     villa: "Villa Les Tourterelles",
   },
   {
     quote:
-      "Merci à Yohan et Shirley pour leur écoute et leur accompagnement. Un magnifique moment au Mas Yuralla.",
+      "Merci à Shirley pour son écoute et son accompagnement. Un magnifique moment au Mas Yuralla.",
     author: "Simon",
     location: "Paris, France",
     villa: "Mas Yuralla",

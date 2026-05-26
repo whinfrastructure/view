@@ -110,17 +110,19 @@ export function BrandStatement() {
       {/* Vertical decorative phrase along the left edge. Sized small enough
           that the full phrase always fits the section height (no clipping),
           and toned down so it reads as an ornamental wash, not a headline. */}
-      {/* Decorative corner ornaments — anchor the layout */}
+      {/* Decorative corner ornaments — anchor the layout. The classes
+          `bs-corner-sun` and `bs-corner-arc` are picked up by ScrollTrigger
+          parallax for subtle scroll-driven drift. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute right-10 top-12 hidden md:block"
+        className="bs-corner-sun pointer-events-none absolute right-10 top-12 hidden md:block"
         style={{ color: WATERMARK, opacity: 0.45 }}
       >
         <SunCompass size={52} />
       </div>
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-0 right-0 hidden lg:block"
+        className="bs-corner-arc pointer-events-none absolute bottom-0 right-0 hidden lg:block"
         style={{ color: WATERMARK, opacity: 0.32 }}
       >
         <ArcMark size={140} />

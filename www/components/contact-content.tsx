@@ -240,13 +240,6 @@ export function ContactContent() {
             hint="Réponse sous 24h, du lundi au samedi."
           />
           <ContactBlock
-            eyebrow="Téléphone · France"
-            value="+33 6 68 19 27 55"
-            href="tel:+33668192755"
-            hint="Joignable de 9h à 19h (heure de Paris)."
-            mono
-          />
-          <ContactBlock
             eyebrow="Téléphone · Pays-Bas"
             value="+31 6 90 90 90 90"
             href="tel:+31690909090"

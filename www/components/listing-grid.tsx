@@ -76,58 +76,6 @@ export function ListingGrid({ initialQuery, villas }: Props) {
   const [q, setQ] = useState(initialQuery);
   const deferredQ = useDeferredValue(q); // keep typing snappy on big lists
 
-  // ─── Strong reveal animations ────────────────────────────
-  // Initial mount: search bar drops in, count fades, first cards stagger up.
-  // Below-fold cards animate on scroll via ScrollTrigger.batch — they appear
-  // in groups as the user scrolls, with a slight stagger inside each batch.
-  useGSAP(
-    () => {
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduced) return;
-
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.fromTo(
-        ".lg-search",
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.8 },
-        0.4, // delay to follow the hero reveal
-      )
-        .fromTo(
-          ".lg-count > *",
-          { autoAlpha: 0, y: 14 },
-          { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.08 },
-          "<0.2",
-        )
-        .fromTo(
-          ".lg-card",
-          { autoAlpha: 0, y: 32, scale: 0.97 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.85,
-            stagger: 0.08,
-            ease: "power3.out",
-          },
-          "<0.1",
-        );
-
-      // ScrollTrigger.batch for additional below-fold cards if any.
-      ScrollTrigger.batch(".lg-card", {
-        start: "top 88%",
-        once: true,
-        onEnter: (els) => {
-          gsap.fromTo(
-            els,
-            { autoAlpha: 0, y: 32 },
-            { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08, ease: "power3.out", overwrite: "auto" },
-          );
-        },
-      });
-    },
-    { scope: rootRef },
-  );
-
   const filtered = useMemo(() => {
     if (!deferredQ.trim()) return villas;
     const scored = villas
@@ -137,11 +85,58 @@ export function ListingGrid({ initialQuery, villas }: Props) {
     return scored.map((x) => x.v);
   }, [deferredQ, villas]);
 
+  // ─── Reveal animations ────────────────────────────
+  // Re-runs whenever the filtered list size changes — without this, newly
+  // rendered cards stay invisible because their `opacity-0` className never
+  // gets cleared by a tween. `gsap.from` + `overwrite: "auto"` make this
+  // idempotent: cards already visible jump back to their start, then animate
+  // forward again, which reads as a clean refresh of the grid.
+  useGSAP(
+    () => {
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduced) {
+        gsap.set([".lg-search", ".lg-count > *", ".lg-card"], { autoAlpha: 1 });
+        return;
+      }
+
+      // Ensure end-state first (kills any leftover `opacity-0`), then animate
+      // back from the hidden state. `from` reads current values as the END,
+      // so we explicitly `set` the end state first to be safe across re-runs.
+      gsap.set([".lg-search", ".lg-count > *", ".lg-card"], { clearProps: "opacity,transform" });
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.from(
+        ".lg-search",
+        { autoAlpha: 0, y: 20, duration: 0.8 },
+        0.05,
+      )
+        .from(
+          ".lg-count > *",
+          { autoAlpha: 0, y: 14, duration: 0.6, stagger: 0.08 },
+          "<0.15",
+        )
+        .from(
+          ".lg-card",
+          {
+            autoAlpha: 0,
+            y: 32,
+            scale: 0.97,
+            duration: 0.75,
+            stagger: 0.07,
+            ease: "power3.out",
+            overwrite: "auto",
+          },
+          "<0.1",
+        );
+    },
+    { scope: rootRef, dependencies: [filtered.length] },
+  );
+
   return (
     <div ref={rootRef}>
       {/* ─── Search bar ─── */}
       <form
-        className="lg-search mb-12 grid grid-cols-1 gap-3 border-y py-6 opacity-0"
+        className="lg-search mb-12 grid grid-cols-1 gap-3 border-y py-6"
         style={{ borderColor: HAIRLINE }}
         onSubmit={(e) => e.preventDefault()}
       >
@@ -272,7 +267,7 @@ function PropertyCard({
     p.amenities?.[0] ?? null;
 
   return (
-    <Link href={`/listing/${p.slug}`} className="lg-card group block opacity-0">
+    <Link href={`/listing/${p.slug}`} className="lg-card group block">
       <div
         className="relative aspect-[4/5] w-full overflow-hidden"
         style={{ background: CREAM_SOFT }}
