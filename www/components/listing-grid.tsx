@@ -1,8 +1,13 @@
 "use client";
 
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useRef, useState } from "react";
 import type { PropertyListItem } from "@/lib/properties";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const CREAM_SOFT = "#efe6cf";
 const INK = "#1a1a1a";
