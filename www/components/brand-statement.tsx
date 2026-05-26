@@ -27,6 +27,42 @@ export function BrandStatement() {
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduced) return;
 
+      // ─── Parallax — watermark drifts up slower than scroll, corner sun
+      // drifts in the opposite direction. Adds depth without distracting.
+      gsap.to(".bs-watermark", {
+        y: -120,
+        ease: "none",
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      gsap.to(".bs-corner-sun", {
+        y: 60,
+        rotation: 30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      gsap.to(".bs-corner-arc", {
+        y: -40,
+        ease: "none",
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
       const tl = gsap.timeline({
         defaults: { ease: "power3.out" },
         scrollTrigger: {

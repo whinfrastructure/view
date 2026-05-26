@@ -105,7 +105,7 @@ export function HomeHero() {
       {/* Background video — no blur, just a tiny brightness/contrast lift so
           the cream foreground stays readable over a bright shot. */}
       <video
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
+        className="hero-video absolute inset-0 -z-10 h-full w-full object-cover"
         style={{ filter: "brightness(0.8) contrast(1.05)" }}
         src="/introbitch.mp4"
         autoPlay

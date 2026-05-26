@@ -50,6 +50,25 @@ export function EditorialSection({
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduced) return;
 
+      // ─── Parallax on the image: drifts slower than the section scroll
+      // so the photo "breathes" against the text column. yPercent stays in
+      // small range because the image is `object-cover` and slightly cropped
+      // by the container — moving 8% never exposes the bg.
+      gsap.fromTo(
+        ".ed-media img",
+        { yPercent: 6 },
+        {
+          yPercent: -6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+          },
+        },
+      );
+
       const tl = gsap.timeline({
         defaults: { ease: "power3.out" },
         scrollTrigger: {
