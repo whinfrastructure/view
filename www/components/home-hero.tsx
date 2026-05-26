@@ -2,10 +2,11 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { WhLogo } from "@/components/wh-logo";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Warm light beige for the logo + brand text + scroll indicator. Reads as
 // luxury hospitality against the Mediterranean blue/green footage, without
