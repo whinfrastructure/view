@@ -138,10 +138,10 @@ export function ListingGrid({ initialQuery, villas }: Props) {
   }, [deferredQ, villas]);
 
   return (
-    <>
+    <div ref={rootRef}>
       {/* ─── Search bar ─── */}
       <form
-        className="mb-12 grid grid-cols-1 gap-3 border-y py-6"
+        className="lg-search mb-12 grid grid-cols-1 gap-3 border-y py-6 opacity-0"
         style={{ borderColor: HAIRLINE }}
         onSubmit={(e) => e.preventDefault()}
       >
