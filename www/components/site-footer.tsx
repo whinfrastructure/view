@@ -179,6 +179,21 @@ export function SiteFooter({
             </FooterLink>
             <FooterLink href="tel:+33668192755">
               <span className="font-mono">+33 6 68 19 27 55</span>
+              <span
+                className="ml-2 font-mono text-[10px] uppercase"
+                style={{ color: CLAY, letterSpacing: "0.2em", opacity: 0.7 }}
+              >
+                FR
+              </span>
+            </FooterLink>
+            <FooterLink href="tel:+31690909090">
+              <span className="font-mono">+31 6 90 90 90 90</span>
+              <span
+                className="ml-2 font-mono text-[10px] uppercase"
+                style={{ color: CLAY, letterSpacing: "0.2em", opacity: 0.7 }}
+              >
+                NL
+              </span>
             </FooterLink>
             <p
               className="flex flex-col gap-1 text-[13px] leading-[1.6]"

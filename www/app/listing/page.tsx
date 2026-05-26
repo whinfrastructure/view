@@ -65,7 +65,7 @@ export default async function ListingPage({
         <ListingGrid initialQuery={sp.q ?? ""} villas={list.data} />
       </main>
 
-      <SiteFooter />
+      <SiteFooter variant="white" />
     </div>
   );
 }

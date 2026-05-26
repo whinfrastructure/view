@@ -313,7 +313,7 @@ export default async function ContactPage() {
         </section>
       </main>
 
-      <SiteFooter />
+      <SiteFooter variant="white" />
     </div>
   );
 }

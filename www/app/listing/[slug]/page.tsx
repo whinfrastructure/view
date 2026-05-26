@@ -562,7 +562,7 @@ export default async function PropertyDetailPage({
         </div>
       </Chapter>
 
-      <SiteFooter />
+      <SiteFooter variant="white" />
     </div>
   );
 }
