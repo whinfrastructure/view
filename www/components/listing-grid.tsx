@@ -250,7 +250,7 @@ export function ListingGrid({ initialQuery, villas }: Props) {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
