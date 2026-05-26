@@ -166,10 +166,8 @@ export function SiteFooter({
           <FooterColumn title="Navigation" cols="lg:col-span-2">
             <FooterLink href="/">Accueil</FooterLink>
             <FooterLink href="/listing">Catalogue</FooterLink>
-            <FooterLink href="/#approche">Conciergerie</FooterLink>
-            <FooterLink href="mailto:contact@welkomhome.eu?subject=Propri%C3%A9taire%20%E2%80%94%20Confier%20ma%20villa">
-              Propriétaires
-            </FooterLink>
+            <FooterLink href="/agence">L&apos;agence</FooterLink>
+            <FooterLink href="/contact">Contact</FooterLink>
           </FooterColumn>
 
           {/* ─── Contact ─── */}

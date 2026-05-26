@@ -12,7 +12,7 @@ const CREAM = "#e8d6b7";
 
 const NAV_LINKS = [
   { label: "Villas", href: "/listing" },
-  { label: "L'agence", href: "/#approche" },
+  { label: "L'agence", href: "/agence" },
   { label: "Contact", href: "/contact" },
 ];
 
