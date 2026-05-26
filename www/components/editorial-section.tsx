@@ -147,7 +147,7 @@ export function EditorialSection({
       </div>
 
       {/* ─── Text column ─── */}
-      <div className={`flex items-center px-8 py-20 lg:px-14 lg:py-24 xl:px-20 ${textOrderClass}`}>
+      <div className={`flex items-center px-5 py-14 sm:px-8 sm:py-20 lg:px-14 lg:py-24 xl:px-20 ${textOrderClass}`}>
         <div className="max-w-md">
           <p
             className="ed-eyebrow text-[10px] uppercase"

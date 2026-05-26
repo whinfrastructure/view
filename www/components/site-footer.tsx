@@ -55,10 +55,10 @@ export function SiteFooter({
       {/* ─── Depth layer 2: huge background wordmark ─── */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-24 flex items-end justify-center overflow-hidden lg:bottom-32"
+        className="pointer-events-none absolute inset-x-0 bottom-32 flex items-end justify-center overflow-hidden sm:bottom-24 lg:bottom-32"
       >
         <span
-          className="select-none text-[22vw] leading-[0.78] italic"
+          className="select-none text-[28vw] leading-[0.78] italic sm:text-[22vw]"
           style={{
             fontFamily: "var(--font-cormorant), serif",
             fontWeight: 500,
@@ -96,11 +96,11 @@ export function SiteFooter({
       </div>
 
       {/* ─── Layer 4: main content grid (z-10) ─── */}
-      <div className="relative z-10 mx-auto max-w-7xl px-8 py-24 lg:px-12 lg:py-28">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
         {/* Small ornamental top mark */}
         <div
           aria-hidden
-          className="mb-16 flex items-center justify-center gap-5"
+          className="mb-10 flex items-center justify-center gap-5 sm:mb-16"
           style={{ color: ornamentColor, opacity: isWhite ? 0.75 : 0.55 }}
         >
           <WaveLine width={80} />
@@ -108,7 +108,7 @@ export function SiteFooter({
           <WaveLine width={80} reverse />
         </div>
 
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-16">
+        <div className="grid grid-cols-1 gap-10 sm:gap-12 md:grid-cols-2 lg:grid-cols-12 lg:gap-16">
           {/* ─── Brand column ─── */}
           <div className="lg:col-span-5">
             <Link
@@ -116,16 +116,16 @@ export function SiteFooter({
               aria-label="Welkom Home — accueil"
               className="inline-flex items-center gap-3"
             >
-              <WhLogo className="h-14 w-auto" fill={INK_WARM} />
+              <WhLogo className="h-12 w-auto sm:h-14" fill={INK_WARM} />
               <span
-                className="text-base uppercase"
+                className="text-sm uppercase sm:text-base"
                 style={{ letterSpacing: "0.35em", color: INK_WARM }}
               >
                 Welkom Home
               </span>
             </Link>
             <p
-              className="mt-7 max-w-sm text-[14px] leading-[1.7]"
+              className="mt-6 max-w-sm text-[14px] leading-[1.7] sm:mt-7"
               style={{ color: INK_WARM, opacity: 0.85 }}
             >
               Agence hollandaise basée à Den Haag, spécialisée dans
@@ -240,7 +240,7 @@ export function SiteFooter({
 
         {/* Closing decorative band before the dark bar */}
         <div
-          className="mt-20 flex flex-col items-center gap-5 border-t pt-10"
+          className="mt-14 flex flex-col items-center gap-5 border-t pt-8 sm:mt-20 sm:pt-10"
           style={{ borderColor: hairline }}
         >
           <div
@@ -266,7 +266,7 @@ export function SiteFooter({
         style={{ background: INK_DEEP, color: CREAM_SOFT }}
       >
         <div
-          className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-8 py-6 text-[11px] sm:flex-row sm:items-center lg:px-12"
+          className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-5 py-5 text-[11px] sm:flex-row sm:items-center sm:px-8 sm:py-6 lg:px-12"
         >
           <p style={{ opacity: 0.7 }}>
             © {year} Welkom Home — Tous droits réservés.

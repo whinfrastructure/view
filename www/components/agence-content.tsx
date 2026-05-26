@@ -149,7 +149,7 @@ export function AgenceContent() {
           <PalmFrond />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-8 py-20 lg:px-12 lg:py-28">
+        <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-28">
           <p
             className="ch-eyebrow flex items-center gap-3 text-[11px] uppercase"
             style={{ letterSpacing: "0.34em", color: CLAY }}
@@ -211,7 +211,7 @@ export function AgenceContent() {
             className="absolute inset-0 h-full w-full object-cover"
           />
         </div>
-        <div className="relative flex items-center px-8 py-20 lg:px-14 lg:py-24 xl:px-20">
+        <div className="relative flex items-center px-5 py-14 sm:px-8 sm:py-20 lg:px-14 lg:py-24 xl:px-20">
           <div className="max-w-xl">
             <span
               className="ch-eyebrow flex items-center gap-3 font-mono text-[10px] uppercase"
@@ -244,7 +244,7 @@ export function AgenceContent() {
         className="chapter relative grid grid-cols-1 lg:grid-cols-2"
         style={{ background: CREAM }}
       >
-        <div className="relative flex items-center px-8 py-20 lg:order-1 lg:px-14 lg:py-24 xl:px-20">
+        <div className="relative flex items-center px-5 py-14 sm:px-8 sm:py-20 lg:order-1 lg:px-14 lg:py-24 xl:px-20">
           <div className="max-w-xl">
             <span
               className="ch-eyebrow flex items-center gap-3 font-mono text-[10px] uppercase"
@@ -299,7 +299,7 @@ export function AgenceContent() {
           </div>
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-8 py-24 lg:px-12 lg:py-28">
+        <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-3">
               <span
@@ -357,7 +357,7 @@ export function AgenceContent() {
 
       {/* ─── V. CTA Confier ma villa (cream, centered) — closing call ─── */}
       <section
-        className="chapter relative overflow-hidden border-t py-28 lg:py-32"
+        className="chapter relative overflow-hidden border-t py-20 sm:py-28 lg:py-32"
         style={{ background: CREAM, borderColor: HAIRLINE }}
       >
         <div
@@ -370,7 +370,7 @@ export function AgenceContent() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-3xl px-8 text-center lg:px-12">
+        <div className="mx-auto max-w-3xl px-5 text-center sm:px-8 lg:px-12">
           <div
             aria-hidden
             className="mt-6 mb-8 flex items-center justify-center gap-4"

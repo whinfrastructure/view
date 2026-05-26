@@ -153,7 +153,7 @@ export function ContactContent() {
   return (
     <main
       ref={rootRef}
-      className="relative mx-auto max-w-7xl overflow-hidden px-8 py-20 lg:px-12 lg:py-28"
+      className="relative mx-auto max-w-7xl overflow-hidden px-5 py-14 sm:px-8 sm:py-20 lg:px-12 lg:py-28"
     >
       {/* Decorative corner ornaments */}
       <div
@@ -174,7 +174,7 @@ export function ContactContent() {
       </div>
 
       {/* ─── HERO ─── */}
-      <header className="cc-hero mb-20 max-w-3xl">
+      <header className="cc-hero mb-14 max-w-3xl sm:mb-20">
         <p
           className="cc-eyebrow flex items-center gap-3 text-[11px] uppercase opacity-0"
           style={{ letterSpacing: "0.34em", color: CLAY }}
@@ -208,7 +208,7 @@ export function ContactContent() {
 
       {/* ─── I. CANAUX DIRECTS ─── */}
       <section
-        className="cc-section grid grid-cols-1 gap-12 border-t pt-16 lg:grid-cols-12 lg:gap-16"
+        className="cc-section grid grid-cols-1 gap-10 border-t pt-12 sm:gap-12 sm:pt-16 lg:grid-cols-12 lg:gap-16"
         style={{ borderColor: HAIRLINE }}
       >
         <div className="lg:col-span-3">
@@ -257,7 +257,7 @@ export function ContactContent() {
 
       {/* ─── II. NOS DEUX ANCRES ─── */}
       <section
-        className="cc-section mt-24 grid grid-cols-1 gap-12 border-t pt-16 lg:grid-cols-12 lg:gap-16"
+        className="cc-section mt-16 grid grid-cols-1 gap-10 border-t pt-12 sm:mt-24 sm:gap-12 sm:pt-16 lg:grid-cols-12 lg:gap-16"
         style={{ borderColor: HAIRLINE }}
       >
         <div className="lg:col-span-3">
@@ -303,7 +303,7 @@ export function ContactContent() {
 
       {/* ─── III. ÉCRIVEZ-NOUS (form) ─── */}
       <section
-        className="cc-section mt-24 grid grid-cols-1 gap-12 border-t pt-16 lg:grid-cols-12 lg:gap-16"
+        className="cc-section mt-16 grid grid-cols-1 gap-10 border-t pt-12 sm:mt-24 sm:gap-12 sm:pt-16 lg:grid-cols-12 lg:gap-16"
         style={{ borderColor: HAIRLINE }}
       >
         <div className="lg:col-span-3">
@@ -396,7 +396,7 @@ export function ContactContent() {
 
       {/* ─── Pull-quote final ─── */}
       <section
-        className="mt-32 border-y py-20 text-center"
+        className="mt-20 border-y py-14 text-center sm:mt-32 sm:py-20"
         style={{ borderColor: HAIRLINE, background: CREAM_SOFT }}
       >
         <div

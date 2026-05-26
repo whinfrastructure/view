@@ -115,7 +115,7 @@ export function ReviewsCarousel() {
   return (
     <section
       ref={rootRef}
-      className="relative py-28 lg:py-36"
+      className="relative py-20 sm:py-28 lg:py-36"
       style={{ background: "#ffffff" }}
     >
       {/* Decorative top margin ornament — small sun on the right edge */}
@@ -127,9 +127,9 @@ export function ReviewsCarousel() {
         <SunCompass size={36} />
       </div>
 
-      <div className="mx-auto max-w-7xl px-8 lg:px-12">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* ─── Header ─── */}
-        <div className="rv-header mb-16 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end lg:mb-20">
+        <div className="rv-header mb-12 flex flex-col items-start justify-between gap-4 sm:mb-16 md:flex-row md:items-end lg:mb-20">
           <div>
             <p
               className="flex items-center gap-3 text-[10px] uppercase"
@@ -163,7 +163,7 @@ export function ReviewsCarousel() {
 
         {/* ─── I. FEATURED PULL-QUOTE ─── */}
         <article
-          className="rv-featured grid grid-cols-1 gap-10 border-y py-16 lg:grid-cols-12 lg:gap-12 lg:py-20"
+          className="rv-featured grid grid-cols-1 gap-8 border-y py-12 sm:gap-10 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-20"
           style={{ borderColor: HAIRLINE_INK }}
         >
           {/* Left margin: roman numeral + ornament */}
@@ -252,7 +252,7 @@ export function ReviewsCarousel() {
         </div>
 
         {/* ─── II–V. SUPPORTING GRID (asymmetric spread) ─── */}
-        <div className="mt-20 grid grid-cols-1 gap-x-12 gap-y-16 lg:grid-cols-12 lg:gap-y-20">
+        <div className="mt-14 grid grid-cols-1 gap-x-12 gap-y-12 sm:mt-20 sm:gap-y-16 lg:grid-cols-12 lg:gap-y-20">
           {support.map((r, i) => {
             // Asymmetric col-spans + offsets create the magazine rhythm.
             // II: wide left   |  III: narrow right
@@ -324,7 +324,7 @@ export function ReviewsCarousel() {
 
         {/* ─── Closing ornament (defined below) ─── */}
         <div
-          className="mt-24 flex flex-col items-center gap-5 border-t pt-12"
+          className="mt-16 flex flex-col items-center gap-5 border-t pt-10 sm:mt-24 sm:pt-12"
           style={{ borderColor: HAIRLINE_INK }}
         >
           <div style={{ color: CLAY }}>

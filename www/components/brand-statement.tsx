@@ -147,7 +147,7 @@ export function BrandStatement() {
         Welkom Home · Côte d&apos;Azur
       </span>
 
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-16 px-8 py-32 md:py-40 lg:grid-cols-[1.05fr_1fr] lg:gap-24 lg:px-12">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-12 px-5 py-20 sm:gap-16 sm:px-8 sm:py-28 md:py-40 lg:grid-cols-[1.05fr_1fr] lg:gap-24 lg:px-12">
         {/* Left — display heading + CTA */}
         <div className="relative">
           <h2
@@ -166,7 +166,7 @@ export function BrandStatement() {
 
           <Link
             href="/listing"
-            className="bs-cta mt-12 inline-flex items-center gap-3 px-9 py-4 text-sm uppercase transition-colors hover:opacity-90"
+            className="bs-cta mt-9 inline-flex items-center gap-3 px-7 py-3.5 text-sm uppercase transition-colors hover:opacity-90 sm:mt-12 sm:px-9 sm:py-4"
             style={{
               background: CTA_BG,
               color: CTA_INK,

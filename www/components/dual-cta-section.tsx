@@ -81,10 +81,10 @@ export function DualCtaSection() {
   return (
     <section
       ref={rootRef}
-      className="overflow-hidden py-24 lg:py-32"
+      className="overflow-hidden py-16 sm:py-24 lg:py-32"
       style={{ background: CREAM }}
     >
-      <div className="mx-auto max-w-7xl px-8 lg:px-12">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:gap-8">
           <AudienceCard
             side="left"
@@ -176,7 +176,7 @@ function AudienceCard({
       />
 
       {/* Content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-8 text-center lg:px-12">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center sm:px-8 lg:px-12">
         {/* Thin vertical rule above the eyebrow — same idiom as south-paradise */}
         <span
           aria-hidden

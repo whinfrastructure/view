@@ -593,10 +593,10 @@ function Chapter({
       className="scroll-mt-24"
       style={{ background: bg }}
     >
-      <div className="mx-auto max-w-7xl px-8 py-24 lg:px-12 lg:py-32">
+      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-32">
         {/* Chapter header with roman numeral marker */}
         <header
-          className={`mb-14 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-b pb-6 ${
+          className={`mb-10 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-b pb-6 sm:mb-14 ${
             centered ? "flex-col items-center text-center" : ""
           }`}
           style={{ borderColor: hairlineDark ? HAIRLINE_INK : HAIRLINE }}
@@ -660,7 +660,7 @@ function PhotoHero({
   ];
 
   return (
-    <div className="relative grid h-[60vh] min-h-[480px] grid-cols-4 grid-rows-2 gap-2 px-2 pt-2 md:h-[72vh] md:gap-3 md:px-3 md:pt-3">
+    <div className="relative grid h-[48vh] min-h-[360px] grid-cols-4 grid-rows-2 gap-2 px-2 pt-2 sm:h-[60vh] sm:min-h-[480px] md:h-[72vh] md:gap-3 md:px-3 md:pt-3">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={cover.url}
@@ -707,7 +707,7 @@ function FullBleedPhoto({
   dark?: boolean;
 }) {
   return (
-    <figure className="relative h-[70vh] min-h-[420px] w-full overflow-hidden">
+    <figure className="relative h-[55vh] min-h-[320px] w-full overflow-hidden sm:h-[70vh] sm:min-h-[420px]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={photo.url}
@@ -730,7 +730,7 @@ function FullBleedPhoto({
 
       {quote && (
         <blockquote
-          className="absolute inset-x-0 top-1/2 mx-auto max-w-3xl -translate-y-1/2 px-8 text-center text-3xl italic md:text-4xl lg:text-5xl"
+          className="absolute inset-x-0 top-1/2 mx-auto max-w-3xl -translate-y-1/2 px-5 text-center text-2xl italic sm:px-8 sm:text-3xl md:text-4xl lg:text-5xl"
           style={{
             fontFamily: "var(--font-cormorant), serif",
             color: "#f3ecd9",
@@ -742,7 +742,7 @@ function FullBleedPhoto({
       )}
 
       <figcaption
-        className="absolute bottom-6 left-6 font-mono text-[10px] uppercase text-white/85"
+        className="absolute bottom-4 left-5 font-mono text-[10px] uppercase text-white/85 sm:bottom-6 sm:left-6"
         style={{ letterSpacing: "0.3em" }}
       >
         {caption}
@@ -774,7 +774,7 @@ function BigStat({
         </span>
       )}
       <p
-        className="text-[5rem] leading-[0.85] tracking-tight md:text-[6rem]"
+        className="text-[3.4rem] leading-[0.85] tracking-tight sm:text-[5rem] md:text-[6rem]"
         style={{
           fontFamily: "var(--font-cormorant), serif",
           fontWeight: 400,

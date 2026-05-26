@@ -103,7 +103,7 @@ export default async function HomePage() {
         {/* ─── Closing band ─── */}
         <section
           id="approche"
-          className="relative scroll-mt-24 overflow-hidden border-t py-28"
+          className="relative scroll-mt-24 overflow-hidden border-t py-20 sm:py-28"
           style={{ background: CREAM_SOFT, borderColor: "rgba(91,58,31,0.12)" }}
         >
           {/* Decorative sun in the top-right of this band */}
@@ -115,7 +115,7 @@ export default async function HomePage() {
             <SunCompass size={64} />
           </div>
 
-          <div className="relative mx-auto max-w-4xl px-8 text-center lg:px-12">
+          <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-8 lg:px-12">
             {/* Ornamental top mark */}
             <div
               aria-hidden

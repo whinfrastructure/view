@@ -32,7 +32,7 @@ export default async function ListingPage({
     <div className="min-h-screen" style={{ background: CREAM }}>
       <SiteHeader me={me} />
 
-      <main className="mx-auto max-w-7xl px-8 py-16 lg:px-12 lg:py-24">
+      <main className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-24">
         <ListingHero total={list.pagination.total} />
 
         {/* Client grid handles search + filtering live. Initial query is read

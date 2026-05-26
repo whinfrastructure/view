@@ -71,10 +71,10 @@ export function VillaSelections({ villas }: Props) {
   return (
     <section
       ref={rootRef}
-      className="relative py-28 lg:py-32"
+      className="relative py-20 sm:py-28 lg:py-32"
       style={{ background: "#ffffff" }}
     >
-      <div className="mx-auto max-w-7xl px-8 lg:px-12">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         {/* Header row */}
         <div className="vs-header mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
