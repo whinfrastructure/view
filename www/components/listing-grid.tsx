@@ -272,7 +272,7 @@ function PropertyCard({
     p.amenities?.[0] ?? null;
 
   return (
-    <Link href={`/listing/${p.slug}`} className="group block">
+    <Link href={`/listing/${p.slug}`} className="lg-card group block opacity-0">
       <div
         className="relative aspect-[4/5] w-full overflow-hidden"
         style={{ background: CREAM_SOFT }}
