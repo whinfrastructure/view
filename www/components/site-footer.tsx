@@ -101,7 +101,7 @@ export function SiteFooter({
         <div
           aria-hidden
           className="mb-16 flex items-center justify-center gap-5"
-          style={{ color: CLAY, opacity: 0.55 }}
+          style={{ color: ornamentColor, opacity: isWhite ? 0.75 : 0.55 }}
         >
           <WaveLine width={80} />
           <Sparkle size={11} />
@@ -134,7 +134,7 @@ export function SiteFooter({
             </p>
 
             {/* Ornament under the description */}
-            <div className="mt-8" style={{ color: CLAY, opacity: 0.7 }}>
+            <div className="mt-8" style={{ color: ornamentColor, opacity: isWhite ? 0.8 : 0.7 }}>
               <OliveBranch />
             </div>
 
@@ -217,7 +217,7 @@ export function SiteFooter({
                 placeholder="ton@email.fr"
                 className="border bg-transparent px-3 py-2 text-[13px] outline-none placeholder:opacity-50 focus:outline-none"
                 style={{
-                  borderColor: HAIRLINE,
+                  borderColor: hairline,
                   color: INK_WARM,
                   borderRadius: 2,
                 }}
@@ -241,11 +241,11 @@ export function SiteFooter({
         {/* Closing decorative band before the dark bar */}
         <div
           className="mt-20 flex flex-col items-center gap-5 border-t pt-10"
-          style={{ borderColor: HAIRLINE }}
+          style={{ borderColor: hairline }}
         >
           <div
             className="flex items-center gap-5"
-            style={{ color: CLAY, opacity: 0.6 }}
+            style={{ color: ornamentColor, opacity: 0.6 }}
           >
             <WaveLine width={70} />
             <SunCompass size={28} />
