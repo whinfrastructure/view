@@ -181,7 +181,7 @@ export function ListingGrid({ initialQuery, villas }: Props) {
       </form>
 
       {/* ─── Count / reset ─── */}
-      <div className="mb-10 flex items-center justify-between">
+      <div className="lg-count mb-10 flex items-center justify-between">
         <p
           className="font-mono text-[11px] uppercase"
           style={{ letterSpacing: "0.22em", color: CLAY }}
