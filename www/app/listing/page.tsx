@@ -1,5 +1,5 @@
 import { ListingGrid } from "@/components/listing-grid";
-import { Mark } from "@/components/mark";
+import { ListingHero } from "@/components/listing-hero";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCurrentUser } from "@/lib/auth";
@@ -8,8 +8,6 @@ import { publicProperties } from "@/lib/properties";
 export const dynamic = "force-dynamic";
 
 const CREAM = "#f3ecd9";
-const INK_WARM = "#5b3a1f";
-const CLAY = "#8d4926";
 
 export default async function ListingPage({
   searchParams,
