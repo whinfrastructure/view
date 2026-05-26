@@ -50,6 +50,46 @@ export function HomeHero() {
           { autoAlpha: 0.85, y: 0, duration: 0.5 },
           "-=0.25",
         );
+
+      // ─── Scroll-driven parallax ─────────────────────────────────
+      // Video slowly zooms in as the user scrolls past the hero (1 → 1.08).
+      // Wordmark drifts up and fades while the cream section slides over,
+      // so it feels like a fluid handoff instead of a sudden disappearance.
+      gsap.to(".hero-video", {
+        scale: 1.08,
+        ease: "none",
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      gsap.to([".hero-logo", ".hero-text"], {
+        y: -60,
+        autoAlpha: 0.15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
+
+      // Scroll indicator fades out as soon as the user starts scrolling —
+      // it has served its purpose.
+      gsap.to(".hero-scroll", {
+        autoAlpha: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top top",
+          end: "top -120",
+          scrub: 1,
+        },
+      });
     },
     { scope: rootRef },
   );
