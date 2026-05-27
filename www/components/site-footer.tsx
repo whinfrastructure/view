@@ -53,12 +53,28 @@ export function SiteFooter({
       />
 
       {/* ─── Depth layer 2: huge background wordmark ─── */}
+      {/* Mobile: stacked two-line "Welkom / Home" so the whole brand fits on
+          screen. Desktop: classic single-line oversized wordmark. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-32 flex items-end justify-center overflow-hidden sm:bottom-24 lg:bottom-32"
+        className="pointer-events-none absolute inset-x-0 bottom-28 flex items-end justify-center overflow-hidden sm:bottom-24 lg:bottom-32"
       >
         <span
-          className="select-none text-[28vw] leading-[0.78] italic sm:text-[22vw]"
+          className="block select-none text-center text-[36vw] leading-[0.82] italic sm:hidden"
+          style={{
+            fontFamily: "var(--font-cormorant), serif",
+            fontWeight: 500,
+            color: ornamentColor,
+            opacity: isWhite ? 0.22 : 0.1,
+            letterSpacing: "-0.03em",
+          }}
+        >
+          Welkom
+          <br />
+          Home
+        </span>
+        <span
+          className="hidden select-none text-[22vw] leading-[0.78] italic sm:block"
           style={{
             fontFamily: "var(--font-cormorant), serif",
             fontWeight: 500,

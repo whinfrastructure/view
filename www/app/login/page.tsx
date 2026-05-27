@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Mark } from "@/components/mark";
 import {
   ArcMark,
@@ -140,13 +141,36 @@ export default async function LoginPage({
 
       {/* ─── RIGHT — form panel ─── */}
       <section
-        className="relative flex min-h-screen items-center justify-center overflow-hidden px-8 py-16 lg:px-12"
+        className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-12 sm:px-8 sm:py-16 lg:px-12"
         style={{ background: CREAM }}
       >
+        {/* Back arrow — sticky top-left, takes user back to home */}
+        <Link
+          href="/"
+          aria-label="Retour à l'accueil"
+          className="absolute left-5 top-5 z-10 inline-flex items-center gap-2 text-[10px] uppercase transition-opacity hover:opacity-70 sm:left-8 sm:top-8 lg:left-12 lg:top-12"
+          style={{ color: INK_WARM, letterSpacing: "0.28em" }}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M19 12H5M11 18l-6-6 6-6" />
+          </svg>
+          <span className="hidden sm:inline">Retour</span>
+        </Link>
+
         {/* Decorative corner ornaments */}
         <div
           aria-hidden
-          className="pointer-events-none absolute right-8 top-12"
+          className="pointer-events-none absolute right-6 top-10 sm:right-8 sm:top-12"
           style={{ color: CLAY, opacity: 0.4 }}
         >
           <SunCompass size={48} />

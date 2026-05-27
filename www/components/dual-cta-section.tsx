@@ -141,7 +141,7 @@ function AudienceCard({
 }) {
   const isExternal = ctaHref.startsWith("mailto:") || ctaHref.startsWith("http");
   const ctaClass =
-    "mt-8 inline-flex items-center gap-3 border px-8 py-3.5 text-[10px] uppercase text-[#f3ecd9] transition-colors hover:bg-[#f3ecd9] hover:text-[#5b3a1f]";
+    "mt-6 inline-flex items-center gap-3 border px-6 py-3 text-[10px] uppercase text-[#f3ecd9] transition-colors hover:bg-[#f3ecd9] hover:text-[#5b3a1f] sm:mt-8 sm:px-8 sm:py-3.5";
   // `color` is intentionally NOT set inline — inline styles beat Tailwind
   // hover utilities, which would freeze the text colour to CREAM and make
   // the label invisible against the cream hover background.
@@ -154,7 +154,7 @@ function AudienceCard({
   return (
     <article
       data-side={side}
-      className="dual-card group relative aspect-[5/4] overflow-hidden"
+      className="dual-card group relative aspect-[4/5] overflow-hidden sm:aspect-[5/4]"
     >
       {/* Background photo */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -180,18 +180,18 @@ function AudienceCard({
         {/* Thin vertical rule above the eyebrow — same idiom as south-paradise */}
         <span
           aria-hidden
-          className="mb-3 block h-7 w-px"
+          className="mb-3 block h-6 w-px sm:h-7"
           style={{ background: CREAM, opacity: 0.85 }}
         />
         <p
-          className="text-[11px] uppercase"
+          className="text-[10px] uppercase sm:text-[11px]"
           style={{ letterSpacing: "0.32em", color: CREAM, opacity: 0.92 }}
         >
           {eyebrow}
         </p>
 
         <h2
-          className="mt-7 max-w-md text-3xl leading-[1.18] md:text-[2rem] lg:text-[2.4rem]"
+          className="mt-5 max-w-md text-[1.7rem] leading-[1.14] sm:mt-7 sm:text-3xl md:text-[2rem] lg:text-[2.4rem]"
           style={{
             fontFamily: "var(--font-cormorant), serif",
             fontWeight: 500,
@@ -202,7 +202,7 @@ function AudienceCard({
         </h2>
 
         <p
-          className="mt-4 max-w-sm text-[13px] leading-[1.6]"
+          className="mt-4 max-w-sm text-[13px] leading-[1.55]"
           style={{ color: CREAM, opacity: 0.82 }}
         >
           {description}

@@ -130,7 +130,7 @@ export function BrandStatement() {
 
       <span
         aria-hidden="true"
-        className="bs-watermark pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 select-none whitespace-nowrap md:left-6"
+        className="bs-watermark pointer-events-none absolute left-4 top-1/2 hidden -translate-y-1/2 select-none whitespace-nowrap md:left-6 md:block"
         style={{
           writingMode: "vertical-rl",
           transform: "translateY(-50%) rotate(180deg)",
